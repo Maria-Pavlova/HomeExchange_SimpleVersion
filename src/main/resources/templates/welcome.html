@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+  <th:blok th:include="~{fragments/head::head}"></th:blok>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}">
+  Navbar
+</div>
+
+<div class="container">
+    <h2 th:href="@{/homes/add}" class="text-center text-white">Welcome, <th:block sec:authentication="name"></th:block> to Home Exchange!</h2>
+    <h5 class="text-center text-white">We are happy to have you as a member of our community!
+        Complete your home to start planning your next vacation!</h5>
+
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-primary" type="button">Create your listing</button>
+        <p>or</p>
+        <button class="btn btn-primary" type="button">Start browsing homes</button>
+    </div>
+<!--    <button th:href="@{/homes/add}" type="button" class="btn btn-primary btn-lg">Create your listing</button>-->
+<!--    <p>or</p>-->
+<!--    <button type="button" class="btn btn-primary btn-lg">Start browsing homes</button>-->
+</div>
+
+<div>
+    <footer></footer>
+</div>
+</body>
+</html>
