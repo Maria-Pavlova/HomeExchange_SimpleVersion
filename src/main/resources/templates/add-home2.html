@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Home</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div th:replace="fragments/navbar">Navbar</div>
+
+
+<div class="container">
+    <h2 class="text-center text-white">Add your home</h2>
+    <form id="addHomeForm" th:method="post"
+          th:action="@{/homes/add}"
+          th:object="${homeModel}">
+<!--          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">-->
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="homeType">Home Type</label>
+                <select id="homeType"
+                        name="homeType"
+                        type="text"
+                        class="form-control">
+                    <option value="">- Select home type -</option>
+                    <option th:each="t : ${T(com.example.homeexchange_simpleversion.models.enums.HomeType).values()}"
+                            th:text="${t}"
+                            th:value="${t}">
+                        <!--                            th:selected="${t} == *{homeType.}"-->
+                        Home type
+                    </option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Engine type is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="residenceType">Residence Type</label>
+                <select id="residenceType"
+                        name="residenceType"
+                        type="text"
+                        class="form-control">
+                    <option value="">- Select transmission type -</option>
+                    <option th:each="t : ${T(com.example.homeexchange_simpleversion.models.enums.ResidenceType).values()}"
+                            th:text="${t}"
+                            th:value="${t}">
+                        <!--                            th:selected="${t} == *{residenceType}"-->
+                        Residence type
+                    </option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Residence type is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="town">Town</label>
+                <input id="town"
+                       name="town"
+                       th:field="*{town}"
+                       th:errorclass="is-invalid"
+                       type="text" class="form-control"
+                       placeholder="Enter town here">
+                <p class="invalid-feedback errors alert alert-danger">
+                    Town is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="country">Country</label>
+                <input id="country"
+                       name="country"
+                       th:field="*{country}"
+                       th:errorclass="is-invalid"
+                       type="text" class="form-control"
+                       placeholder="Enter Country here">
+                <p class="invalid-feedback errors alert alert-danger">
+                    Country is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="bedrooms" class="text-white font-weight-bold">Bedrooms</label>
+                <input id="bedrooms"
+                       name="bedrooms"
+                       th:field="*{bedrooms}"
+                       th:errorclass="is-invalid"
+                       type="number" min="1" step="1" class="form-control"
+                       placeholder="Number of bedrooms"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Number of bedrooms is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="bathrooms" class="text-white font-weight-bold">Bathrooms</label>
+                <input id="bathrooms"
+                       name="bathrooms"
+                       th:field="*{bathrooms}"
+                       th:errorclass="is-invalid"
+                       type="number" min="1" step="1" class="form-control"
+                       placeholder="Number of bathrooms"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Number of bathrooms is required.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="peopleFor" class="text-white font-weight-bold">Number of People</label>
+                <input id="peopleFor"
+                       name="peopleFor"
+                       th:field="*{peopleFor}"
+                       th:errorclass="is-invalid"
+                       type="number" min="1" step="1"
+                       class="form-control"
+                       placeholder="How many people can sleep there"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Number of People is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="description">Description</label>
+                <textarea id="description"
+                          name="description"
+                          th:field="*{description}"
+                          th:errorclass="is-invalid"
+                          type="textarea" class="form-control" rows="3"
+                          placeholder="Description"></textarea>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Description is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <div class="label-holder text-white textCol d-flex justify-content-center">
+                    <label for="availableFrom" class="h4 mb-2">Available from</label>
+                </div>
+                <input type="date" class="form-control"
+                       id="availableFrom"
+                       name="availableFrom"
+                       th:value="*{availableFrom}"
+                       th:errorclass="'is-invalid bg-danger'"/>
+                <small class="text-danger invalid-feedback">The date cannot be in the past!</small>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <div class="label-holder text-white textCol d-flex justify-content-center">
+                    <label for="availableTo" class="h4 mb-2">Available to</label>
+                </div>
+                <input type="date" class="form-control"
+                       id="availableTo"
+                       name="availableTo"
+                       th:value="*{availableTo}"
+                       th:errorclass="'is-invalid bg-danger'"/>
+                <small class="text-danger invalid-feedback">The date cannot be in the past!</small>
+            </div>
+        </div>
+
+        <div class="row">
+                <div class="form-group p-3">
+                    <label class="p-2" for="amenities">Amenities:</label>
+                    <input class="m-3" type="checkbox"
+                           name="amenities"
+                           id="amenities"
+                           th:each="a : ${T(com.example.homeexchange_simpleversion.models.enums.AmenityName).values()}"
+                           th:text="${a}"
+                           th:value="${a}">
+                    <br>
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="picture">Upload picture</label>
+            <input type="file" class="form-control-file" id="picture">
+        </div>
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Add home"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <footer></footer>
+</div>
+
+</body>
+</html>
