@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -22,8 +21,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddHomeModel implements Serializable {
+public class HomeModel implements Serializable {
 
+    private Long id;
     @NotNull
     private HomeType homeType;
     @NotNull

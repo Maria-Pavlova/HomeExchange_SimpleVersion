@@ -24,20 +24,100 @@
                     <a class="nav-link" th:href="@{/homes/add}">Add Your Home</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/users/profile/{username}(username = ${#authentication.principal.username})}">Profile</a>
+                    <a class="nav-link"
+                       th:href="@{/users/profile/{username}(username = ${#authentication.principal.username})}">Profile</a>
                 </li>
+
+
+                <li id="menu-profil" class="dropdown" data-url="/top-menu/topmenuprofile">
+                    <a class="dropdown-toggle disabled-link-mobile" href="/user/edit/4428811">
+                        <div class="profile-image-container">
+                            <img width="35" height="35"
+                                 src="https://d2kzpkef14nfxb.cloudfront.net/images/website/icon_default_profile.jpg"
+                                 alt="Profile of Mariya">
+
+                            <span class="badge badge-menu badge-absolute badge-menu-profil" id="badge-profil"
+                                  style="display: block;" data-value="3"></span>
+                        </div>
+                        <span class="visible-lg-inline-block">My account</span>
+                        <i class="fa fa-angle-down down-arrow"></i>
+                    </a>
+
+                    <ul class="dropdown-menu scrollable-menu" role="menu" id="profil_elt"
+                        style="max-height: 674px; overflow-y: auto;">
+                        <li>
+                            <a class="link-top-profile" href="/user/edit/4428811"><i
+                                    class="icon-header-profile-profile"></i>
+                                <span class="link-title">My profile</span>
+                                <div class="top-menu-messages">
+                                    <p class="primary-strong">Complete your profile and earn 350 GuestPoints!</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li id="top-menu-home-2253191" class="home-link">
+                            <a class="link-top-profile" th:href="@{/homes/edit/{id} (id=*{id})}">
+                                <i class="icon-header-profile-home"></i>
+                                <span class="link-title top-name-adress-bar">My home</span>
+                                <span class="pull-right view-all">Offline</span>
+                                <div class="top-menu-messages">
+                                    <p class="primary-strong">Publish your home!</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link-top-profile" th:href="@{/homes/add}">
+                                <i class="icon-header-profile-add-home"></i>
+                                <span class="link-title">Add a home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link-top-profile" href="/myexchanges">
+                                <i class="icon-keys"></i>
+                                <span class="link-title">Exchanges</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link-top-profile" href="/user/edit/4428811#preferred-destinations">
+                                <i class="icon-preferred-destinations"></i>
+                                <span class="link-title">Preferred destinations</span>
+                            </a></li>
+                        <li><a class="link-top-profile" href="/user/favorite">
+                            <i class="icon-heart"></i><span class="link-title">Favorite homes</span>
+                        </a>
+                        </li>
+
+                        <li class="my-plan-link"><a class="link-top-profile" href="/my-plan">
+                            <i class="icon-credit-card"></i>
+                            <span class="link-title">My Membership </span>
+                            <div class="top-menu-messages">
+                                <p class="primary-strong">Activate unlimited travels</p>
+                            </div>
+                        </a>
+                        </li>
+
+
+                        <li><a class="link-top-profile" th:href="@{/users/logout}" th:method="post">
+                            <i class="icon-button-power"></i>
+                            <span class="link-title">Log out</span></a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- Logout start -->
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <div class="form-inline my-2 my-lg-0 px-3">
-                        <div class="text-white" >Welcome, <th:block sec:authentication="name"></th:block>!</div>
-                        <form th:action="@{/users/logout}" th:method="post">
-                            <input class="btn btn-link nav-link" type="submit" value="Logout">
-                        </form>
-                    </div>
-                </li>
+<!--                <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                    <div class="form-inline my-2 my-lg-0 px-3">-->
+<!--                        <div class="text-white">Welcome,-->
+<!--                            <th:block sec:authentication="name"></th:block>-->
+<!--                            !-->
+<!--                        </div>-->
+<!--&lt;!&ndash;                        <form th:action="@{/users/logout}" th:method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <input class="btn btn-link nav-link" type="submit" value="Logout">&ndash;&gt;-->
+<!--&lt;!&ndash;                        </form>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </li>-->
                 <!-- EO: Logout start -->
 
-                <li class="nav-item"  sec:authorize="!isAuthenticated()">
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a class="nav-link" th:href="@{/users/register}">Register</a>
                 </li>
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
