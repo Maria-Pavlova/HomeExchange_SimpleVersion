@@ -45,18 +45,18 @@ public class OfferController {
 //        return "redirect:/offers/all";
 //    }
 
-    @GetMapping("/all")
-    public String getAllOffers(Model model) {
-        model.addAttribute("offers", offerService.findAllOffers());
-        return "all-offers";
-    }
-
-
-    @GetMapping("/details/{id}")
-    public String getDetails(@PathVariable Long id, Model model) {
-        model.addAttribute("details", offerService.getDetails(id));
-        return "offer-details";
-    }
+//    @GetMapping("/all")
+//    public String getAllOffers(Model model) {
+//        model.addAttribute("offers", offerService.findAllOffers());
+//        return "all-offers";
+//    }
+//
+//
+//    @GetMapping("/details/{id}")
+//    public String getDetails(@PathVariable Long id, Model model) {
+//        model.addAttribute("details", offerService.getDetails(id));
+//        return "offer-details";
+//    }
 
 
 }

@@ -36,8 +36,8 @@ public class Home extends BaseEntity{
     private LocalDate availableFrom;
     @Column
     private LocalDate availableTo;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "home")
-    private List<Picture> pictures = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Picture> pictures;
     @Column
     private boolean isPublished;
     @Column
@@ -45,6 +45,16 @@ public class Home extends BaseEntity{
     @ManyToOne
     private User owner;
 
+    public List<Picture> getPictures() {
+        return pictures;
+    }
+
+    @Transient
+    public String getPictureImagePath() {
+        if (pictures == null || this.getId() == null) return null;
+
+        return "/home-photos/" + this.getId() + "/" + pictures;
+    }
 
     public HomeType getHomeType() {
         return homeType;
@@ -145,15 +155,6 @@ public class Home extends BaseEntity{
         return this;
     }
 
-    public List<Picture> getPictures() {
-        return pictures;
-    }
-
-    public Home setPictures(List<Picture> pictures) {
-        this.pictures = pictures;
-        return this;
-    }
-
     public boolean isPublished() {
         return isPublished;
     }
@@ -178,6 +179,11 @@ public class Home extends BaseEntity{
 
     public Home setOwner(User owner) {
         this.owner = owner;
+        return this;
+    }
+
+    public Home setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
         return this;
     }
 }

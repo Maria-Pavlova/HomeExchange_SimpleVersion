@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface OfferRepository extends JpaRepository<Offer, Long> {
-    List<Offer> findAllByHome_Type(HomeType homeType);
+ //   List<Offer> findAllByHome_Type(HomeType homeType);
 }

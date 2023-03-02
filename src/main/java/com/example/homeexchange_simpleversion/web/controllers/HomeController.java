@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -41,13 +42,14 @@ public class HomeController {
     public String addHome(@Valid AddHomeModel homeModel,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes,
-                           @AuthenticationPrincipal UserDetails userDetails) throws IOException {
+                           @AuthenticationPrincipal UserDetails userDetails,
+                          @RequestParam("image") MultipartFile multipartFile) throws IOException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("homeModel", homeModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.homeModel", bindingResult);
             return "redirect:/homes/add";
         }
-        homeService.addHome(homeModel, userDetails);
+        homeService.addHome(homeModel, userDetails, multipartFile);
         return "redirect:/pages/all";
 
     }
