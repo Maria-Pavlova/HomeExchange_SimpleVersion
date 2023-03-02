@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Home details</title>
+    <th:blok th:insert="~{fragments/head::head}"></th:blok>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}">Navbar
+</div>
+
+
+<div th:object="${details}" class="container-fluid">
+    <h2 class="text-center text-white mt-5">Details</h2>
+    <div class="offers row mx-auto d-flex flex-row justify-content-center">
+        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0" >
+
+            <div class="card-body pb-1">
+                <h5 class="card-title">
+                    <th:block th:text="*{title}"></th:block>
+                </h5>
+            </div>
+            <ul class="offer-details list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="card-text"><span>• Title: <th:block th:text="*{title}"></th:block></span></div>
+                    <div class="card-text"><span>• Description: <th:block th:text="*{description}"></th:block></span></div>
+                    <div class="card-text"><span>• Home Type: <th:block th:text="*{homeType}"></th:block></span></div>
+                    <div class="card-text"><span>• Residence Type: <th:block th:text="*{residenceType}"></th:block></span></div>
+                    <div class="card-text"><span>• Town: <th:block th:text="*{town}"></th:block> </span></div>
+                    <div class="card-text"><span>• Country: <th:block th:text="*{country}"></th:block></span></div>
+                    <div class="card-text"><span>• Bedrooms: <th:block th:text="*{bedrooms}"></th:block></span></div>
+                    <div class="card-text"><span>• Bathrooms: <th:block th:text="*{bathrooms}"></th:block></span></div>
+                    <div class="card-text"><span>• People sleeps: <th:block th:text="*{peopleFor}"></th:block></span></div>
+                    <div class="card-text"><span>• Available From: <th:block th:text="*{availableFrom}"></th:block></span></div>
+                    <div class="card-text"><span>• Available To: <th:block th:text="*{availableTo}"></th:block></span></div>
+                    <div class="card-text"><span>• Is Published: <th:block th:text="*{isPublished}"></th:block></span></div>
+<!--                    <div class="card-text"><span>• Amenities: <th:block th:text="*{amenities}"></th:block></span></div>-->
+                </li>
+            </ul>
+            <div class="card-body">
+                <div class="row">
+                    <a class="btn btn-link"
+                       th:href="@{/homes/{id}/update(id=*{id})}">Update
+                    </a>
+
+                    <form
+                            th:action="@{/homes{id}(id=*{id})}"
+                            th:method="delete">
+                        <input type="submit" class="btn btn-link" value="Delete"/>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+            <img class="card-img-top" th:src="*{getPicture()}" alt="Home image">
+        </div>
+    </div>
+</div>
+
+<div>
+    <footer> </footer>
+</div>
+
+</body>
+</html>

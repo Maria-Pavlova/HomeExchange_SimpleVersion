@@ -2,6 +2,7 @@ package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeModel;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.MyHomeModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferedHomeModel;
 import com.example.homeexchange_simpleversion.models.entities.Home;
@@ -44,16 +45,10 @@ public class HomeService {
                 .map(amenityService::findAmenityByName)
                 .toList());
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-      //  Picture picture = new Picture(fileName);
-        // TODO: 2.3.2023 г. check for potential loop
-
-
         home.setPicture(fileName);
 
         homeRepository.save(home);
-
         String uploadDir = "home-photos/" + home.getId();
-
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
 
@@ -106,5 +101,9 @@ public class HomeService {
         return homeModels;
 
 
+    }
+
+    public HomeDetailsModel getDetailsById(Long id) {
+        return modelMapper.map(homeRepository.findById(id).get(), HomeDetailsModel.class);
     }
 }

@@ -61,6 +61,15 @@ public class HomeController {
         return "users-homes";
     }
 
+    @GetMapping("/{id}/details")
+    public String homeDetails(@PathVariable Long id, Model model) {
+        model.addAttribute("details", homeService.getDetailsById(id));
+        return "home-details";
+        // TODO: 2.3.2023 г. fix display image
+
+
+    }
+
     @GetMapping("/{id}/update")
     public String updateHome(@PathVariable Long id, Model model) {
         HomeModel homeModel = homeService.findById(id);

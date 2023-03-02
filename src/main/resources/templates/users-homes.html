@@ -23,15 +23,15 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span>• Home Type <th:block th:text="*{homeType}"></th:block></span></div>
-                    <div class="card-text"><span>• Town <th:block th:text="*{town}"></th:block> </span></div>
-                    <div class="card-text"><span>• Country <th:block th:text="*{country}"></th:block></span></div>
-                    <div class="card-text"><span>• Is Published <th:block th:text="*{isPublished}"></th:block></span>
+                    <div class="card-text"><span>• Home Type: <th:block th:text="*{homeType}"></th:block></span></div>
+                    <div class="card-text"><span>• Town: <th:block th:text="*{town}"></th:block> </span></div>
+                    <div class="card-text"><span>• Country: <th:block th:text="*{country}"></th:block></span></div>
+                    <div class="card-text"><span>• Is Published: <th:block th:text="*{isPublished}"></th:block></span>
                     </div>
                 </li>
             </ul>
             <div class="card-body">
-                <a class="card-link" th:href="@{/homes{id}/details(id=*{id})}">Details</a>
+                <a class="card-link" th:href="@{/homes/{id}/details(id=*{id})}">Details</a>
             </div>
         </div>
     </div>
