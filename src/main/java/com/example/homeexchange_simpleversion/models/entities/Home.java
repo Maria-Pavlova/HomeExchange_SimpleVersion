@@ -4,14 +4,16 @@ package com.example.homeexchange_simpleversion.models.entities;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "homes")
-public class Home extends BaseEntity{
-
+public class Home extends BaseEntity {
+    @Column(nullable = false)
+    private String title;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private HomeType homeType;
@@ -36,8 +38,8 @@ public class Home extends BaseEntity{
     private LocalDate availableFrom;
     @Column
     private LocalDate availableTo;
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Picture> pictures;
+
+    private String picture;
     @Column
     private boolean isPublished;
     @Column
@@ -45,15 +47,28 @@ public class Home extends BaseEntity{
     @ManyToOne
     private User owner;
 
-    public List<Picture> getPictures() {
-        return pictures;
+    public String getPictures() {
+        return picture;
     }
 
     @Transient
     public String getPictureImagePath() {
-        if (pictures == null || this.getId() == null) return null;
+        if (picture == null || getId() == null) return null;
 
-        return "/home-photos/" + this.getId() + "/" + pictures;
+        return "/home-photos/" + getId() + "/" + picture;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Home setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 
     public HomeType getHomeType() {
@@ -182,8 +197,8 @@ public class Home extends BaseEntity{
         return this;
     }
 
-    public Home setPictures(List<Picture> pictures) {
-        this.pictures = pictures;
+    public Home setPicture(String picture) {
+        this.picture = picture;
         return this;
     }
 }

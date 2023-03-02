@@ -1,7 +1,5 @@
 package com.example.homeexchange_simpleversion.models.dtos.bindingModels;
 
-import com.example.homeexchange_simpleversion.models.entities.Location;
-
 import java.io.Serializable;
 import java.util.Objects;
 

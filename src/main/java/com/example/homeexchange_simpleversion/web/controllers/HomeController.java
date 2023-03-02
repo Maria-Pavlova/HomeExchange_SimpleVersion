@@ -54,6 +54,13 @@ public class HomeController {
 
     }
 
+    @GetMapping("/{username}")
+    public String getMyHomes(@PathVariable String username, Model model,
+                             @AuthenticationPrincipal UserDetails userDetails){
+        model.addAttribute("myHomes", homeService.getMyHomes(userDetails));
+        return "users-homes";
+    }
+
     @GetMapping("/{id}/update")
     public String updateHome(@PathVariable Long id, Model model) {
         HomeModel homeModel = homeService.findById(id);
