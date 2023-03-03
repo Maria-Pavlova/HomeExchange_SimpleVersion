@@ -23,8 +23,22 @@
     <form id="addHomeForm" th:method="post"
           th:action="@{/homes/add}"
           th:object="${homeModel}"
-          enctype="multipart/form-data">
-<!--          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">-->
+          enctype="multipart/form-data"
+          class="mx-auto col-md-8 d-flex flex-column justify-content-center">
+<div class="row">
+        <div class="form-group col-md-6 mb-3">
+            <label class="text-white font-weight-bold" for="title">Title</label>
+            <textarea id="title"
+                      name="title"
+                      th:field="*{title}"
+                      th:errorclass="is-invalid"
+                      type="textarea" class="form-control" rows="2"
+                      placeholder="Title"></textarea>
+            <p class="invalid-feedback errors alert alert-danger">
+                Title is required.
+            </p>
+        </div>
+</div>
         <div class="row">
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="homeType">Home Type</label>

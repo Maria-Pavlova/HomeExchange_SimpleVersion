@@ -5,6 +5,7 @@ import com.example.homeexchange_simpleversion.models.enums.AmenityName;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddHomeModel implements Serializable {
-
+    @NotEmpty
+    private String title;
     @NotNull
     private HomeType homeType;
     @NotNull
@@ -46,11 +48,12 @@ public class AddHomeModel implements Serializable {
     private List<AmenityName> amenities;
     @Future
     private LocalDate availableFrom;
+    // TODO: 3.3.2023 г. Custom validation From < To
     @Future
     private LocalDate availableTo;
 
     // TODO: 2.3.2023 г. List<Picture>
-    private MultipartFile pictures;
+    private MultipartFile picture;
     @NotNull
     private boolean isPublished;
 

@@ -1,7 +1,7 @@
 package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
-import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeModel;
+import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.MyHomeModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferedHomeModel;
@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class HomeService {
@@ -44,6 +45,7 @@ public class HomeService {
                 .stream()
                 .map(amenityService::findAmenityByName)
                 .toList());
+
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         home.setPicture(fileName);
 
@@ -52,7 +54,7 @@ public class HomeService {
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
 
-        //todo set guestPoints
+        // todo set guestPoints
 
     }
 
@@ -61,31 +63,27 @@ public class HomeService {
         return null;
     }
 
-    public HomeModel findById(Long id) {
-       return modelMapper.map(homeRepository.findById(id).get(), HomeModel.class);
+    public HomeUpdateModel findById(Long id) {
+        return modelMapper.map(homeRepository.findById(id).get(), HomeUpdateModel.class);
     }
 
-    public void updateHome(HomeModel homeModel, UserDetails userDetails) {
-        // TODO: 2.3.2023 г. get details->map to homeModel -> then update 
-        Home home = homeRepository.findById(homeModel.getId()).orElseThrow();
-        home.setHomeType(homeModel.getHomeType())
-                .setResidenceType(homeModel.getResidenceType())
-                // todo         .setPictures(homeModel.getPictures())
-                // todo MAP  .setAmenities(homeModel.getAmenities())
-                .setBathrooms(homeModel.getBathrooms())
-                .setAvailableFrom(homeModel.getAvailableFrom())
-                .setAvailableTo(homeModel.getAvailableTo())
-                .setDescription(homeModel.getDescription())
-                .setBedrooms(homeModel.getBedrooms())
-                .setCountry(homeModel.getCountry())
-                .setTown(homeModel.getTown())
-                .setPeopleFor(homeModel.getPeopleFor())
-                .setPublished(true);
-        home.setOwner(userService.findByUsername(userDetails.getUsername()).get());
+    public void updateHome(HomeUpdateModel homeUpdateModel, UserDetails userDetails) throws IOException {
 
-            homeRepository.save(home);
+        Home home = homeRepository.findById(homeUpdateModel.getId()).orElseThrow();
+        home
+                .setTitle(homeUpdateModel.getTitle())
+                .setHomeType(homeUpdateModel.getHomeType())
+                .setResidenceType(homeUpdateModel.getResidenceType())
+                .setAvailableFrom(homeUpdateModel.getAvailableFrom())
+                .setAvailableTo(homeUpdateModel.getAvailableTo())
+                .setDescription(homeUpdateModel.getDescription())
+                .setPeopleFor(homeUpdateModel.getPeopleFor())
+                .setAmenities(homeUpdateModel.getAmenities()
+                        .stream()
+                        .map(amenityService::findAmenityByName)
+                        .toList());
 
-
+        homeRepository.save(home);
     }
 
     public List<MyHomeModel> getMyHomes(UserDetails userDetails) {
@@ -104,6 +102,13 @@ public class HomeService {
     }
 
     public HomeDetailsModel getDetailsById(Long id) {
-        return modelMapper.map(homeRepository.findById(id).get(), HomeDetailsModel.class);
+        Optional<Home> home = homeRepository.findById(id);
+        HomeDetailsModel detailsModel = modelMapper.map(home.get(), HomeDetailsModel.class);
+        detailsModel.setPicture(home.get().getPictureImagePath());
+        return detailsModel;
+    }
+
+    public void deleteHome(Long id) {
+        homeRepository.deleteById(id);
     }
 }

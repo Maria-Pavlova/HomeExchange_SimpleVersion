@@ -1,12 +1,14 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
-import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeModel;
+import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
 import com.example.homeexchange_simpleversion.models.enums.AmenityName;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import com.example.homeexchange_simpleversion.services.HomeService;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -23,9 +25,11 @@ import java.io.IOException;
 public class HomeController {
 
     private final HomeService homeService;
+    private final ModelMapper modelMapper;
 
-    public HomeController(HomeService homeService) {
+    public HomeController(HomeService homeService, ModelMapper modelMapper) {
         this.homeService = homeService;
+        this.modelMapper = modelMapper;
     }
 
     @ModelAttribute("homeModel")
@@ -65,18 +69,22 @@ public class HomeController {
     public String homeDetails(@PathVariable Long id, Model model) {
         model.addAttribute("details", homeService.getDetailsById(id));
         return "home-details";
-        // TODO: 2.3.2023 г. fix display image
+// TODO: 3.3.2023 г. display amenities
 
 
     }
 
     @GetMapping("/{id}/update")
     public String updateHome(@PathVariable Long id, Model model) {
-        HomeModel homeModel = homeService.findById(id);
-        homeModel.setId(id);
+        HomeDetailsModel details = homeService.getDetailsById(id);
+        HomeUpdateModel homeUpdateModel = modelMapper.map(details, HomeUpdateModel.class);
+        homeUpdateModel.setId(id);
 
-        model.addAttribute("homeModel", homeModel);
-        return "home-update"; //todo
+        model.addAttribute("homeUpdateModel", homeUpdateModel);
+        model.addAttribute("homeType", HomeType.values());
+        model.addAttribute("residenceType", ResidenceType.values());
+        model.addAttribute("amenityName", AmenityName.values());
+        return "update-home";
     }
 
     @GetMapping("/{id}/update/errors")
@@ -84,26 +92,33 @@ public class HomeController {
         model.addAttribute("homeType", HomeType.values());
         model.addAttribute("residenceType", ResidenceType.values());
         model.addAttribute("amenityName", AmenityName.values());
-        return "home-update";
+        return "update-home";
 
     }
 
     @PatchMapping("/{id}/update")
-    public String updateOffer(@PathVariable Long id,
-                              @Valid HomeModel homeModel,
+    public String updateHome(@PathVariable Long id,
+                              @Valid HomeUpdateModel homeUpdateModel,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes,
-                              @AuthenticationPrincipal UserDetails userDetails) {
+                              @AuthenticationPrincipal UserDetails userDetails) throws IOException {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("homeModel", homeModel);
+            redirectAttributes.addFlashAttribute("homeModel", homeUpdateModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.homeModel", bindingResult);
-            return "redirect:/homes" + id + "/update/errors";
+            return "redirect:/homes/" + id + "/update/errors";
 
         }
-        homeService.updateHome(homeModel, userDetails);
-        return "redirect:/homes" + id + "/details";
+        homeService.updateHome(homeUpdateModel, userDetails);
+        return "redirect:/homes/" + id + "/details";
         // TODO: 2.3.2023 г. from details -> make public
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteHome(@PathVariable Long id) {
+        homeService.deleteHome(id);
+        return "redirect:/pages/all";
+        // TODO: 3.3.2023 г. no mapping path?
     }
 
 }

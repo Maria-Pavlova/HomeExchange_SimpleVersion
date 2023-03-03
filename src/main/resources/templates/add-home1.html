@@ -22,7 +22,7 @@
     <h2 class="text-center text-white">Add your home</h2>
     <form th:method="post"
           th:action="@{/homes/add}"
-          th:object="${homeModel}"
+          th:object="${homeUpdateModel}"
           enctype="multipart/form-data"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">

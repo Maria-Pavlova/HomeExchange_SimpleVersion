@@ -110,6 +110,13 @@ form.main-form {
     width: 70%;
     min-width: 300px;
 }
+#updateHomeForm {
+    background-color: #ffffff;
+    margin: 100px auto;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+}
 
 /* Style the input fields */
 input {

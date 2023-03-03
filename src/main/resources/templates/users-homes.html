@@ -19,10 +19,11 @@
                 <img class="card-img-top" th:src="*{getPicture()}"  alt="Home image"/>
             </div>
             <div class="card-body pb-1">
-                <h5 class="card-title">My home</h5>
+                <h5 class="card-title" th:text="*{title}">My home</h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
+<!--                    <div class="card-text"><span>• Title: <th:block th:text="*{title}"></th:block></span></div>-->
                     <div class="card-text"><span>• Home Type: <th:block th:text="*{homeType}"></th:block></span></div>
                     <div class="card-text"><span>• Town: <th:block th:text="*{town}"></th:block> </span></div>
                     <div class="card-text"><span>• Country: <th:block th:text="*{country}"></th:block></span></div>

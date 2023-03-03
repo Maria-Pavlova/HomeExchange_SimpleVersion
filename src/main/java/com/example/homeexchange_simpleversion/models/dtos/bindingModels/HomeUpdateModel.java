@@ -21,28 +21,29 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HomeModel implements Serializable {
+public class HomeUpdateModel implements Serializable {
 
     private Long id;
+    @NotNull
+    private String title;
     @NotNull
     private HomeType homeType;
     @NotNull
     private ResidenceType residenceType;
-    @NotNull
-    private String town;
-    @NotNull
-    private String country;
-    @NotNull
-    @Positive
-    private Integer bedrooms;
-    @NotNull
-    @Positive
-    private Integer bathrooms;
+
+//    private String town;
+//
+//    private String country;
+//
+//    private Integer bedrooms;
+//
+//    private Integer bathrooms;
     @NotNull
     @Positive
     private Integer peopleFor;
     @NotNull
     private String description;
+    @NotNull
     private List<AmenityName> amenities;
     @Future
     private LocalDate availableFrom;
@@ -50,9 +51,9 @@ public class HomeModel implements Serializable {
     private LocalDate availableTo;
 
     // TODO: 2.3.2023 г. List<Picture>
-    private MultipartFile pictures;
-    @NotNull
-    private boolean isPublished;
+//    private String picture;
+//
+//    private boolean isPublished;
 
 
 }

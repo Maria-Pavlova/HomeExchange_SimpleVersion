@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class MyHomeModel implements Serializable {
 
     private Long id;
+    private String title;
     private HomeType homeType;
 
     private String town;
