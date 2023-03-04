@@ -10,4 +10,6 @@ import java.util.List;
 public interface HomeRepository extends JpaRepository<Home, Long> {
 
     List<Home> findAllByOwner_Username(String username);
+
+    List<Home> findAllByIsPublishedTrue();
 }

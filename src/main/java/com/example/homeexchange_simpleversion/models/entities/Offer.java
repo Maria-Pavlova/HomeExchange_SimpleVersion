@@ -17,16 +17,9 @@ import java.time.LocalDate;
 @Table(name = "offers")
 public class Offer extends BaseEntity {
 
-    @Column(nullable = false)
-    private String title;
     @ManyToOne
     private Home home;
-    @Column
-    private String description;
-    @Column(nullable = false)
-    private LocalDate availableFrom;
-    @Column(nullable = false)
-    private LocalDate availableTo;
+
     @ManyToOne
     private User owner;
 

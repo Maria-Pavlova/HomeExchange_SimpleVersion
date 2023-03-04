@@ -27,4 +27,6 @@ public class HomeDetailsModel implements Serializable {
     private boolean isPublished;
     private Integer guestPoints;
     private List<Amenity> amenities;
+
+    private UserProfile owner;
 }

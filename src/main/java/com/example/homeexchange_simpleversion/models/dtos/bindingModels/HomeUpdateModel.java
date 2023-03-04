@@ -30,14 +30,6 @@ public class HomeUpdateModel implements Serializable {
     private HomeType homeType;
     @NotNull
     private ResidenceType residenceType;
-
-//    private String town;
-//
-//    private String country;
-//
-//    private Integer bedrooms;
-//
-//    private Integer bathrooms;
     @NotNull
     @Positive
     private Integer peopleFor;
@@ -51,9 +43,7 @@ public class HomeUpdateModel implements Serializable {
     private LocalDate availableTo;
 
     // TODO: 2.3.2023 г. List<Picture>
-//    private String picture;
-//
-//    private boolean isPublished;
+
 
 
 }

@@ -15,12 +15,12 @@ public class ExchangeController {
         this.homeService = homeService;
     }
 
-    @GetMapping("/offers/all")
-    public String getAllPublishedHomes(Model model){
-
-        model.addAttribute("all", homeService.getAllOfferedHomes());
-        return "all-homes";
+//    @GetMapping("/pages/all")
+//    public String getAllPublishedHomes(Model model){
+//
+//        model.addAttribute("all", homeService.getAllOfferedHomes());
+//        return "all";
 // TODO: 1.3.2023 г. for ADMINS + get all homes
 
-    }
+
 }

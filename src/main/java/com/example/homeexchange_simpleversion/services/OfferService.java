@@ -1,38 +1,62 @@
 package com.example.homeexchange_simpleversion.services;
 
+import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddOfferModel;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModel;
+import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.entities.Offer;
 import com.example.homeexchange_simpleversion.repositories.OfferRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class OfferService {
     private final OfferRepository offerRepository;
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+    private final HomeService homeService;
 
 
     public OfferService(OfferRepository offerRepository, ModelMapper modelMapper,
-                        UserRepository userRepository) {
+                        UserRepository userRepository, HomeService homeService) {
         this.offerRepository = offerRepository;
         this.modelMapper = modelMapper;
-
         this.userRepository = userRepository;
+        this.homeService = homeService;
     }
 
-//    public void addOffer(AddOfferDto offerDto, UserDetails userDetails) {
+//    public void addOffer222222(AddOfferModel offerModel, UserDetails userDetails) {
 //
-//        Offer offer = modelMapper.map(offerDto, Offer.class);
-//        offer.setUser(userRepository.findByUsername(userDetails.getUsername()).orElseThrow());
+//        Offer offer = modelMapper.map(offerModel, Offer.class);
 //
-//    // todo ADD OFFER   offer.setUser()
+//        offer.setOwner(userRepository.findByUsername(userDetails.getUsername()).orElseThrow());
 //
 //        offerRepository.save(offer);
-//        System.out.println(offer);
+//        System.out.println();
+//    }
+
+    public AddOfferModel createOfferModel(Long id) {
+        Home home = homeService.findHomeById(id);
+        home.setPublished(true);
+        HomeModel homeModel = modelMapper.map(home, HomeModel.class);
+        AddOfferModel offerModel = new AddOfferModel();
+        offerModel.setHome(homeModel);
+
+        return offerModel;
+    }
+
+    public void addOffer(Long id) {
+        Home home = homeService.findHomeById(id);
+        home.setPublished(true);
+        Offer offer = new Offer();
+        offer.setHome(home);
+       // offer.setOwner(userRepository.findByUsername(userDetails.getUsername()).get());
+        offerRepository.save(offer);
+
+
+    }
+
+
 //    }
 //
 //
@@ -62,5 +86,5 @@ public class OfferService {
 //       return modelMapper.map(offer, OfferDetailsModel.class);
 //
 //    }
-    }
+}
 

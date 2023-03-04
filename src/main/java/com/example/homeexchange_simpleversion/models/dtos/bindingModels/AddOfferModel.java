@@ -1,6 +1,7 @@
 package com.example.homeexchange_simpleversion.models.dtos.bindingModels;
 
-import com.example.homeexchange_simpleversion.models.entities.Home;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModel;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +12,8 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class AddOfferModel implements Serializable {
+    @NotNull
+    private HomeModel home;
 
-    private Home home;
-    private String title;
 
 }

@@ -70,10 +70,14 @@ public class HomeController {
         model.addAttribute("details", homeService.getDetailsById(id));
         return "home-details";
 // TODO: 3.3.2023 г. display amenities
-
-
     }
 
+    @GetMapping("/{id}/offered/details")
+    public String offeredHomeDetails(@PathVariable Long id, Model model) {
+        model.addAttribute("details", homeService.getDetailsById(id));
+        return "offered-home-details";
+// TODO: 3.3.2023 г. display amenities
+    }
     @GetMapping("/{id}/update")
     public String updateHome(@PathVariable Long id, Model model) {
         HomeDetailsModel details = homeService.getDetailsById(id);
@@ -119,6 +123,13 @@ public class HomeController {
         homeService.deleteHome(id);
         return "redirect:/pages/all";
         // TODO: 3.3.2023 г. no mapping path?
+    }
+
+    @GetMapping("/post/{id}")
+    public String getAddOffer(@PathVariable Long id) {
+        homeService.offerHome(id);
+        return "redirect:/pages/all";
+        // TODO: 4.3.2023 г. refactor
     }
 
 }

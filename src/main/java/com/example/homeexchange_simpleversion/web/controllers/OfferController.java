@@ -1,47 +1,53 @@
 package com.example.myhomeexchange.web.controllers;
 
+import com.example.homeexchange_simpleversion.services.HomeService;
 import com.example.homeexchange_simpleversion.services.OfferService;
-import jakarta.validation.Valid;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
 
 @Controller
-@RequestMapping("/offers")
+//@RequestMapping("/offers")
 public class OfferController {
     private final OfferService offerService;
+    private final HomeService homeService;
+    private final ModelMapper modelMapper;
 
-    public OfferController(OfferService offerService) {
+    public OfferController(OfferService offerService, HomeService homeService, ModelMapper modelMapper) {
         this.offerService = offerService;
+        this.homeService = homeService;
+        this.modelMapper = modelMapper;
     }
 
 
-//    @ModelAttribute("offerDto")
-//    public AddOfferDto offerDto() {
-//        return new AddOfferDto();
+//    @ModelAttribute("offerModel")
+//    public AddOfferModel offerModel() {
+//        return new AddOfferModel();
 //    }
-//    @GetMapping("/add")
-//    public String getAddOffer(){
-//        return "offers-add";
-//    }
-//
-//    @PostMapping("/add")
-//    public String addOffer(@Valid AddOfferDto offerDto,
+    @GetMapping("offers/post/{id}")
+    public String getAddOffer(@PathVariable Long id){
+   offerService.addOffer(id);
+      return "redirect:/pages/all";
+       // offerService.createOfferModel(id);
+     //   return "redirect:/offers/post/" + id;
+        // TODO: 4.3.2023 г. do not work
+    }
+
+
+
+
+//    @PostMapping(value = "/post/{id}", params = "Post Exchange offer")
+//    public String addOffer( @PathVariable Long id,
+//                           AddOfferModel offerModel,
 //                           BindingResult bindingResult,
 //                           RedirectAttributes redirectAttributes,
 //                           @AuthenticationPrincipal UserDetails userDetails) throws IOException {
 //        if (bindingResult.hasErrors()) {
-//            redirectAttributes.addFlashAttribute("offerDto", offerDto);
-//            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.offerDto", bindingResult);
-//            return "redirect:/offers/add";
+//            redirectAttributes.addFlashAttribute("offerModel", offerModel);
+//            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.offerModel", bindingResult);
+//            return "redirect:/homes/" + id + "/details";
 //        }
-//        offerService.addOffer(offerDto, userDetails);
+//        offerService.addOffer(offerModel, userDetails);
 //        return "redirect:/offers/all";
 //    }
 

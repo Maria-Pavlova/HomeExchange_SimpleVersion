@@ -35,30 +35,42 @@
                     <div class="card-text"><span>• People sleeps: <th:block th:text="*{peopleFor}"></th:block></span></div>
                     <div class="card-text"><span>• Available From: <th:block th:text="*{availableFrom}"></th:block></span></div>
                     <div class="card-text"><span>• Available To: <th:block th:text="*{availableTo}"></th:block></span></div>
-                    <div class="card-text"><span>• Is Published: <th:block th:text="*{isPublished}"></th:block></span></div>
                 </li>
             </ul>
-            <div class="card-body">
-                <div class="row">
-                    <a class="btn btn-link"
-                       th:href="@{/homes/{id}/update(id=*{id})}">Edit
-                    </a>
-                    <a class="btn btn-link"
-                       th:href="@{/homes/post/{id}(id=*{id})}">Post Exchange offer
-                    </a>
-<!--                    <form th:action="@{/offers/post/{id}(id=*{id})}" th:method="post">-->
-<!--                        <input type="submit" name="Post Exchange offer" value="Post Exchange offer"/>-->
 
-<!--                    </form>-->
-                    <form th:action="@{/homes{id}(id=*{id})}" th:method="delete">
-                        <input type="submit" class="btn btn-link" value="Delete"/>
-                    </form>
-
-                </div>
-            </div>
         </div>
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
             <img class="card-img-top" th:src="*{getPicture()}" alt="Home image"/>
+        </div>
+
+        <div class="offer card col-sm2-md-3 col-lg-4 m-0 p-0">
+<!--            <div class="container mt-5">-->
+<!--                <div class="row d-flex justify-content-center">-->
+                    <div class="col-md-7">
+                        <div class="profile-card p-3 py-4">
+                            <div class="text-center"><img src="/images/profile.jpg" width="100" class="rounded-circle"></div>
+                            <div class="text-center mt-3">
+                                <span th:text="*{owner.firstName}" class="bg-secondary p-1 px-4 rounded text-white"></span>
+                                <h6 class="mt-4 mb-0">First name</h6>
+                                <span th:text="*{owner.firstName}"></span>
+                                <h6 class="mt-2 mb-0">Last name</h6>
+                                <span th:text="*{owner.lastName}"></span>
+                                <h6 class="mt-2 mb-0">Preferred destination</h6>
+                                <span th:text="*{owner.preferredDestinations}"></span>
+                                <ul class="social-list">
+                                    <li><i class="fab fa-facebook-square"></i></li>
+                                    <li><i class="fab fa-instagram"></i></li>
+                                    <li><i class="fab fa-linkedin"></i></li>
+                                    <li><i class="fab fa-google"></i></li>
+                                </ul>
+                                <div class="buttons">
+                                    <button class="btn btn-primary px-4 ms-3">Contact</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

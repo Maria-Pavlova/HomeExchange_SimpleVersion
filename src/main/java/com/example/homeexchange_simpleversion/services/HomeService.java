@@ -1,10 +1,10 @@
 package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModel;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.MyHomeModel;
-import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferedHomeModel;
 import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.repositories.HomeRepository;
 import com.example.homeexchange_simpleversion.utils.FileUploadUtil;
@@ -58,9 +58,17 @@ public class HomeService {
 
     }
 
-    public List<OfferedHomeModel> getAllOfferedHomes() {
-        //todo
-        return null;
+    public List<HomeModel> getAllOfferedHomes() {
+      return homeRepository.findAllByIsPublishedTrue()
+              .stream()
+              .map(home -> {
+                  HomeModel model = modelMapper.map(home, HomeModel.class);
+                  model.setPicture(home.getPictureImagePath());
+                  return model;
+              })
+              .toList();
+
+
     }
 
     public HomeUpdateModel findById(Long id) {
@@ -110,5 +118,15 @@ public class HomeService {
 
     public void deleteHome(Long id) {
         homeRepository.deleteById(id);
+    }
+
+    public Home findHomeById(Long id) {
+       return homeRepository.findById(id).orElseThrow();
+    }
+
+    public void offerHome(Long id) {
+        Home home = findHomeById(id);
+        home.setPublished(true);
+        homeRepository.save(home);
     }
 }
