@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact us</title>
+    <th:blok th:insert="~{fragments/head::head}"></th:blok>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}">
+    Navbar
+</div>
+<!--Section: Contact v.2-->
+<div class="container">
+    <h5 class="text-center w-responsive mx-auto mb-5 text-white">Do you have any questions? Please do not hesitate to
+        contact us
+        directly. We will come back to you soon.</h5>
+
+
+    <h2 class="text-center text-white">Contact us</h2>
+    <div class="form-group col-md-6 mb-3 justify-content-center">
+        <form id="contact-form" name="contact-form"
+              th:action="@{/messages/add}"
+              th:method="post"
+              th:object="${messageModel}"
+              class="mx-auto col-md-8 d-flex flex-column justify-content-center">
+
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <input type="text" id="username" name="username" th:value="*{username}" class="form-control">
+                    <label for="username" class="">Your username</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <input type="text" id="email" name="email" th:value="*{email}" class="form-control">
+                    <label for="email" class="">Your email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <input type="text" id="subject" name="subject" th:value="*{subject}" class="form-control">
+                    <label for="subject" class="">Subject</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                            <textarea type="text" id="message" name="message" th:value="*{text}" rows="2"
+                                      class="form-control md-textarea"></textarea>
+                    <label for="message">Your message</label>
+                </div>
+            </div>
+            <div class="text-center text-md-left">
+                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+            </div>
+            <div class="status"></div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
