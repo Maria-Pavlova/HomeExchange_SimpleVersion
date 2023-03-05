@@ -24,7 +24,6 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-<!--                    <div class="card-text"><span>• Title: <th:block th:text="*{title}"></th:block></span></div>-->
                     <div class="card-text"><span>• Description: <th:block th:text="*{description}"></th:block></span></div>
                     <div class="card-text"><span>• Home Type: <th:block th:text="*{homeType}"></th:block></span></div>
                     <div class="card-text"><span>• Residence Type: <th:block th:text="*{residenceType}"></th:block></span></div>
@@ -46,10 +45,6 @@
                     <a class="btn btn-link"
                        th:href="@{/homes/post/{id}(id=*{id})}">Post Exchange offer
                     </a>
-<!--                    <form th:action="@{/offers/post/{id}(id=*{id})}" th:method="post">-->
-<!--                        <input type="submit" name="Post Exchange offer" value="Post Exchange offer"/>-->
-
-<!--                    </form>-->
                     <form th:action="@{/homes{id}(id=*{id})}" th:method="delete">
                         <input type="submit" class="btn btn-link" value="Delete"/>
                     </form>

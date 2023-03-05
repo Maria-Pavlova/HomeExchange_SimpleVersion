@@ -1,45 +1,42 @@
 package com.example.homeexchange_simpleversion.models.dtos.bindingModels;
 
+import com.example.homeexchange_simpleversion.validation.FieldsMatch;
+import com.example.homeexchange_simpleversion.validation.UniqueUserName;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter
+@FieldsMatch(first = "password", second = "confirmPassword", message = "Passwords do not match.")
 public class UserRegisterDTO implements Serializable {
+    @NotNull
+    @Size(min = 2, max = 20)
     private String firstName;
+    @NotNull
+    @Size(min = 2, max = 20)
     private String lastName;
+    @NotNull
+    @Size(min = 2, max = 20)
+    @UniqueUserName
     private String username;
+    @NotNull
+    @Email
     private String email;
+    @NotNull
+    @Size(min = 2, max = 20)
     private String preferredDestinations;
+    @NotNull
+    @Size(min = 2, max = 20)
     private String password;
+    @NotNull
+    @Size(min = 2, max = 20)
     private String confirmPassword;
 
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public String getPreferredDestinations() {
-        return preferredDestinations;
-    }
 
     public UserRegisterDTO setPreferredDestinations(String preferredDestinations) {
         this.preferredDestinations = preferredDestinations;

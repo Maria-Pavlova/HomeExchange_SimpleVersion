@@ -17,7 +17,7 @@ public class PagesController {
     }
 
     @GetMapping("/")
-    public String home(@AuthenticationPrincipal UserDetails userDetails) {
+    public String home() {
         return "index";
     }
 

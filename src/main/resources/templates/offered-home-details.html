@@ -15,8 +15,7 @@
 <div th:object="${details}" class="container-fluid">
     <h2 class="text-center text-white mt-5">Details</h2>
     <div class="offers row mx-auto d-flex flex-row justify-content-center">
-        <div class="offer card col-sm-2 col-md-3  col-lg-3 m-1 p-0" >
-
+        <div class="offer card col-sm-2 col-md-3  col-lg-3 m-1 p-0">
             <div class="card-body pb-1">
                 <h5 class="card-title">
                     <th:block th:text="*{title}"></th:block>
@@ -24,8 +23,8 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-<!--                    <div class="card-text"><span>• Title: <th:block th:text="*{title}"></th:block></span></div>-->
-                    <div class="card-text"><span>• Description: <th:block th:text="*{description}"></th:block></span></div>
+                    <div class="card-text"><span>• Description: <th:block th:text="*{description}"></th:block></span>
+                    </div>
                     <div class="card-text"><span>• Home Type: <th:block th:text="*{homeType}"></th:block></span></div>
                     <div class="card-text"><span>• Residence Type: <th:block th:text="*{residenceType}"></th:block></span></div>
                     <div class="card-text"><span>• Town: <th:block th:text="*{town}"></th:block> </span></div>
@@ -34,49 +33,40 @@
                     <div class="card-text"><span>• Bathrooms: <th:block th:text="*{bathrooms}"></th:block></span></div>
                     <div class="card-text"><span>• People sleeps: <th:block th:text="*{peopleFor}"></th:block></span></div>
                     <div class="card-text"><span>• Available From: <th:block th:text="*{availableFrom}"></th:block></span></div>
-                    <div class="card-text"><span>• Available To: <th:block th:text="*{availableTo}"></th:block></span></div>
+                    <div class="card-text"><span>• Available To: <th:block th:text="*{availableTo}"></th:block></span>
+                    </div>
                 </li>
             </ul>
-
         </div>
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
             <img class="card-img-top" th:src="*{getPicture()}" alt="Home image"/>
         </div>
-
-        <div class="offer card col-sm2-md-3 col-lg-4 m-0 p-0">
-<!--            <div class="container mt-5">-->
-<!--                <div class="row d-flex justify-content-center">-->
-                    <div class="col-md-7">
-                        <div class="profile-card p-3 py-4">
-                            <div class="text-center"><img src="/images/profile.jpg" width="100" class="rounded-circle"></div>
-                            <div class="text-center mt-3">
-                                <span th:text="*{owner.firstName}" class="bg-secondary p-1 px-4 rounded text-white"></span>
-                                <h6 class="mt-4 mb-0">First name</h6>
-                                <span th:text="*{owner.firstName}"></span>
-                                <h6 class="mt-2 mb-0">Last name</h6>
-                                <span th:text="*{owner.lastName}"></span>
-                                <h6 class="mt-2 mb-0">Preferred destination</h6>
-                                <span th:text="*{owner.preferredDestinations}"></span>
-                                <ul class="social-list">
-                                    <li><i class="fab fa-facebook-square"></i></li>
-                                    <li><i class="fab fa-instagram"></i></li>
-                                    <li><i class="fab fa-linkedin"></i></li>
-                                    <li><i class="fab fa-google"></i></li>
-                                </ul>
-                                <div class="buttons">
-                                    <button class="btn btn-primary px-4 ms-3">Contact</button>
-                                </div>
-                            </div>
-                        </div>
+        <div class="col-sm-2">
+            <div class="profile-card p-3 py-4">
+                <h4 class="mt-4 mb-0">Owner</h4>
+                <div class="text-center"><img src="/images/profile.jpg" width="100" class="rounded-circle"></div>
+                <div class="text-center mt-3">
+                    <span th:text="*{owner.firstName}"></span>
+                    <span th:text="*{owner.lastName}"></span>
+                    <h6 class="mt-2 mb-0">Preferred destinations:</h6>
+                    <span th:text="*{owner.preferredDestinations}"></span>
+                    <ul class="social-list">
+                        <li><i class="fab fa-facebook-square"></i></li>
+                        <li><i class="fab fa-instagram"></i></li>
+                        <li><i class="fab fa-linkedin"></i></li>
+                        <li><i class="fab fa-google"></i></li>
+                    </ul>
+                    <div class="buttons">
+                        <button class="btn btn-primary px-4 ms-3">Contact</button>
                     </div>
-<!--                </div>-->
-<!--            </div>-->
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <div>
-    <footer> </footer>
+    <footer></footer>
 </div>
 
 </body>
