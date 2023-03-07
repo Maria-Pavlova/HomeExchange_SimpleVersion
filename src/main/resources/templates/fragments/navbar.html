@@ -44,8 +44,8 @@
                             <th:block sec:authentication="name"></th:block>
                             !
                         </div>
-                        <form th:action="@{/users/logout}" th:method="post" th:text="#{navbar_logout}">
-                            <input class="btn btn-link nav-link text-white" type="submit" value="Logout">
+                        <form th:action="@{/users/logout}" th:method="post">
+                            <input class="btn btn-link nav-link text-white" type="submit" th:value="#{navbar_logout}">
                         </form>
                     </div>
                 </li>

@@ -14,19 +14,19 @@ import java.util.Locale;
 @Configuration
 public class LocaleConfig {
 
-    @Bean
-    public LocaleResolver localeResolver() {
-        CookieLocaleResolver clr = new CookieLocaleResolver();
-        clr.setCookieName("lang");
-        return clr;
-    }
-
 //    @Bean
 //    public LocaleResolver localeResolver() {
-//        SessionLocaleResolver slr = new SessionLocaleResolver();
-//        slr.setDefaultLocale(Locale.US);
-//        return slr;
+//        CookieLocaleResolver clr = new CookieLocaleResolver();
+//        clr.setCookieName("lang");
+//        return clr;
 //    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.US);
+        return slr;
+    }
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
