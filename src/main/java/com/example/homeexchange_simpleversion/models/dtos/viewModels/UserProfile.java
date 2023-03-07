@@ -12,6 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserProfile implements Serializable {
+    private String username;
     private String firstName;
     private String lastName;
     private String preferredDestinations;

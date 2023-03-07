@@ -15,6 +15,7 @@
     <form th:method="post"
           th:action="@{/users/login}"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <small th:if="${param.error}" class="text-danger bg-danger">Incorrect username or password!</small>
         <div class="form-group">
             <label for="username" class="text-white font-weight-bold">Username</label>
             <input id="username"
@@ -38,6 +39,12 @@
         <p th:if="${bad_credentials}" class="errors alert alert-danger">
             Invalid username or password.
         </p>
+
+        <div class="row text-white justify-content-lg-start" >
+            <div>
+                <input type="checkbox" id="remember" name="remember-me"> Remember Me
+            </div>
+        </div>
 
         <div class="row">
             <div class="col col-md-4">

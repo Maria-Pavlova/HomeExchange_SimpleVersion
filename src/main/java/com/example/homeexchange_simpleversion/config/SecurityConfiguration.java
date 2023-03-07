@@ -15,10 +15,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class SecurityConfiguration {
+    private UserRepository userRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder( );
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(UserRepository userRepository) {
+        return new AppUserDetailsService(userRepository);
     }
 
     @Bean
@@ -39,13 +45,17 @@ public class SecurityConfiguration {
                 .and()
                 .logout()
                 .logoutUrl("/users/logout")
+                .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID");
+                .deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe()
+                .rememberMeParameter("remember-me")
+                .key("remember Me Encryption Key")
+                .tokenValiditySeconds(259200)
+                .userDetailsService(userDetailsService(userRepository));
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new AppUserDetailsService(userRepository);
-    }
+
 }

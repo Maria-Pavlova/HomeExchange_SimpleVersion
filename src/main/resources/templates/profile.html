@@ -17,18 +17,14 @@
                 <div class="profile-card p-3 py-4">
                     <div class="text-center"><img src="/images/profile.jpg" width="100" class="rounded-circle"></div>
                     <div class="text-center mt-3">
-                        <span th:text="*{firstName}" class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
+                        <span th:text="*{username}" class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
                         <h5 class="mt-4 mb-0">First name</h5>
                         <span th:text="*{firstName}"></span>
                         <h5 class="mt-2 mb-0">Last name</h5>
                         <span th:text="*{lastName}">UI/UX Designer</span>
                         <h5 class="mt-2 mb-0">Preferred destination</h5>
                         <span th:text="*{preferredDestinations}"></span>
-                        <div class="px-4 mt-5">
-                            <p class="fonts">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim et nostrum
-                                optio perferendis quam quod ratione rem sit soluta ut! A dolor laborum, maiores neque
-                                nesciunt quis rerum sunt suscipit. </p>
-                        </div>
+
                         <ul class="social-list">
                             <li><i class="fab fa-facebook-square"></i></li>
                             <li><i class="fab fa-instagram"></i></li>
@@ -36,8 +32,7 @@
                             <li><i class="fab fa-google"></i></li>
                         </ul>
                         <div class="buttons">
-                            <button class="btn btn-outline-primary px-4" th:href="@{/}">Back</button>
-<!--                            <button class="btn btn-primary px-4 ms-3">Contact</button>-->
+                            <button onclick="history.back()" class="btn btn-outline-primary px-4">Back</button>
                         </div>
                     </div>
                 </div>
