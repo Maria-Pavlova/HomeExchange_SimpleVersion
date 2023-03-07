@@ -4,9 +4,7 @@ package com.example.homeexchange_simpleversion.models.dtos.bindingModels;
 import com.example.homeexchange_simpleversion.models.enums.AmenityName;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +22,8 @@ import java.util.List;
 public class HomeUpdateModel implements Serializable {
 
     private Long id;
-    @NotNull
+    @NotEmpty
+    @Size(min = 2, max = 20, message = "Title length must be between 2 and 20 characters")
     private String title;
     @NotNull
     private HomeType homeType;
@@ -34,11 +33,14 @@ public class HomeUpdateModel implements Serializable {
     @Positive
     private Integer peopleFor;
     @NotNull
+    @Size(min = 5, message = "Description length must be more than 5 characters")
     private String description;
     @NotNull
     private List<AmenityName> amenities;
+    @NotNull
     @Future
     private LocalDate availableFrom;
+    @NotNull
     @Future
     private LocalDate availableTo;
 

@@ -35,9 +35,9 @@
                           th:errorclass="is-invalid"
                           type="textarea" class="form-control" rows="2"
                           placeholder="Title"></textarea>
-                <p class="invalid-feedback errors alert alert-danger">
-                    Title is required.
-                </p>
+                <small id="inputTitle" th:errors="*{title}"
+                       class="invalid-feedback errors alert alert-danger form-text bg-danger rounded text-white">
+                </small>
             </div>
         </div>
         <div class="row">
@@ -100,9 +100,10 @@
                           th:errorclass="is-invalid"
                           type="textarea" class="form-control" rows="3"
                           placeholder="Description"></textarea>
-                <p class="invalid-feedback errors alert alert-danger">
-                    Description is required.
-                </p>
+                <small id="inputDescriptionError" th:errors="*{description}"
+                       class="invalid-feedback errors alert alert-danger form-text bg-danger rounded text-white">
+                    Description length must be more than 5 characters
+                </small>
             </div>
         </div>
 
@@ -116,7 +117,7 @@
                        name="availableFrom"
                        th:value="*{availableFrom}"
                        th:errorclass="'is-invalid bg-danger'"/>
-                <small class="text-danger invalid-feedback">The date cannot be in the past!</small>
+                <small th:errors="*{availableFrom}" class="text-danger invalid-feedback">The date cannot be in the past!</small>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <div class="label-holder text-dark textCol d-flex justify-content-center">
@@ -127,7 +128,7 @@
                        name="availableTo"
                        th:value="*{availableTo}"
                        th:errorclass="'is-invalid bg-danger'"/>
-                <small class="text-danger invalid-feedback">The date cannot be in the past!</small>
+                <small th:errors="*{availableTo}" class="text-danger invalid-feedback">The date cannot be in the past!</small>
             </div>
         </div>
 
