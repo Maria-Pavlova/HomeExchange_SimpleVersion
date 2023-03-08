@@ -1,7 +1,7 @@
 package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
-import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModel;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModelView;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.MyHomeModel;
@@ -9,6 +9,9 @@ import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.repositories.HomeRepository;
 import com.example.homeexchange_simpleversion.utils.FileUploadUtil;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,20 +22,24 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+
 @Service
 public class HomeService {
     private final HomeRepository homeRepository;
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final AmenityService amenityService;
+    private final OfferService offerService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomeService.class);
 
 
     public HomeService(HomeRepository homeRepository, ModelMapper modelMapper,
-                       UserService userService, AmenityService amenityService) {
+                       UserService userService, AmenityService amenityService, OfferService offerService) {
         this.homeRepository = homeRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.amenityService = amenityService;
+        this.offerService = offerService;
     }
 
     public void addHome(AddHomeModel homeModel, UserDetails userDetails, MultipartFile multipartFile) throws IOException {
@@ -58,15 +65,18 @@ public class HomeService {
 
     }
 
-    public List<HomeModel> getAllOfferedHomes() {
+    @Cacheable("offers")
+    public List<HomeModelView> getAllOfferedHomes() {
+        LOGGER.info("Getting all homes offered for exchange.");
       return homeRepository.findAllByIsPublishedTrue()
               .stream()
               .map(home -> {
-                  HomeModel model = modelMapper.map(home, HomeModel.class);
+                  HomeModelView model = modelMapper.map(home, HomeModelView.class);
                   model.setPicture(home.getPictureImagePath());
                   return model;
               })
               .toList();
+        // TODO: 8.3.2023 г.  go to offer service 
 
 
     }
@@ -128,5 +138,8 @@ public class HomeService {
         Home home = findHomeById(id);
         home.setPublished(true);
         homeRepository.save(home);
+
+        offerService.addOffer(home);
+
     }
 }

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HomeModel implements Serializable {
+public class HomeModelView implements Serializable {
 
   private long id;
   private LocalDate availableFrom;
