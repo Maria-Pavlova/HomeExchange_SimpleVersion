@@ -1,12 +1,16 @@
 package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModelView;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferView;
 import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.entities.Offer;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.repositories.OfferRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -36,22 +40,29 @@ public class OfferService {
         offerRepository.save(offer);
     }
 
-
-    public List<HomeModelView> getAllOffers() {
+    @Cacheable("offers")
+    public List<OfferView> getAllOffers() {
        return offerRepository.findAll()
                .stream()
-                .map(offer -> modelMapper.map(offer, HomeModelView.class))
-                .toList();
+               .map(offer -> {
+                   OfferView offerView = modelMapper.map(offer, OfferView.class);
+                   offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+                   return offerView;
+               })
+               .toList();
     }
 
-
-    public List<HomeModelView> getOffersByHomeType(HomeType homeType){
-        return offerRepository.findAllByHome_Type(homeType)
+    public List<OfferView> getOffersByTown(String town) {
+        return offerRepository.findAllByHome_Town(town)
                 .stream()
-                .map(offer ->  modelMapper.map(offer, HomeModelView.class))
+                .map(offer -> {
+                    OfferView offerView = modelMapper.map(offer, OfferView.class);
+                    offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+                    return offerView;
+                })
                 .toList();
-        // TODO: 8.3.2023 г. check is it work correctly
     }
+
 //
 //
 //    public OfferDetailsModel getDetails(Long id) {

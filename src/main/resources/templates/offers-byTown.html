@@ -1,0 +1,43 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ByTown</title>
+    <th:block th:include="~{/fragments/head}"/>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Navigation -->
+    <th:block th:include="~{/fragments/navbar}"/>
+    <div class="container-fluid">
+        <div class="offers row mx-auto d-flex flex-row justify-content-center">
+            <div th:each="o : ${offersByTown}" th:object="${o}"  class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+                <div class="card-img-top-wrapper">
+                    <img class="card-img-top" th:src="*{home.getPicture()}" alt="Car image">
+                </div>
+                <div class="card-body pb-1">
+                    <h5 class="card-title">
+                        <th:block th:text="*{home.title}"></th:block>
+                    </h5>
+                </div>
+                <ul class="offer-details list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="card-text"><span>• Home Type: <th:block th:text="*{home.getHomeType().name()}"></th:block></span></div>
+                        <div class="card-text"><span>• Town: <th:block th:text="*{home.getTown()}"></th:block> </span></div>
+                        <div class="card-text"><span>• Country: <th:block th:text="*{home.getCountry()}"></th:block></span></div>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a class="card-link" th:href="@{/offers{id}/details(id=*{id})}">Details</a>
+                </div>
+            </div>
+        </div>
+</div>
+
+</div>
+
+</body>
+<footer th:replace="~{/fragments/footer}" class="footer bg-blur rounded">
+
+</footer>
+</html>

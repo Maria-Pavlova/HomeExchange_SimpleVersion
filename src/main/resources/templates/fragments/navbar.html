@@ -15,14 +15,32 @@
                 <li class="nav-item" sec:authorize="hasRole('MODERATOR')">
                     <a class="nav-link" th:href="@{/pages/moderator}">Moderators</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/pages/admin}">Admins</a>
+<!--                <li class="nav-item" sec:authorize="hasRole('ADMIN')">-->
+<!--                    <a class="nav-link" th:href="@{/pages/admin}">Admins</a>-->
+<!--                </li>-->
+
+                <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link dropdown-toggle" th:href="@{/pages/admin}" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{/exchange/add}">Add Exchange</a>
+                        <a class="dropdown-item" th:href="@{/exchange/delete}">Delete Exchange</a>
+                        <a class="dropdown-item" th:href="@{/offers/delete}">Delete Offer</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{/users/delete}">Remove User</a>
+                    </div>
                 </li>
 
                 <th:block sec:authorize="isAuthenticated()">
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/pages/all}">All users</a>
                 </li>
+                    <li class="nav-item">
+                        <a class="disabled-link-mobile" th:text="#{navbar_all_Offers}"
+                           th:href="@{/offers/all}">All Offers</a>
+                    </li>
                 <li class="nav-item">
                     <a class="disabled-link-mobile" th:text="#{navbar_add_home}" th:href="@{/homes/add}">Add Home</a>
                 </li>
@@ -45,7 +63,8 @@
                             !
                         </div>
                         <form th:action="@{/users/logout}" th:method="post">
-                            <input class="btn btn-link nav-link text-white" type="submit" th:value="#{navbar_logout}">
+                            <input class="btn btn-link nav-link text-white" type="submit"
+                                   th:value="#{navbar_logout}">
                         </form>
                     </div>
                 </li>

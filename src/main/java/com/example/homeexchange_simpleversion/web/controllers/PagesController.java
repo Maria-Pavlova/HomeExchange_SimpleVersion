@@ -17,7 +17,7 @@ public class PagesController {
     }
 
     @GetMapping("/")
-    public String home() {
+    public String index() {
         return "index";
     }
 
@@ -31,6 +31,7 @@ public class PagesController {
     public String all(Model model) {
         model.addAttribute("all", homeService.getAllOfferedHomes());
         return "all";
+        // TODO: 10.3.2023 г. rename to home
     }
 
     @GetMapping("/pages/moderator")

@@ -54,7 +54,6 @@ public class Home extends BaseEntity {
     @Transient
     public String getPictureImagePath() {
         if (picture == null || getId() == null) return null;
-
         return "/home-photos/" + getId() + "/" + picture;
     }
 
