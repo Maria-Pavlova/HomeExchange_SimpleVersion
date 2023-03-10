@@ -21,6 +21,12 @@ public class OfferController {
         return "all-offers";
     }
 
+//    @GetMapping("/offers/all/evict")
+//    public String refreshAllOffers() {
+//       offerService.refreshOffers();
+//        return "all-offers";
+//    }
+
     @GetMapping("/offers/byTown/{town}")
     public String getOffersByTown(Model model, @PathVariable String town) {
         model.addAttribute("offersByTown", offerService.getOffersByTown(town));

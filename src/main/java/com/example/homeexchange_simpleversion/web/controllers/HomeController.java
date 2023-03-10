@@ -126,10 +126,10 @@ public class HomeController {
     }
 
     @GetMapping("/post/{id}")
-    public String getAddOffer(@PathVariable Long id) {
-        homeService.offerHome(id);
+    public String publishHome(@PathVariable Long id) {
+        homeService.publishHome(id);
         return "redirect:/pages/all";
-        // TODO: 4.3.2023 г. refactor
+
     }
 
 }
