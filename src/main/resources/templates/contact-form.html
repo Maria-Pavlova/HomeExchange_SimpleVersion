@@ -14,14 +14,13 @@
 <!--Section: Contact v.2-->
 <div class="container">
     <h5 class="text-center w-responsive mx-auto mb-5 text-white">Do you have any questions? Please do not hesitate to
-        contact us
-        directly. We will come back to you soon.</h5>
+        contact us directly. We will come back to you soon.</h5>
 
 
     <h2 class="text-center text-white">Contact us</h2>
     <div class="form-group col-md-6 mb-3 justify-content-center">
         <form id="contact-form" name="contact-form"
-              th:action="@{/messages/add}"
+              th:action="@{/messages/send}"
               th:method="post"
               th:object="${messageModel}"
               class="mx-auto col-md-8 d-flex flex-column justify-content-center">
@@ -40,20 +39,29 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
+                    <input type="text" id="toUsername" name="toUsername" th:value="*{toUsername}" class="form-control">
+                    <label for="toUsername" class="">To User Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
                     <input type="text" id="subject" name="subject" th:value="*{subject}" class="form-control">
                     <label for="subject" class="">Subject</label>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
-                            <textarea type="text" id="message" name="message" th:value="*{text}" rows="2"
+                            <textarea type="text" id="text" name="text" th:value="*{text}" rows="2"
                                       class="form-control md-textarea"></textarea>
-                    <label for="message">Your message</label>
+                    <label for="text">Your message</label>
                 </div>
             </div>
-            <div class="text-center text-md-left">
-                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+            <div class="button-holder d-flex">
+                <input type="submit" class="btn btn-info btn-lg" value="Send"/>
             </div>
+<!--            <div class="text-center text-md-left">-->
+<!--                <a class="btn btn-primary" >Send</a>-->
+<!--            </div>-->
             <div class="status"></div>
         </form>
     </div>

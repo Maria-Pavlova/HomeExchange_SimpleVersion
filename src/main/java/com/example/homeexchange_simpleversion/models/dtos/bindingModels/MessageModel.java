@@ -12,6 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class MessageModel implements Serializable {
     private String username;
+    private String toUsername;
     private String email;
     private String subject;
     private String text;

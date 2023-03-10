@@ -11,6 +11,9 @@ public class Message extends BaseEntity {
     @Column(nullable = false)
     private String text;
 
+    @Column(nullable = false)
+    private String subject;
+
     @ManyToOne
     private User fromUser;
 
@@ -58,6 +61,15 @@ public class Message extends BaseEntity {
 
     public Message setMessageCreated(LocalDateTime messageCreated) {
         this.messageCreated = messageCreated;
+        return this;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public Message setSubject(String subject) {
+        this.subject = subject;
         return this;
     }
 }

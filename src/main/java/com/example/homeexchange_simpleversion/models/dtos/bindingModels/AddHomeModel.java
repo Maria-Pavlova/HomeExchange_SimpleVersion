@@ -4,6 +4,7 @@ package com.example.homeexchange_simpleversion.models.dtos.bindingModels;
 import com.example.homeexchange_simpleversion.models.enums.AmenityName;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
+import com.example.homeexchange_simpleversion.utils.validation.DatesConstraint;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@DatesConstraint
 public class AddHomeModel implements Serializable {
     @NotEmpty
     @Size(min = 2, max = 20, message = "Title length must be between 2 and 20 characters")
@@ -47,7 +49,7 @@ public class AddHomeModel implements Serializable {
     private List<AmenityName> amenities;
     @Future(message = "The date cannot be in the past!")
     private LocalDate availableFrom;
-    // TODO: 3.3.2023 г. Custom validation From < To
+
     @Future(message = "The date cannot be in the past!")
     private LocalDate availableTo;
 
