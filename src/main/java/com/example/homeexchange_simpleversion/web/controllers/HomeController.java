@@ -115,14 +115,14 @@ public class HomeController {
         }
         homeService.updateHome(homeUpdateModel, userDetails);
         return "redirect:/homes/" + id + "/details";
-        // TODO: 2.3.2023 г. from details -> make public
+
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteHome(@PathVariable Long id) {
         homeService.deleteHome(id);
         return "redirect:/pages/all";
-        // TODO: 3.3.2023 г. no mapping path?
+
     }
 
     @GetMapping("/post/{id}")

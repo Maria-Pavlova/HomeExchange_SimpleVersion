@@ -45,7 +45,8 @@
                     <a class="btn btn-link"
                        th:href="@{/homes/post/{id}(id=*{id})}">Post Exchange offer
                     </a>
-                    <form th:action="@{/homes{id}(id=*{id})}" th:method="delete">
+                    <form th:action="@{/homes/delete/{id}(id=*{id})}"
+                          th:method="delete">
                         <input type="submit" class="btn btn-link" value="Delete"/>
                     </form>
 
