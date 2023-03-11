@@ -79,6 +79,18 @@ public class OfferService {
         return detailsModel;
     }
 
+    public List<OfferView> getLastOffers() {
+      return  offerRepository.findAllByOrderByOfferCreatedDesc()
+                .stream()
+                .limit(5)
+                .map(offer -> {
+                    OfferView offerView = modelMapper.map(offer, OfferView.class);
+                    offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+                    return offerView;
+                })
+                .toList();
+    }
+
 //
 //
 //    public OfferDetailsModel getDetails(Long id) {

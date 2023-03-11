@@ -14,4 +14,6 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
 
 
   List<Offer> findAllByHome_Town(String town);
+
+  List<Offer> findAllByOrderByOfferCreatedDesc();
 }

@@ -1,8 +1,7 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
 import com.example.homeexchange_simpleversion.services.HomeService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.example.homeexchange_simpleversion.services.OfferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PagesController {
 
     private final HomeService homeService;
+    private final OfferService offerService;
 
-    public PagesController(HomeService homeService) {
+    public PagesController(HomeService homeService, OfferService offerService) {
         this.homeService = homeService;
+        this.offerService = offerService;
     }
 
     @GetMapping("/")
@@ -29,7 +30,7 @@ public class PagesController {
 
     @GetMapping("/home")
     public String home(Model model) {
-        model.addAttribute("all", homeService.getAllOfferedHomes());
+        model.addAttribute("newOffers", offerService.getLastOffers());
         return "home-page";
 
     }
