@@ -1,10 +1,13 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferView;
 import com.example.homeexchange_simpleversion.services.OfferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @Controller
 public class OfferController {
@@ -17,7 +20,8 @@ public class OfferController {
 
     @GetMapping("/offers/all")
     public String allOffers(Model model) {
-        model.addAttribute("offers", offerService.getAllOffers());
+        List<OfferView> offers = offerService.getAllOffers();
+        model.addAttribute("offers", offers);
         return "all-offers";
     }
 
@@ -31,5 +35,12 @@ public class OfferController {
     public String getOffersByTown(Model model, @PathVariable String town) {
         model.addAttribute("offersByTown", offerService.getOffersByTown(town));
         return "offers-byTown";
+    }
+
+    @GetMapping("/offers/details/{id}")
+    public String getOfferDetails(@PathVariable Long id, Model model) {
+        model.addAttribute("details", offerService.getDetailsById(id));
+        return "offered-home-details";
+// TODO: 3.3.2023 г. display amenities and authorise: on click -> login!!!
     }
 }

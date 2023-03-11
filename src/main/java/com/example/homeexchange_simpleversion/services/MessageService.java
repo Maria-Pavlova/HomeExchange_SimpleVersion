@@ -1,12 +1,15 @@
 package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.MessageModel;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.MessageView;
 import com.example.homeexchange_simpleversion.models.entities.Message;
 import com.example.homeexchange_simpleversion.models.entities.User;
 import com.example.homeexchange_simpleversion.repositories.MessageRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MessageService {
@@ -34,5 +37,12 @@ public class MessageService {
         toUser.getReceivedMessages().add(message);
         userService.saveUser(fromUser);
         userService.saveUser(toUser);
+    }
+
+    public List<MessageView> getMessages(String name) {
+        return messageRepository.findAllByToUser_UsernameOrderByMessageCreatedDesc(name)
+                .stream()
+                        .map(message -> modelMapper.map(message, MessageView.class))
+                        .toList();
     }
 }

@@ -20,14 +20,14 @@
                 <p>Is it your destination?</p>
             </div>
         </a>
-        <a th:href="@{offers/byType/Varna}" class="main-btn" >
+        <a th:href="@{/offers/byTown/Varna}" class="main-btn" >
             <div class="box text-white">
                 <img src="/images/varna1.jpg" height="200px" alt="">
                 <h3>Varna</h3>
                 <p>When you love the sea!</p>
             </div>
         </a>
-        <a th:href="@{offers/byType/Burgas}" class="main-btn" >
+        <a th:href="@{/offers/byTown/Burgas}" class="main-btn" >
             <div class="box text-white">
                 <img src="/images/burgas.jpg" height="200px" alt="">
                 <h3>Burgas</h3>
@@ -42,7 +42,7 @@
     <div class="offers row mx-auto d-flex flex-row justify-content-center">
         <div th:each="o : ${offers}" th:object="${o}"  class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
             <div class="card-img-top-wrapper">
-                <img class="card-img-top" th:src="*{home.getPicture()}" alt="Car image">
+                <img class="card-img-top" th:src="*{home.getPicture()}" alt="image">
             </div>
             <div class="card-body pb-1">
                 <h5 class="card-title">
@@ -57,7 +57,7 @@
                 </li>
             </ul>
             <div class="card-body">
-                <a class="card-link" th:href="@{/offers{id}/details(id=*{id})}">Details</a>
+                <a class="card-link" th:href="@{/offers/details/{id}(id=*{id})}">Details</a>
             </div>
         </div>
     </div>

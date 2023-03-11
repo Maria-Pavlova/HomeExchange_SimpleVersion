@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -69,7 +70,7 @@ public class HomeService {
 
     }
 
-    @Cacheable("offers")
+    @Cacheable("homes")
     public List<HomeModelView> getAllOfferedHomes() {
         LOGGER.info("Getting all homes offered for exchange.");
         return homeRepository.findAllByIsPublishedTrue()
@@ -130,8 +131,12 @@ public class HomeService {
         return detailsModel;
     }
 
-    public void deleteHome(Long id) {
+    public void deleteHome(Long id) throws OperationNotSupportedException {
+        if (homeRepository.findById(id).get().isPublished()) {
+            throw new OperationNotSupportedException("This home is offered.You can`t remove it!");
+        }
         homeRepository.deleteById(id);
+        // TODO: 11.3.2023 г. ERROR HANDLE
     }
 
     public Home findHomeById(Long id) {

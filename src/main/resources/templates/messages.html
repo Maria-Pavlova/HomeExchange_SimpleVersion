@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::head}"></head>
+
+<body>
+<div th:replace="~{fragments/navbar :: navbar}">Navbar</div>
+<div class="container mb-5">
+    <h2 class="text-center text-white">Messages</h2>
+    <div th:if="${ not#lists.isEmpty(#messages)}">
+        <table class="table table-striped table-info table-hover">
+            <tr>
+                <th>Sender Name</th>
+                <th>Sender Email</th>
+                <th>Subject</th>
+                <th>Message</th>
+            </tr>
+            <tr th:each="m : ${messages}" th:object="${m}">
+                <td th:text="*{fromUser.username}"></td>
+                <td th:text="*{fromUser.email}"></td>
+                <td th:text="*{subject}"></td>
+                <td th:text="*{text}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+
+</html>

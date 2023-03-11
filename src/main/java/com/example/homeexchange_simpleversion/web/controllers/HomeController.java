@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
 
 @Controller
@@ -54,7 +55,7 @@ public class HomeController {
             return "redirect:/homes/add";
         }
         homeService.addHome(homeModel, userDetails, multipartFile);
-        return "redirect:/pages/all";
+        return "redirect:/home";
 
     }
 
@@ -119,16 +120,16 @@ public class HomeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteHome(@PathVariable Long id) {
+    public String deleteHome(@PathVariable Long id) throws OperationNotSupportedException {
         homeService.deleteHome(id);
-        return "redirect:/pages/all";
+        return "redirect:/home";
 
     }
 
     @GetMapping("/post/{id}")
     public String publishHome(@PathVariable Long id) {
         homeService.publishHome(id);
-        return "redirect:/pages/all";
+        return "redirect:/home";
 
     }
 

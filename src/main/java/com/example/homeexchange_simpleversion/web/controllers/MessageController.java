@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/messages")
@@ -48,6 +49,13 @@ public class MessageController {
                 return "redirect:/messages/send";
             }
             messageService.sendMessage(messageModel, userDetails);
-            return "redirect:/pages/all";
+            return "redirect:/home";
+    }
+
+    @GetMapping
+    public String getMessages(Principal principal, Model model){
+        model.addAttribute("messages", messageService.getMessages(principal.getName()));
+        return "messages";
+
     }
 }

@@ -10,16 +10,12 @@ public class Message extends BaseEntity {
 
     @Column(nullable = false)
     private String text;
-
     @Column(nullable = false)
     private String subject;
-
     @ManyToOne
     private User fromUser;
-
     @ManyToOne
     private User toUser;
-
     @Column(name = "message_created")
     private LocalDateTime messageCreated;
 

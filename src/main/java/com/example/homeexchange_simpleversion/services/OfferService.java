@@ -1,6 +1,8 @@
 package com.example.homeexchange_simpleversion.services;
 
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferView;
+import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.entities.Offer;
 import com.example.homeexchange_simpleversion.repositories.OfferRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
@@ -8,12 +10,14 @@ import com.example.homeexchange_simpleversion.utils.PublishHomeEvent;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OfferService {
@@ -66,6 +70,13 @@ public class OfferService {
                     return offerView;
                 })
                 .toList();
+    }
+
+    public HomeDetailsModel getDetailsById(Long id) {
+        Home home = offerRepository.findById(id).get().getHome();
+        HomeDetailsModel detailsModel = modelMapper.map(home, HomeDetailsModel.class);
+        detailsModel.setPicture(home.getPictureImagePath());
+        return detailsModel;
     }
 
 //

@@ -27,11 +27,11 @@ public class PagesController {
     }
 
 
-    @GetMapping("/pages/all")
-    public String all(Model model) {
+    @GetMapping("/home")
+    public String home(Model model) {
         model.addAttribute("all", homeService.getAllOfferedHomes());
-        return "all";
-        // TODO: 10.3.2023 г. rename to home
+        return "home-page";
+
     }
 
     @GetMapping("/pages/moderator")
