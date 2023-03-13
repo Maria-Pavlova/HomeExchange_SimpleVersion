@@ -1,5 +1,6 @@
 package com.example.homeexchange_simpleversion.services;
 
+import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModelView;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
@@ -64,8 +65,6 @@ public class HomeService {
         homeRepository.save(home);
         String uploadDir = "home-photos/" + home.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-
-
         // todo set guestPoints
 
     }
@@ -81,10 +80,9 @@ public class HomeService {
                     return model;
                 })
                 .toList();
-        // TODO: 8.3.2023 г.  go to offer service 
-
-
+        // TODO: 8.3.2023 г.  go to offer service
     }
+
 
     public HomeUpdateModel findById(Long id) {
         return modelMapper.map(homeRepository.findById(id).get(), HomeUpdateModel.class);
@@ -120,27 +118,24 @@ public class HomeService {
                 .toList();
 
         return homeModels;
-
-
     }
 
     public HomeDetailsModel getDetailsById(Long id) {
-        Optional<Home> home = homeRepository.findById(id);
-        HomeDetailsModel detailsModel = modelMapper.map(home.get(), HomeDetailsModel.class);
-        detailsModel.setPicture(home.get().getPictureImagePath());
+        Home home = findHomeById(id);
+        HomeDetailsModel detailsModel = modelMapper.map(home, HomeDetailsModel.class);
+        detailsModel.setPicture(home.getPictureImagePath());
         return detailsModel;
     }
 
     public void deleteHome(Long id) throws OperationNotSupportedException {
-        if (homeRepository.findById(id).get().isPublished()) {
+        if (findHomeById(id).isPublished()) {
             throw new OperationNotSupportedException("This home is offered.You can`t remove it!");
         }
         homeRepository.deleteById(id);
-        // TODO: 11.3.2023 г. ERROR HANDLE
     }
 
     public Home findHomeById(Long id) {
-        return homeRepository.findById(id).orElseThrow();
+        return homeRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException(id, "Home"));
     }
 
     public void publishHome(Long id) {
@@ -149,7 +144,7 @@ public class HomeService {
         PublishHomeEvent publishHomeEvent = new PublishHomeEvent(this).setHome(home);
 
         homeRepository.save(home);
-        LOGGER.info("User publish his home.");
+        LOGGER.info("User publish home with ID " + id);
         applicationEventPublisher.publishEvent(publishHomeEvent);
 
 

@@ -1,5 +1,6 @@
 package com.example.homeexchange_simpleversion.services;
 
+import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferView;
 import com.example.homeexchange_simpleversion.models.entities.Home;
@@ -73,7 +74,8 @@ public class OfferService {
     }
 
     public HomeDetailsModel getDetailsById(Long id) {
-        Home home = offerRepository.findById(id).get().getHome();
+        Offer offer = getOfferById(id);
+        Home home = offer.getHome();
         HomeDetailsModel detailsModel = modelMapper.map(home, HomeDetailsModel.class);
         detailsModel.setPicture(home.getPictureImagePath());
         return detailsModel;
@@ -89,6 +91,10 @@ public class OfferService {
                     return offerView;
                 })
                 .toList();
+    }
+
+    public Offer getOfferById(Long id){
+       return offerRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException(id, "Offer"));
     }
 
 //

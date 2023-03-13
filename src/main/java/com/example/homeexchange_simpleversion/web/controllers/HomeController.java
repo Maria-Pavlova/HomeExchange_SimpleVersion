@@ -1,5 +1,6 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
+import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
@@ -69,6 +70,7 @@ public class HomeController {
     @GetMapping("/{id}/details")
     public String homeDetails(@PathVariable Long id, Model model) {
         model.addAttribute("details", homeService.getDetailsById(id));
+
         return "home-details";
 // TODO: 3.3.2023 г. display amenities
     }
