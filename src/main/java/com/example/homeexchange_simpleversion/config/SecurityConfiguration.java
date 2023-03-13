@@ -12,6 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.DelegatingSecurityContextRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
+
 
 @Configuration
 public class SecurityConfiguration {
@@ -28,8 +33,18 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
+    public SecurityContextRepository securityContextRepository() {
+        return new DelegatingSecurityContextRepository(
+                new RequestAttributeSecurityContextRepository(),
+                new HttpSessionSecurityContextRepository()
+        );
+    }
+
+    @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http,
+                SecurityContextRepository securityContextRepository) throws Exception {
+            http
+                .authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .requestMatchers("/", "/users/register", "/users/login", "/users/login-error").permitAll()
                 .requestMatchers("/pages/moderator").hasRole(Role.MODERATOR.name())
@@ -53,7 +68,10 @@ public class SecurityConfiguration {
                 .rememberMeParameter("remember-me")
                 .key("remember Me Encryption Key")
                 .tokenValiditySeconds(259200)
-                .userDetailsService(userDetailsService(userRepository));
+                .userDetailsService(userDetailsService(userRepository))
+                .and().
+                    securityContext().
+                    securityContextRepository(securityContextRepository);
         return http.build();
     }
 

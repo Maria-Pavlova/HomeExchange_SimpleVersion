@@ -2,7 +2,13 @@ package com.example.homeexchange_simpleversion.web.controllers;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.UserRegisterDTO;
 import com.example.homeexchange_simpleversion.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,13 +20,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class RegistrationController {
     private final UserService userService;
+    private final SecurityContextRepository contextRepository;
 
-    public RegistrationController(UserService userService) {
+    public RegistrationController(UserService userService,
+                                  SecurityContextRepository contextRepository) {
         this.userService = userService;
+        this.contextRepository = contextRepository;
     }
 
     @ModelAttribute("userRegisterDTO")
-    public void initUserModel(Model model){
+    public void initUserModel(Model model) {
         model.addAttribute("userRegisterDTO", new UserRegisterDTO());
     }
 
@@ -31,15 +40,27 @@ public class RegistrationController {
 
     @PostMapping("/users/register")
     public String register(@Valid UserRegisterDTO userRegisterDTO,
+                           HttpServletRequest request,
+                           HttpServletResponse response,
                            BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes){
-        if (bindingResult.hasErrors()){
+                           RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userRegisterDTO", userRegisterDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDTO", bindingResult);
             return "redirect:/users/register";
         }
 
-        userService.registerAndLogin(userRegisterDTO);
+        userService.registerAndLogin(userRegisterDTO, successfulAuth -> {
+
+            SecurityContextHolderStrategy strategy = SecurityContextHolder.getContextHolderStrategy();
+
+            SecurityContext context = strategy.createEmptyContext();
+            context.setAuthentication(successfulAuth);
+
+            strategy.setContext(context);
+
+            contextRepository.saveContext(context, request, response);
+        });
         return "redirect:/welcome";
     }
 }

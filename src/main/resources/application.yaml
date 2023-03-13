@@ -30,9 +30,13 @@ spring:
         show_sql: true
     defer-datasource-initialization: true
 
+server:
+  error:
+    include-exception: true
+    whitelabel:
+      enabled: on
 
-
-#Cloudinary Properties
+  #Cloudinary Properties
 #cloudinary:
   #api-key: 
   #api-secret: 
