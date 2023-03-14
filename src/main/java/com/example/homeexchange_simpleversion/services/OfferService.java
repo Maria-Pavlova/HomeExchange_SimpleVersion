@@ -97,6 +97,15 @@ public class OfferService {
        return offerRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException(id, "Offer"));
     }
 
+    public Optional<OfferView> findOfferById(Long id) {
+       return offerRepository.findById(id)
+                  .map(offer -> {
+            OfferView offerView = modelMapper.map(offer, OfferView.class);
+            offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+            return offerView;
+        });
+    }
+
 //
 //
 //    public OfferDetailsModel getDetails(Long id) {
