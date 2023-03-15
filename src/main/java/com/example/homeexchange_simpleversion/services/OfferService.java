@@ -17,6 +17,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,6 +108,11 @@ public class OfferService {
             offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
             return offerView;
         });
+    }
+
+    public void deleteExpiredOffers() {
+        List<Offer> expiredOffers = offerRepository.findAllByHome_AvailableTo(LocalDate.now());
+        offerRepository.deleteAll(expiredOffers);
     }
 
 //

@@ -1,5 +1,6 @@
-package com.example.homeexchange_simpleversion.web.controllers;
+package com.example.homeexchange_simpleversion.web.controllers.rest;
 
+import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
 import com.example.homeexchange_simpleversion.models.OfferNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferErrorDTO;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferView;
@@ -45,9 +46,4 @@ public class OfferRestController {
     }
 
 
-//    @GetMapping("/offers/{town}")
-//    public ResponseEntity<List<OfferView>> getOfferByTown(@PathVariable String town) {
-//        return ResponseEntity.ok(offerService.getOffersByTown(town));
-//
-//    }
 }
