@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static org.modelmapper.Converters.Collection.map;
+
 @Service
 public class OfferService {
     private final OfferRepository offerRepository;
@@ -98,7 +100,8 @@ public class OfferService {
     }
 
     public Optional<OfferView> findOfferById(Long id) {
-       return offerRepository.findById(id)
+      return
+        offerRepository.findById(id)
                   .map(offer -> {
             OfferView offerView = modelMapper.map(offer, OfferView.class);
             offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
