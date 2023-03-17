@@ -24,14 +24,6 @@ public class Scheduler {
     @Scheduled(cron = "0 0 0 * * *")
     public void deleteExpiredOffers(){
         offerService.deleteExpiredOffers();
-        LOGGER.info("At " + LocalDate.now() + " Checked and deleted expired offers");
-//19.03.2023 check
-    }
-
-    //Test for working
-    @Scheduled(cron = "*/10 * * * * *")
-    public void showTime(){
-        LOGGER.info("At " + LocalDate.now() + "Checked and deleted expired offers");
-
+        LOGGER.info("At " + LocalDate.now() + " checked and deleted expired offers");
     }
 }

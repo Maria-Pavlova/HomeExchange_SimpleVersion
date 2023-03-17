@@ -3,13 +3,12 @@ package com.example.homeexchange_simpleversion.services;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.UserRegisterDTO;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.UserProfile;
 import com.example.homeexchange_simpleversion.models.entities.User;
+import com.example.homeexchange_simpleversion.models.enums.Role;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
+import com.example.homeexchange_simpleversion.repositories.UserRoleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,17 +25,18 @@ public class UserService {
     private final UserDetailsService appUserDetailsService;
     private final ModelMapper modelMapper;
     private final SecurityContextRepository contextRepository;
+    private final UserRoleRepository userRoleRepository;
 
     public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder,
-                       UserDetailsService appUserDetailsService,
-                       ModelMapper modelMapper,
-                       SecurityContextRepository contextRepository) {
+                       PasswordEncoder passwordEncoder, UserDetailsService appUserDetailsService,
+                       ModelMapper modelMapper, SecurityContextRepository contextRepository,
+                       UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.appUserDetailsService = appUserDetailsService;
         this.modelMapper = modelMapper;
         this.contextRepository = contextRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
 
@@ -48,6 +48,7 @@ public class UserService {
                         .setLastName(userRegisterDTO.getLastName())
                         .setUsername(userRegisterDTO.getUsername())
                         .setEmail(userRegisterDTO.getEmail())
+                        .setRoles(userRoleRepository.findByRole(Role.USER).orElseThrow())
                         .setPreferredDestinations(userRegisterDTO.getPreferredDestinations())
                         .setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 

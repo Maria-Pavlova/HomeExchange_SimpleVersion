@@ -1,5 +1,6 @@
 package com.example.homeexchange_simpleversion.config;
 
+import com.example.homeexchange_simpleversion.web.interseptor.StatsInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,8 +11,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final LocaleChangeInterceptor localeChangeInterceptor;
 
-    public WebConfig(LocaleChangeInterceptor localeChangeInterceptor) {
+    private final StatsInterceptor statsInterceptor;
+
+
+    public WebConfig(LocaleChangeInterceptor localeChangeInterceptor, StatsInterceptor statsInterceptor) {
         this.localeChangeInterceptor = localeChangeInterceptor;
+        this.statsInterceptor = statsInterceptor;
     }
 
     //   private final MaintenanceInterceptor maintenanceInterceptor;
@@ -20,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor);
-
-     //   registry.addInterceptor(maintenanceInterceptor);
+        registry.addInterceptor(statsInterceptor);
+        //   registry.addInterceptor(maintenanceInterceptor);
     }
 }

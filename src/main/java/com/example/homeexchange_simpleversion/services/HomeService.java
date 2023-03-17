@@ -33,18 +33,17 @@ public class HomeService {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final AmenityService amenityService;
-    private final OfferService offerService;
     private final ApplicationEventPublisher applicationEventPublisher;
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeService.class);
 
 
     public HomeService(HomeRepository homeRepository, ModelMapper modelMapper,
-                       UserService userService, AmenityService amenityService, OfferService offerService, ApplicationEventPublisher applicationEventPublisher) {
+                       UserService userService, AmenityService amenityService,
+                       ApplicationEventPublisher applicationEventPublisher) {
         this.homeRepository = homeRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.amenityService = amenityService;
-        this.offerService = offerService;
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
@@ -109,16 +108,15 @@ public class HomeService {
 
     public List<MyHomeModel> getMyHomes(UserDetails userDetails) {
         List<Home> myHomes = homeRepository.findAllByOwner_Username(userDetails.getUsername());
-        List<MyHomeModel> homeModels = myHomes.stream()
+        return myHomes.stream()
                 .map(home -> {
                     MyHomeModel model = modelMapper.map(home, MyHomeModel.class);
                     model.setPicture(home.getPictureImagePath());
                     return model;
                 })
                 .toList();
-
-        return homeModels;
     }
+
 
     public HomeDetailsModel getDetailsById(Long id) {
         Home home = findHomeById(id);
@@ -141,6 +139,7 @@ public class HomeService {
     public void publishHome(Long id) {
         Home home = findHomeById(id);
         home.setPublished(true);
+
         PublishHomeEvent publishHomeEvent = new PublishHomeEvent(this).setHome(home);
 
         homeRepository.save(home);

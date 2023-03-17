@@ -53,9 +53,11 @@ public class InitService {
         if (userRoleRepository.count() == 0) {
             UserRole moderatorRole = new UserRole().setRole(Role.MODERATOR);
             UserRole adminRole = new UserRole().setRole(Role.ADMIN);
+            UserRole userRole = new UserRole().setRole(Role.USER);
 
             userRoleRepository.save(moderatorRole);
             userRoleRepository.save(adminRole);
+            userRoleRepository.save(userRole);
         }
     }
     private void initUsers() {
@@ -97,6 +99,7 @@ public class InitService {
                 .setUsername("user")
                 .setEmail("user@example.com")
                 .setPreferredDestinations("Bulgaria, Sofia")
+                .setRoles(userRoleRepository.findByRole(Role.USER).orElseThrow())
                 .setPassword(passwordEncoder.encode("user"));
 
         userRepository.save(user);

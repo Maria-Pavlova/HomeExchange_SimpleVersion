@@ -12,26 +12,40 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto col-12 justify-content-lg-around">
 
-                <li class="nav-item" sec:authorize="hasRole('MODERATOR')">
-                    <a class="nav-link" th:href="@{/pages/moderator}">Moderators</a>
-                </li>
-<!--                <li class="nav-item" sec:authorize="hasRole('ADMIN')">-->
-<!--                    <a class="nav-link" th:href="@{/pages/admin}">Admins</a>-->
+<!--                <li class="nav-item" sec:authorize="hasRole('MODERATOR')">-->
+<!--                    <a class="nav-link" th:href="@{/pages/moderator}">Moderators</a>-->
 <!--                </li>-->
 
-                <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" th:href="@{/pages/admin}" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" th:href="@{/exchange/add}">Add Exchange</a>
-                        <a class="dropdown-item" th:href="@{/exchange/delete}">Delete Exchange</a>
-                        <a class="dropdown-item" th:href="@{/offers/delete}">Delete Offer</a>
+                        <a class="dropdown-item" th:href="@{/statistics}">Statistics</a>
+                        <a class="dropdown-item" href="/">Another action</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" th:href="@{/users/delete}">Remove User</a>
+                        <a class="dropdown-item" href="/">Something else here</a>
                     </div>
                 </li>
+<!--                <li class="nav-item" sec:authorize="hasRole('ADMIN')">-->
+<!--                    <a class="nav-link" th:href="@{/pages/admin}">Admins</a>-->
+<!--                </li>-->
+
+<!--                <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">-->
+<!--                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"-->
+<!--                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        Admin-->
+<!--                    </a>-->
+<!--                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                        <a class="dropdown-item" th:href="@{/statistics}">Statistics</a>-->
+<!--                    </div>-->
+<!--&lt;!&ndash;                        <a class="dropdown-item" th:href="@{/exchange/delete}">Delete Exchange</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="dropdown-item" th:href="@{/offers/delete}">Delete Offer</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="dropdown-divider"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="dropdown-item" th:href="@{/users/delete}">Remove User</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                </li>-->
 
                 <th:block sec:authorize="isAuthenticated()">
                 <li class="nav-item">
