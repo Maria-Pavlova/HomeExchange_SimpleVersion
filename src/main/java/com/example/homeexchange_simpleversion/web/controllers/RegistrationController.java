@@ -40,10 +40,11 @@ public class RegistrationController {
 
     @PostMapping("/users/register")
     public String register(@Valid UserRegisterDTO userRegisterDTO,
-                           HttpServletRequest request,
-                           HttpServletResponse response,
                            BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes,
+                           HttpServletRequest request,
+                           HttpServletResponse response
+                         ) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userRegisterDTO", userRegisterDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDTO", bindingResult);
@@ -61,6 +62,6 @@ public class RegistrationController {
 
             contextRepository.saveContext(context, request, response);
         });
-        return "redirect:/welcome";
+        return "redirect:/home";
     }
 }

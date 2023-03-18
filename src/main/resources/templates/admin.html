@@ -2,30 +2,25 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head::head"></head>
+<head th:replace="~{fragments/head}"></head>
 
 
 <body>
 
-<div th:replace="~{fragments/navbar :: navbar}">
+<div th:replace="~{fragments/navbar}">
     Navbar
 </div>
 
-<!--<div class="container">-->
-<!--    <h2 class="text-center text-white">Welcome admin!</h2>-->
-<!--</div>-->
 <div class="container bg-blur rounded mt-5" >
-    <h1 class="text-center text-white">Welcome admin!</h1>
-<!--    <hr class="my-3 bg-white w-50"/>-->
-<!--    <p class="h4">The application is here to help us keep in mind our shopping needs.</p>-->
-<!--    <hr class="my-3 bg-white w-75" />-->
+    <h1 class="text-center text-white">Welcome Admin!</h1>
+
     <h3>
-        <a class="text-primary" th:href="@{/statistics}">Statistics</a>
+        <a class="text-center text-primary" th:href="@{/statistics}">Request Statistics</a>
 
     </h3>
 </div>
 <div>
-    <footer></footer>
+    <footer th:replace="~{fragments/footer}"></footer>
 </div>
 </body>
 </html>
