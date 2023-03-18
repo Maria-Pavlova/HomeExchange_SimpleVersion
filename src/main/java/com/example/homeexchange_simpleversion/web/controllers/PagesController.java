@@ -22,10 +22,10 @@ public class PagesController {
         return "index";
     }
 
-    @GetMapping("/welcome")
-    public String welcome() {
-        return "welcome";
-    }
+//    @GetMapping("/welcome")
+//    public String welcome() {
+//        return "welcome";
+//    }
 
 
     @GetMapping("/home")

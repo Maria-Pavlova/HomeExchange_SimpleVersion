@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head::head}"></head>
 
 
@@ -10,11 +11,11 @@
     Navbar
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" sec:authorize="hasRole('ADMIN')">
     <h1 class="text-center text-white">Welcome to Home Exchange Statistics!</h1>
+    <h3 class="text-center text-white mt-5">Authorise requests: <th:block th:text="${stats.getAuthRequests()}"></th:block></h3>
+    <h3 class="text-center text-white mt-5">Anonymous requests: <th:block th:text="${stats.getAnonymousRequests()}"></th:block></h3>
     <h3 class="text-center text-white mt-5">Total requests: <th:block th:text="${stats.getTotalRequests()}"></th:block></h3>
-    <h3 class="text-center text-white mt-5">Authorise requests: <th:block th:text="${stats.getAuthRequests()()}"></th:block></h3>
-    <h3 class="text-center text-white mt-5">Anonymous requests: <th:block th:text="${stats.getAnonymousRequests()()()}"></th:block></h3>
 </div>
 
 <div>

@@ -2,7 +2,7 @@ package com.example.homeexchange_simpleversion.models.dtos.viewModels;
 
 import lombok.Data;
 
-@Data
+
 public class StatsView {
     private final int authRequests;
     private final int anonymousRequests;
@@ -15,5 +15,13 @@ public class StatsView {
 
     public int getTotalRequests(){
         return authRequests + anonymousRequests;
+    }
+
+    public int getAuthRequests() {
+        return authRequests;
+    }
+
+    public int getAnonymousRequests() {
+        return anonymousRequests;
     }
 }
