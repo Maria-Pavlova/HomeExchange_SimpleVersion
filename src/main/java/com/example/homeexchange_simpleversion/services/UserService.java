@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -79,5 +80,12 @@ public class UserService {
 
     public void saveUser(User user) {
         userRepository.save(user);
+    }
+
+    public List<UserProfile> getAllUsers() {
+      return userRepository.findAll()
+                .stream()
+                .map(user -> modelMapper.map(user, UserProfile.class))
+                .toList();
     }
 }

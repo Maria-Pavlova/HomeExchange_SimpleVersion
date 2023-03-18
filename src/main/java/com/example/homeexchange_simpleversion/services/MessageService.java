@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
+import static java.util.Arrays.stream;
 
 @Service
 public class MessageService {
@@ -39,10 +42,31 @@ public class MessageService {
         userService.saveUser(toUser);
     }
 
+//    public List<MessageView> getMessages(String name) {
+//        return messageRepository.findAllByToUser_UsernameOrderByMessageCreatedDesc(name)
+//                .stream()
+//                        .map(message -> modelMapper.map(message, MessageView.class))
+//                        .toList();
+//    }
+
     public List<MessageView> getMessages(String name) {
         return messageRepository.findAllByToUser_UsernameOrderByMessageCreatedDesc(name)
                 .stream()
-                        .map(message -> modelMapper.map(message, MessageView.class))
-                        .toList();
+                .map(message -> {
+                    MessageView messageView = modelMapper.map(message, MessageView.class);
+                    messageView.setFromUserUsername(message.getFromUser().getUsername());
+                    messageView.setFromUserEmail(message.getFromUser().getEmail());
+                    return messageView;
+                        }
+                )
+                .toList();
+    }
+
+    public List<MessageView> getMessagesByUser(String name) {
+       return userService.findByUsername(name).orElseThrow()
+                 .getReceivedMessages()
+                .stream()
+                .map(message -> modelMapper.map(message, MessageView.class))
+              .toList();
     }
 }

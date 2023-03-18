@@ -23,4 +23,10 @@ public class UserController {
         return "profile";
     }
 
+    @GetMapping("/all")
+    public String getAllUsers( Model model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "all-users";
+    }
+
 }

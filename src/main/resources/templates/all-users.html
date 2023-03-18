@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head::head}"></head>
+
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}">
+    Navbar
+</div>
+
+<div class="container-fluid">
+    <h2 class="text-center text-white">All users</h2>
+    <div class="homes row mx-auto d-flex flex-row justify-content-center">
+        <div th:each="user : ${users}" th:object="${user}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+            <div class="card-body pb-1">
+                <h5 class="card-title" th:text="*{username}"></h5>
+            </div>
+            <ul class="user-details list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="card-text"><span>• First name: <th:block th:text="*{firstName}"></th:block></span></div>
+                    <div class="card-text"><span>• Last name: <th:block th:text="*{lastName}"></th:block> </span></div>
+                    <div class="card-text"><span>• Roles: <th:block th:text="*{roles.get(0)}"></th:block></span></div>
+                </li>
+            </ul>
+            <div class="card-body">
+                <a class="card-link" th:href="@{/users/{id} (id=*{id})}">Make Admin</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div>
+    <footer th:replace="~{fragments/footer}"></footer>
+</div>
+</body>
+</html>

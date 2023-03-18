@@ -16,7 +16,8 @@ public class MessageView implements Serializable {
 
     private String text;
     private String subject;
-    private User fromUser;
-    private User toUser;
+    private String fromUserUsername;
+    private String fromUserEmail;
+   // private User toUser;
     private LocalDateTime messageCreated;
 }
