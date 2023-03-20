@@ -22,11 +22,14 @@
                 <li class="list-group-item">
                     <div class="card-text"><span>• First name: <th:block th:text="*{firstName}"></th:block></span></div>
                     <div class="card-text"><span>• Last name: <th:block th:text="*{lastName}"></th:block> </span></div>
-                    <div class="card-text"><span>• Roles: <th:block th:text="*{roles.get(0)}"></th:block></span></div>
+                    <div class="card-text">
+                        <span>• Roles:</span>
+                        <span th:each="r:${user.getRoles()}" th:value="${r}"> <th:block th:text="${r.role.name()}"></th:block></span></div>
                 </li>
             </ul>
             <div class="card-body">
-                <a class="card-link" th:href="@{/users/{id} (id=*{id})}">Make Admin</a>
+                <a class="card-link" th:href="@{/users/edit/{id} (id=*{id})}">Edit role</a>
+
             </div>
         </div>
     </div>

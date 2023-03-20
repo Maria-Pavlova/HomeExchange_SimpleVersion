@@ -1,5 +1,6 @@
 package com.example.homeexchange_simpleversion.services;
 
+import com.example.homeexchange_simpleversion.models.dtos.bindingModels.UserEditModel;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.UserRegisterDTO;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.UserProfile;
 import com.example.homeexchange_simpleversion.models.entities.User;
@@ -26,17 +27,19 @@ public class UserService {
     private final UserDetailsService appUserDetailsService;
     private final ModelMapper modelMapper;
     private final SecurityContextRepository contextRepository;
+    private final UserRoleService userRoleService;
     private final UserRoleRepository userRoleRepository;
 
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder, UserDetailsService appUserDetailsService,
                        ModelMapper modelMapper, SecurityContextRepository contextRepository,
-                       UserRoleRepository userRoleRepository) {
+                       UserRoleService userRoleService, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.appUserDetailsService = appUserDetailsService;
         this.modelMapper = modelMapper;
         this.contextRepository = contextRepository;
+        this.userRoleService = userRoleService;
         this.userRoleRepository = userRoleRepository;
     }
 
@@ -87,5 +90,25 @@ public class UserService {
                 .stream()
                 .map(user -> modelMapper.map(user, UserProfile.class))
                 .toList();
+    }
+
+    public UserProfile getUserProfileById(Long id) {
+        return modelMapper.map(getUserById(id).get(), UserProfile.class);
+    }
+
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+
+    }
+
+    public void updateUser(UserEditModel userEditModel) {
+        User user = userRepository.findById(userEditModel.getId()).orElseThrow();
+        user.setFirstName(userEditModel.getFirstName())
+                .setLastName(userEditModel.getLastName())
+                .setRoles(userEditModel.getRoles()
+                        .stream()
+                        .map(userRoleService::getByRole)
+                        .toList());
+        userRepository.save(user);
     }
 }
