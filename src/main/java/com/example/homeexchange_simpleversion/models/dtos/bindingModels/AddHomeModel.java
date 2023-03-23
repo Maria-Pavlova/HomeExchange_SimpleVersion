@@ -53,8 +53,6 @@ public class AddHomeModel implements Serializable {
     @Future(message = "The date cannot be in the past!")
     private LocalDate availableTo;
 
-    // TODO: 2.3.2023 г. List<Picture>
-
     private MultipartFile picture;
 
     private boolean isPublished;

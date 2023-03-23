@@ -8,6 +8,7 @@ import com.example.homeexchange_simpleversion.repositories.MessageRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +27,12 @@ public class MessageService {
         this.userService = userService;
     }
 
-
-    public void sendMessage(MessageModel messageModel, UserDetails userDetails) {
+    @Transactional
+    public void sendMessage(MessageModel messageModel, UserDetails userDetails, String username) {
 
         Message message = modelMapper.map(messageModel, Message.class);
         User fromUser = userService.findByUsername(userDetails.getUsername()).get();
-        User toUser = userService.findByUsername(messageModel.getToUsername()).get();
+        User toUser = userService.findByUsername(username).get();
         message.setFromUser(fromUser);
         message.setToUser(toUser);
         messageRepository.save(message);
@@ -49,24 +50,25 @@ public class MessageService {
 //                        .toList();
 //    }
 
+
     public List<MessageView> getMessages(String name) {
         return messageRepository.findAllByToUser_UsernameOrderByMessageCreatedDesc(name)
                 .stream()
                 .map(message -> {
-                    MessageView messageView = modelMapper.map(message, MessageView.class);
-                    messageView.setFromUserUsername(message.getFromUser().getUsername());
-                    messageView.setFromUserEmail(message.getFromUser().getEmail());
-                    return messageView;
+                            MessageView messageView = modelMapper.map(message, MessageView.class);
+                            messageView.setFromUserUsername(message.getFromUser().getUsername());
+                            messageView.setFromUserEmail(message.getFromUser().getEmail());
+                            return messageView;
                         }
                 )
                 .toList();
     }
 
     public List<MessageView> getMessagesByUser(String name) {
-       return userService.findByUsername(name).orElseThrow()
-                 .getReceivedMessages()
+        return userService.findByUsername(name).orElseThrow()
+                .getReceivedMessages()
                 .stream()
                 .map(message -> modelMapper.map(message, MessageView.class))
-              .toList();
+                .toList();
     }
 }

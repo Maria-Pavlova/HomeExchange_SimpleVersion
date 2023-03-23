@@ -1,9 +1,10 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.MessageModel;
+import com.example.homeexchange_simpleversion.models.entities.User;
 import com.example.homeexchange_simpleversion.services.MessageService;
+import com.example.homeexchange_simpleversion.services.UserService;
 import jakarta.validation.Valid;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -12,16 +13,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
 import java.security.Principal;
+
 
 @Controller
 @RequestMapping("/messages")
 public class MessageController {
     private final MessageService messageService;
+    private final UserService userService;
 
-    public MessageController(MessageService messageService) {
+    public MessageController(MessageService messageService, UserService userService) {
         this.messageService = messageService;
+        this.userService = userService;
     }
 
     @ModelAttribute("messageModel")
@@ -30,25 +33,27 @@ public class MessageController {
     }
 
 
-    @GetMapping("/send/{toUsername}")
-    public String sendMessageForm(@PathVariable String toUsername){
+    @GetMapping("/send/{username}")
+    public String sendMessageForm(@PathVariable String username, Model model){
+       User toUser = userService.findByUsername(username).get();
+        model.addAttribute("toUser", toUser);
         return "contact-form";
     }
 
-    @PostMapping("/send")
-    public String sendMessage(@Valid MessageModel messageModel,
+
+    @PostMapping("/send/{username}")
+    public String sendMessage( @PathVariable String username,
+                              @Valid MessageModel messageModel,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes,
-                              @AuthenticationPrincipal UserDetails userDetails
-                              //@PathVariable String toUsername
-    ){
+                              @AuthenticationPrincipal UserDetails userDetails){
 
             if (bindingResult.hasErrors()) {
                 redirectAttributes.addFlashAttribute("messageModel", messageModel);
                 redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.messageModel", bindingResult);
                 return "redirect:/messages/send";
             }
-            messageService.sendMessage(messageModel, userDetails);
+            messageService.sendMessage(messageModel, userDetails, username);
             return "redirect:/home";
     }
 

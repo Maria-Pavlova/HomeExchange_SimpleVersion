@@ -10,6 +10,7 @@ import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import com.example.homeexchange_simpleversion.services.HomeService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -49,7 +50,7 @@ public class HomeController {
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes,
                            @AuthenticationPrincipal UserDetails userDetails,
-                          @RequestParam("image") MultipartFile multipartFile) throws IOException {
+                          @RequestParam(value = "image", required = false)  MultipartFile multipartFile) throws IOException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("homeModel", homeModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.homeModel", bindingResult);
@@ -70,14 +71,14 @@ public class HomeController {
     @GetMapping("/{id}/details")
     public String homeDetails(@PathVariable Long id, Model model) {
         model.addAttribute("details", homeService.getDetailsById(id));
-
         return "home-details";
-// TODO: 3.3.2023 г. display amenities
+
     }
 
     @GetMapping("/{id}/offered/details")
     public String offeredHomeDetails(@PathVariable Long id, Model model) {
         model.addAttribute("details", homeService.getDetailsById(id));
+        model.addAttribute("amenities", AmenityName.values());
         return "offered-home-details";
 // TODO: 3.3.2023 г. display amenities and authorise: on click -> login!!!
     }

@@ -24,17 +24,24 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span>• Description: <th:block th:text="*{description}"></th:block></span></div>
-                    <div class="card-text"><span>• Home Type: <th:block th:text="*{homeType}"></th:block></span></div>
-                    <div class="card-text"><span>• Residence Type: <th:block th:text="*{residenceType}"></th:block></span></div>
-                    <div class="card-text"><span>• Town: <th:block th:text="*{town}"></th:block> </span></div>
-                    <div class="card-text"><span>• Country: <th:block th:text="*{country}"></th:block></span></div>
-                    <div class="card-text"><span>• Bedrooms: <th:block th:text="*{bedrooms}"></th:block></span></div>
-                    <div class="card-text"><span>• Bathrooms: <th:block th:text="*{bathrooms}"></th:block></span></div>
-                    <div class="card-text"><span>• People sleeps: <th:block th:text="*{peopleFor}"></th:block></span></div>
-                    <div class="card-text"><span>• Available From: <th:block th:text="*{availableFrom}"></th:block></span></div>
-                    <div class="card-text"><span>• Available To: <th:block th:text="*{availableTo}"></th:block></span></div>
-                    <div class="card-text"><span>• Is Published: <th:block th:text="*{isPublished}"></th:block></span></div>
+                    <div class="card-text"> • Description: <th:block th:text="*{description}"></th:block></div>
+                    <div class="card-text">• Home Type: <th:block th:text="*{homeType}"></th:block></div>
+                    <div class="card-text">• Residence Type: <th:block th:text="*{residenceType}"></th:block></div>
+                    <div class="card-text">• Town: <th:block th:text="*{town}"></th:block></div>
+                    <div class="card-text">• Country: <th:block th:text="*{country}"></th:block></div>
+                    <div class="card-text">• Bedrooms: <th:block th:text="*{bedrooms}"></th:block></div>
+                    <div class="card-text">• Bathrooms: <th:block th:text="*{bathrooms}"></th:block></div>
+                    <div class="card-text">• People sleeps: <th:block th:text="*{peopleFor}"></th:block></div>
+                    <div class="card-text">• Available From: <th:block th:text="*{availableFrom}"></th:block></div>
+                    <div class="card-text">• Available To: <th:block th:text="*{availableTo}"></th:block></div>
+                    <div class="card-text">• Is Published: <th:block th:text="*{isPublished}"></th:block></div>
+                    <div class="card-text">• Amenities:
+                        <div th:each="a:${details.getAmenities()}">
+                            <div>
+                            <span th:text="${a.getName()}"></span>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <div class="card-body">

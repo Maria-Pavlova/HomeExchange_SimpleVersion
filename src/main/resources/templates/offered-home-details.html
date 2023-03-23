@@ -33,7 +33,13 @@
                     <div class="card-text"><span>• Bathrooms: <th:block th:text="*{bathrooms}"></th:block></span></div>
                     <div class="card-text"><span>• People sleeps: <th:block th:text="*{peopleFor}"></th:block></span></div>
                     <div class="card-text"><span>• Available From: <th:block th:text="*{availableFrom}"></th:block></span></div>
-                    <div class="card-text"><span>• Available To: <th:block th:text="*{availableTo}"></th:block></span>
+                    <div class="card-text"><span>• Available To: <th:block th:text="*{availableTo}"></th:block></span></div>
+                    <div class="card-text">• Amenities:
+                        <div th:each="a:${details.getAmenities()}">
+                            <div>
+                                <span th:text="${a.getName()}"></span>
+                            </div>
+                        </div>
                     </div>
                 </li>
             </ul>

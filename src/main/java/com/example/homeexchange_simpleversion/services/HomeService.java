@@ -58,12 +58,24 @@ public class HomeService {
                 .map(amenityService::findAmenityByName)
                 .toList());
 
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        home.setPicture(fileName);
+        String fileName;
+        if (!multipartFile.isEmpty()) {
+            fileName = multipartFile.getOriginalFilename();
+
+            assert fileName != null;
+            fileName = StringUtils.cleanPath(fileName);
+                String uploadDir = "home-photos/" + home.getId();
+                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+                home.setPicture(fileName);
+            }else {
+            home.setPicture(null);
+        }
+
+
+      //  String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
 
         homeRepository.save(home);
-        String uploadDir = "home-photos/" + home.getId();
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
         // todo set guestPoints
 
     }
@@ -111,7 +123,9 @@ public class HomeService {
         return myHomes.stream()
                 .map(home -> {
                     MyHomeModel model = modelMapper.map(home, MyHomeModel.class);
-                    model.setPicture(home.getPictureImagePath());
+                    if (model.getPicture() != null) {
+                        model.setPicture(home.getPictureImagePath());
+                    }
                     return model;
                 })
                 .toList();

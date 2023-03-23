@@ -3,6 +3,7 @@ package com.example.homeexchange_simpleversion.models.dtos.bindingModels;
 import com.example.homeexchange_simpleversion.validation.FieldsMatch;
 import com.example.homeexchange_simpleversion.validation.UniqueUserName;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class UserRegisterDTO implements Serializable {
     @Size(min = 2, max = 20)
     @UniqueUserName
     private String username;
-    @NotNull
+    @NotBlank
     @Email
     private String email;
     @NotNull
@@ -73,30 +74,5 @@ public class UserRegisterDTO implements Serializable {
     public UserRegisterDTO setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
         return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserRegisterDTO entity = (UserRegisterDTO) o;
-        return Objects.equals(this.firstName, entity.firstName) &&
-                Objects.equals(this.lastName, entity.lastName) &&
-                Objects.equals(this.username, entity.username) &&
-                Objects.equals(this.password, entity.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, username, password);
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "firstName = " + firstName + ", " +
-                "lastName = " + lastName + ", " +
-                "username = " + username + ", " +
-                "password = " + password + ")";
     }
 }
