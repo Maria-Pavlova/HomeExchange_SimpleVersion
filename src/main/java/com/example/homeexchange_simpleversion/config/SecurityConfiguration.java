@@ -46,7 +46,7 @@ public class SecurityConfiguration {
             http
                 .authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/", "/users/register", "/users/login", "/users/login-error").permitAll()
+                .requestMatchers("/", "/users/register", "/users/login", "/users/login-error", "/offers/all").permitAll()
                 .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/pages/moderator").hasRole(Role.MODERATOR.name())
                 .requestMatchers("/pages/admin").hasRole(Role.ADMIN.name())

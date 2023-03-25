@@ -80,7 +80,8 @@ public class HomeController {
         model.addAttribute("details", homeService.getDetailsById(id));
         model.addAttribute("amenities", AmenityName.values());
         return "offered-home-details";
-// TODO: 3.3.2023 г. display amenities and authorise: on click -> login!!!
+
+
     }
     @GetMapping("/{id}/update")
     public String updateHome(@PathVariable Long id, Model model) {

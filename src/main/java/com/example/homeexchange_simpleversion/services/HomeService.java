@@ -23,8 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+
 
 
 @Service
@@ -70,8 +69,6 @@ public class HomeService {
             }else {
             home.setPicture(null);
         }
-
-
       //  String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
 
         homeRepository.save(home);
@@ -80,24 +77,24 @@ public class HomeService {
 
     }
 
-    @Cacheable("homes")
-    public List<HomeModelView> getAllOfferedHomes() {
-        LOGGER.info("Getting all homes offered for exchange.");
-        return homeRepository.findAllByIsPublishedTrue()
-                .stream()
-                .map(home -> {
-                    HomeModelView model = modelMapper.map(home, HomeModelView.class);
-                    model.setPicture(home.getPictureImagePath());
-                    return model;
-                })
-                .toList();
-        // TODO: 8.3.2023 г.  go to offer service
-    }
+//    @Cacheable("homes")
+//    public List<HomeModelView> getAllOfferedHomes() {
+//        LOGGER.info("Getting all homes offered for exchange.");
+//        return homeRepository.findAllByIsPublishedTrue()
+//                .stream()
+//                .map(home -> {
+//                    HomeModelView model = modelMapper.map(home, HomeModelView.class);
+//                    model.setPicture(home.getPictureImagePath());
+//                    return model;
+//                })
+//                .toList();
+//        // TODO: 8.3.2023 г.  go to offer service
+//    }
 
 
-    public HomeUpdateModel findById(Long id) {
-        return modelMapper.map(homeRepository.findById(id).get(), HomeUpdateModel.class);
-    }
+//    public HomeUpdateModel findById(Long id) {
+//        return modelMapper.map(homeRepository.findById(id).get(), HomeUpdateModel.class);
+//    }
 
     public void updateHome(HomeUpdateModel homeUpdateModel, UserDetails userDetails) throws IOException {
 

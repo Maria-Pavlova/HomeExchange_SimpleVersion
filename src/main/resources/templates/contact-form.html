@@ -15,13 +15,13 @@
 <div class="container">
     <h5 class="text-center w-responsive mx-auto mb-5 text-white">Do you have any questions? Please do not hesitate to
         contact me directly. I will come back to you soon.</h5>
-    <h2 class="text-center text-white">Contact us</h2>
+    <h2 class="text-center text-white">Contact me</h2>
     <div th:object="${toUser}" class="form-group col-md-6 mb-3 justify-content-center">
         <form id="contact-form" name="contact-form"
               th:action="@{/messages/send/{username}(username=${toUser.username})}"
               th:method="post"
               th:object="${messageModel}"
-              class="mx-auto col-md-8 d-flex flex-column justify-content-center">
+              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
 
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
