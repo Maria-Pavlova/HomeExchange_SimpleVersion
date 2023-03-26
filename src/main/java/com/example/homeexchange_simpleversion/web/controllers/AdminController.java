@@ -61,10 +61,8 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("userEditModel", userEditModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userEditModel", bindingResult);
             return "redirect:/users/edit/" + id + "/errors";
-
         }
         userService.updateUser(userEditModel);
         return "redirect:/users/all";
-
     }
 }

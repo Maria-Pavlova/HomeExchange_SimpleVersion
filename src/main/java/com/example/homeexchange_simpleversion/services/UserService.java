@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -110,7 +111,7 @@ public class UserService {
                 .setRoles(userEditModel.getRoles()
                         .stream()
                         .map(userRoleService::getByRole)
-                        .toList());
+                        .collect(Collectors.toList()));
         userRepository.save(user);
     }
 }

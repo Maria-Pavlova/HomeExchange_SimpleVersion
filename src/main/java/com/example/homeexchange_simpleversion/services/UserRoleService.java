@@ -16,6 +16,6 @@ public class UserRoleService {
     }
 
     public UserRole getByRole(Role role){
-       return userRoleRepository.findUserRoleByRole(role).orElseThrow();
+       return userRoleRepository.findUserRoleByRole(role).orElse(null);
     }
 }
