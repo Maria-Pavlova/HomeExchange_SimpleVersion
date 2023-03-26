@@ -30,10 +30,10 @@ public class PagesController {
 
     }
 
-    @GetMapping("/pages/moderator")
-    public String moderator() {
-        return "moderator";
-    }
+//    @GetMapping("/pages/moderator")
+//    public String moderator() {
+//        return "moderator";
+//    }
 
     @GetMapping("/pages/admin")
     public String admin() {

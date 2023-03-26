@@ -1,18 +1,11 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
-import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.UserEditModel;
-import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.UserProfile;
-import com.example.homeexchange_simpleversion.models.enums.AmenityName;
-import com.example.homeexchange_simpleversion.models.enums.HomeType;
-import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import com.example.homeexchange_simpleversion.models.enums.Role;
 import com.example.homeexchange_simpleversion.services.UserService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

@@ -8,6 +8,7 @@ import com.example.homeexchange_simpleversion.models.enums.Role;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRoleRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +31,7 @@ public class UserService {
     private final UserRoleService userRoleService;
     private final UserRoleRepository userRoleRepository;
 
+    @Autowired
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder, UserDetailsService appUserDetailsService,
                        ModelMapper modelMapper, SecurityContextRepository contextRepository,
@@ -52,7 +54,7 @@ public class UserService {
                         .setLastName(userRegisterDTO.getLastName())
                         .setUsername(userRegisterDTO.getUsername())
                         .setEmail(userRegisterDTO.getEmail())
-                        .setRoles(userRoleRepository.findByRole(Role.USER).orElseThrow())
+                        .setRoles(userRoleRepository.findByRole(Role.USER).orElse(null))
                         .setPreferredDestinations(userRegisterDTO.getPreferredDestinations())
                         .setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 

@@ -25,11 +25,6 @@ public class OfferController {
         return "all-offers";
     }
 
-//    @GetMapping("/offers/all/evict")
-//    public String refreshAllOffers() {
-//       offerService.refreshOffers();
-//        return "all-offers";
-//    }
 
     @GetMapping("/offers/byTown/{town}")
     public String getOffersByTown(Model model, @PathVariable String town) {
@@ -41,6 +36,5 @@ public class OfferController {
     public String getOfferDetails(@PathVariable Long id, Model model) {
         model.addAttribute("details", offerService.getDetailsById(id));
         return "offered-home-details";
-// TODO: 3.3.2023 г. display amenities and authorise: on click -> login!!!
     }
 }

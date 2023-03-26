@@ -7,12 +7,16 @@ import com.example.homeexchange_simpleversion.validation.UniqueUserName;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
+//@Builder
 public class UserEditModel implements Serializable {
     private Long id;
     @NotNull
