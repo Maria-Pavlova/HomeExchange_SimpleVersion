@@ -35,8 +35,7 @@ public class MessageController {
 
     @GetMapping("/send/{username}")
     public String sendMessageForm(@PathVariable String username, Model model){
-       User toUser = userService.findByUsername(username).get();
-        model.addAttribute("toUser", toUser);
+        model.addAttribute("toUser", userService.findByUsername(username).get());
         return "contact-form";
     }
 

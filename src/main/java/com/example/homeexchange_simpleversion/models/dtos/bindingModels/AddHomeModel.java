@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @DatesConstraint
@@ -57,5 +56,73 @@ public class AddHomeModel implements Serializable {
 
     private boolean isPublished;
 
+    public AddHomeModel setTitle(String title) {
+        this.title = title;
+        return this;
+    }
 
+    public AddHomeModel setHomeType(HomeType homeType) {
+        this.homeType = homeType;
+        return this;
+    }
+
+    public AddHomeModel setResidenceType(ResidenceType residenceType) {
+        this.residenceType = residenceType;
+        return this;
+    }
+
+    public AddHomeModel setTown(String town) {
+        this.town = town;
+        return this;
+    }
+
+    public AddHomeModel setCountry(String country) {
+        this.country = country;
+        return this;
+    }
+
+    public AddHomeModel setBedrooms(Integer bedrooms) {
+        this.bedrooms = bedrooms;
+        return this;
+    }
+
+    public AddHomeModel setBathrooms(Integer bathrooms) {
+        this.bathrooms = bathrooms;
+        return this;
+    }
+
+    public AddHomeModel setPeopleFor(Integer peopleFor) {
+        this.peopleFor = peopleFor;
+        return this;
+    }
+
+    public AddHomeModel setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public AddHomeModel setAmenities(List<AmenityName> amenities) {
+        this.amenities = amenities;
+        return this;
+    }
+
+    public AddHomeModel setAvailableFrom(LocalDate availableFrom) {
+        this.availableFrom = availableFrom;
+        return this;
+    }
+
+    public AddHomeModel setAvailableTo(LocalDate availableTo) {
+        this.availableTo = availableTo;
+        return this;
+    }
+
+    public AddHomeModel setPicture(MultipartFile picture) {
+        this.picture = picture;
+        return this;
+    }
+
+    public AddHomeModel setPublished(boolean published) {
+        isPublished = published;
+        return this;
+    }
 }
