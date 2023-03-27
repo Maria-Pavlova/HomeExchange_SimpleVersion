@@ -27,9 +27,11 @@ public class User extends BaseEntity{
     private List<UserRole> roles;
 
     private String preferredDestinations;
-    @OneToMany (mappedBy = "fromUser",fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "fromUser")
+    @Fetch(FetchMode.JOIN)
     private List<Message> sentMessages = new java.util.ArrayList<>();
-    @OneToMany (mappedBy = "toUser",fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "toUser")
+    @Fetch(FetchMode.JOIN)
     private List<Message> receivedMessages = new java.util.ArrayList<>();
     @Column
     private LocalDateTime created;

@@ -74,27 +74,7 @@ public class HomeService {
         homeRepository.save(home);
 
         // todo set guestPoints
-
     }
-
-//    @Cacheable("homes")
-//    public List<HomeModelView> getAllOfferedHomes() {
-//        LOGGER.info("Getting all homes offered for exchange.");
-//        return homeRepository.findAllByIsPublishedTrue()
-//                .stream()
-//                .map(home -> {
-//                    HomeModelView model = modelMapper.map(home, HomeModelView.class);
-//                    model.setPicture(home.getPictureImagePath());
-//                    return model;
-//                })
-//                .toList();
-//        // TODO: 8.3.2023 г.  go to offer service
-//    }
-
-
-//    public HomeUpdateModel findById(Long id) {
-//        return modelMapper.map(homeRepository.findById(id).get(), HomeUpdateModel.class);
-//    }
 
     public void updateHome(HomeUpdateModel homeUpdateModel, UserDetails userDetails) throws IOException {
 

@@ -60,6 +60,5 @@ public class MessageController {
     public String getMessages(Principal principal, Model model){
         model.addAttribute("messages", messageService.getMessages(principal.getName()));
         return "messages";
-
     }
 }

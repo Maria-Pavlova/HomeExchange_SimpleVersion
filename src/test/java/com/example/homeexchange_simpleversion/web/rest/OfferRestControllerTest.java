@@ -1,6 +1,5 @@
 package com.example.homeexchange_simpleversion.web.rest;
 
-import com.example.homeexchange_simpleversion.models.OfferNotFoundException;
 import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.entities.Offer;
 import com.example.homeexchange_simpleversion.models.entities.User;
@@ -17,16 +16,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 @SpringBootTest
