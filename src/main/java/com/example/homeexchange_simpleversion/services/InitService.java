@@ -1,17 +1,22 @@
 package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.entities.Amenity;
+import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.entities.User;
 import com.example.homeexchange_simpleversion.models.entities.UserRole;
 import com.example.homeexchange_simpleversion.models.enums.AmenityName;
+import com.example.homeexchange_simpleversion.models.enums.HomeType;
+import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import com.example.homeexchange_simpleversion.models.enums.Role;
 import com.example.homeexchange_simpleversion.repositories.AmenityRepository;
+import com.example.homeexchange_simpleversion.repositories.HomeRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRoleRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 @Service
@@ -21,20 +26,27 @@ public class InitService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AmenityRepository amenityRepository;
+    private final HomeRepository homeRepository;
+    private User user;
+
 
     public InitService(UserRoleRepository userRoleRepository, UserRepository userRepository,
-                       PasswordEncoder passwordEncoder, AmenityRepository amenityRepository) {
+                       PasswordEncoder passwordEncoder, AmenityRepository amenityRepository,
+                       HomeRepository homeRepository) {
         this.userRoleRepository = userRoleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.amenityRepository = amenityRepository;
+        this.homeRepository = homeRepository;
     }
 
     @PostConstruct
     public void init() {
-        initAmenity();
+
         initRoles();
         initUsers();
+        initAmenity();
+        initHomes();
     }
 
 
@@ -93,7 +105,7 @@ public class InitService {
     }
 
     private void initUser() {
-        User user = new User()
+        user = new User()
                 .setFirstName("User")
                 .setLastName("Userov")
                 .setUsername("user")
@@ -102,6 +114,27 @@ public class InitService {
                 .setRoles(userRoleRepository.findByRole(Role.USER).orElseThrow())
                 .setPassword(passwordEncoder.encode("user"));
 
-        userRepository.save(user);
+        user = userRepository.save(user);
+    }
+
+    private void initHomes(){
+        if (homeRepository.count() == 0) {
+            Home home = new Home();
+            home.setTitle("Init Home")
+                    .setHomeType(HomeType.APARTMENT)
+                    .setResidenceType(ResidenceType.PRIMARY)
+                    .setBedrooms(2)
+                    .setBathrooms(2)
+                    .setPeopleFor(4)
+                    .setDescription("Perfect place")
+                    .setAvailableFrom(LocalDate.parse("2023-06-10"))
+                    .setAvailableTo(LocalDate.parse("2023-06-20"))
+                    .setOwner(user)
+                    .setTown("Sofia")
+                    .setCountry("Bulgaria")
+                    .setPublished(false)
+                    .setPicture("");
+            homeRepository.saveAndFlush(home);
+        }
     }
 }

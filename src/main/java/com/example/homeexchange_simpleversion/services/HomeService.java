@@ -76,7 +76,7 @@ public class HomeService {
         // todo set guestPoints
     }
 
-    public void updateHome(HomeUpdateModel homeUpdateModel, UserDetails userDetails) throws IOException {
+    public void updateHome(HomeUpdateModel homeUpdateModel, UserDetails userDetails, MultipartFile multipartFile) throws IOException {
 
         Home home = homeRepository.findById(homeUpdateModel.getId()).orElseThrow();
         home
@@ -91,7 +91,18 @@ public class HomeService {
                         .stream()
                         .map(amenityService::findAmenityByName)
                         .toList());
+        String fileName;
+        if (!multipartFile.isEmpty()) {
+            fileName = multipartFile.getOriginalFilename();
 
+            assert fileName != null;
+            fileName = StringUtils.cleanPath(fileName);
+            String uploadDir = "home-photos/" + home.getId();
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            home.setPicture(fileName);
+        }else {
+            home.setPicture(null);
+        }
         homeRepository.save(home);
     }
 

@@ -110,7 +110,8 @@ public class HomeController {
                               @Valid HomeUpdateModel homeUpdateModel,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes,
-                              @AuthenticationPrincipal UserDetails userDetails) throws IOException {
+                              @AuthenticationPrincipal UserDetails userDetails,
+                              @RequestParam(value = "image", required = false)  MultipartFile multipartFile) throws IOException {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("homeModel", homeUpdateModel);
@@ -118,7 +119,7 @@ public class HomeController {
             return "redirect:/homes/" + id + "/update/errors";
 
         }
-        homeService.updateHome(homeUpdateModel, userDetails);
+        homeService.updateHome(homeUpdateModel, userDetails, multipartFile);
         return "redirect:/homes/" + id + "/details";
 
     }
