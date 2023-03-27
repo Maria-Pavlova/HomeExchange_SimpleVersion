@@ -19,11 +19,9 @@ import java.util.List;
 //@Builder
 public class UserEditModel implements Serializable {
     private Long id;
-    @NotNull
-    @Size(min = 2, max = 20)
+
     private String firstName;
-    @NotNull
-    @Size(min = 2, max = 20)
+
     private String lastName;
 
     @NotNull

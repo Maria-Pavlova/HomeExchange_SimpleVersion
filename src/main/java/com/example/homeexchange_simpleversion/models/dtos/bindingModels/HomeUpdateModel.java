@@ -44,7 +44,7 @@ public class HomeUpdateModel implements Serializable {
     @Future
     private LocalDate availableTo;
 
-    // TODO: 2.3.2023 г. List<Picture>
+    private MultipartFile picture;
 
 
 

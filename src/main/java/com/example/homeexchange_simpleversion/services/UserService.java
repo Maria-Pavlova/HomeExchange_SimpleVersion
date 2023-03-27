@@ -106,8 +106,7 @@ public class UserService {
 
     public void updateUser(UserEditModel userEditModel) {
         User user = userRepository.findById(userEditModel.getId()).orElseThrow();
-        user.setFirstName(userEditModel.getFirstName())
-                .setLastName(userEditModel.getLastName())
+        user
                 .setRoles(userEditModel.getRoles()
                         .stream()
                         .map(userRoleService::getByRole)
