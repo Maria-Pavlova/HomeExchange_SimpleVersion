@@ -3,6 +3,7 @@ package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.entities.UserRole;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,7 +15,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-
+    @Autowired
     public AppUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

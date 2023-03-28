@@ -6,6 +6,7 @@ import com.example.homeexchange_simpleversion.models.entities.Message;
 import com.example.homeexchange_simpleversion.models.entities.User;
 import com.example.homeexchange_simpleversion.repositories.MessageRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ public class MessageService {
     private final ModelMapper modelMapper;
     private final UserService userService;
 
+    @Autowired
     public MessageService(MessageRepository messageRepository, ModelMapper modelMapper, UserService userService) {
         this.messageRepository = messageRepository;
         this.modelMapper = modelMapper;

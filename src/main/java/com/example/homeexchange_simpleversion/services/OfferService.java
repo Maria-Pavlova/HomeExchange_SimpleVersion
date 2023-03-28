@@ -11,6 +11,7 @@ import com.example.homeexchange_simpleversion.utils.PublishHomeEvent;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.EventListener;
@@ -30,7 +31,7 @@ public class OfferService {
     private UserDetails userDetails;
     private static final Logger LOGGER = LoggerFactory.getLogger(OfferService.class);
 
-
+    @Autowired
     public OfferService(OfferRepository offerRepository, ModelMapper modelMapper) {
         this.offerRepository = offerRepository;
         this.modelMapper = modelMapper;

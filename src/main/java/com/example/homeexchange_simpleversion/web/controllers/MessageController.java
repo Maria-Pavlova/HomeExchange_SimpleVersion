@@ -1,7 +1,6 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.MessageModel;
-import com.example.homeexchange_simpleversion.models.entities.User;
 import com.example.homeexchange_simpleversion.services.MessageService;
 import com.example.homeexchange_simpleversion.services.UserService;
 import jakarta.validation.Valid;

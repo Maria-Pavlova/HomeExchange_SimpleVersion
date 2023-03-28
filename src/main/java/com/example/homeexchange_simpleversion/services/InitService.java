@@ -13,6 +13,7 @@ import com.example.homeexchange_simpleversion.repositories.HomeRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRoleRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class InitService {
     private final HomeRepository homeRepository;
     private User user;
 
-
+    @Autowired
     public InitService(UserRoleRepository userRoleRepository, UserRepository userRepository,
                        PasswordEncoder passwordEncoder, AmenityRepository amenityRepository,
                        HomeRepository homeRepository) {
