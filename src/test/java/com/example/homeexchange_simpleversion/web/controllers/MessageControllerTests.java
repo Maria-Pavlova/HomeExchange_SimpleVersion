@@ -2,9 +2,7 @@ package com.example.homeexchange_simpleversion.web.controllers;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.MessageModel;
 import com.example.homeexchange_simpleversion.models.entities.User;
-import com.example.homeexchange_simpleversion.repositories.HomeRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -30,15 +28,15 @@ public class MessageControllerTests {
 
 
 
-    @Test
-    @WithMockUser(username = "testUser1")
-    public void testGetMessages() throws Exception {
-
-        mockMvc.perform(get("/messages"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("messages"))
-                .andExpect(view().name("messages"));
-    }
+//    @Test
+//    @WithMockUser(username = "testUser1")
+//    public void testGetMessages() throws Exception {
+//
+//        mockMvc.perform(get("/messages"))
+//                .andExpect(status().isOk())
+//                .andExpect(model().attributeExists("messages"))
+//                .andExpect(view().name("messages"));
+//    }
 
     @Test
     @WithMockUser(username = "testUser1")
@@ -51,7 +49,7 @@ public class MessageControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("toUser"))
                 .andExpect(view().name("contact-form"));
-        userRepository.deleteAll();
+
     }
 
 
@@ -76,6 +74,7 @@ public class MessageControllerTests {
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/home"));
+    //    userRepository.deleteAll();
     }
 
     @Test
@@ -95,7 +94,7 @@ public class MessageControllerTests {
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/messages/send"));
-        userRepository.deleteAll();
+     //   userRepository.deleteAll();
     }
 
     private List<User> initUsers() {

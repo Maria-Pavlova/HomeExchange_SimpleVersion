@@ -4,13 +4,13 @@ package com.example.homeexchange_simpleversion.models.dtos.bindingModels;
 import com.example.homeexchange_simpleversion.models.enums.AmenityName;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
-import com.example.homeexchange_simpleversion.utils.validation.DatesConstraint;
+import com.example.homeexchange_simpleversion.utils.validation.DatesMatch;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@DatesConstraint
+@DatesMatch(startField = "availableFrom", endField = "availableTo")
 public class AddHomeModel implements Serializable {
     @NotEmpty
     @Size(min = 2, max = 20, message = "Title length must be between 2 and 20 characters")
@@ -46,9 +46,10 @@ public class AddHomeModel implements Serializable {
     @Size(min = 5, message = "Description length must be more than 5 characters")
     private String description;
     private List<AmenityName> amenities;
+    @NotNull
     @Future(message = "The date cannot be in the past!")
     private LocalDate availableFrom;
-
+    @NotNull
     @Future(message = "The date cannot be in the past!")
     private LocalDate availableTo;
 

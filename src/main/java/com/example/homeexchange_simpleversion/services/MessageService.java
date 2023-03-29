@@ -65,12 +65,12 @@ public class MessageService {
                 )
                 .toList();
     }
-
-    public List<MessageView> getMessagesByUser(String name) {
-        return userService.findByUsername(name).orElseThrow()
-                .getReceivedMessages()
-                .stream()
-                .map(message -> modelMapper.map(message, MessageView.class))
-                .toList();
-    }
+//
+//    public List<MessageView> getMessagesByUser(String name) {
+//        return userService.findByUsername(name).orElseThrow()
+//                .getReceivedMessages()
+//                .stream()
+//                .map(message -> modelMapper.map(message, MessageView.class))
+//                .toList();
+//    }
 }

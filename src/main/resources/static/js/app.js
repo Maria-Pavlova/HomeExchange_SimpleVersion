@@ -1,7 +1,7 @@
-let loadMessagesBtn = document.getElementById('loadMessages');
-
-loadMessagesBtn.addEventListener('click', onLoadMessages);
-function onLoadMessages(event){
+// let loadMessagesBtn = document.getElementById('loadMessages');
+//
+// loadMessagesBtn.addEventListener('click', onLoadMessages);
+// function onLoadMessages(event){
 
     var requestOptions = {
         method: 'GET',
@@ -38,4 +38,4 @@ function onLoadMessages(event){
 
         }))
         .catch(error => console.log('error', error));
-}
+//}

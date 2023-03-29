@@ -25,7 +25,5 @@ public class MessagesRestController {
         List<MessageView> messages = messageService.getMessages(principal.getName());
         return ResponseEntity.ok(messages);
 
-// TODO: 18.3.2023 г. JS - can`t do it
-
     }
 }
