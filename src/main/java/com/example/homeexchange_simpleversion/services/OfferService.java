@@ -66,6 +66,7 @@ public class OfferService {
 //        // TODO: 10.3.2023 г. this have to be in rest controller or in delete, post
 //    }
 
+    @Cacheable("offersByTown")
     public List<OfferView> getOffersByTown(String town) {
         return offerRepository.findAllByHome_Town(town)
                 .stream()

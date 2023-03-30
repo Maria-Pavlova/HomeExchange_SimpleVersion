@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@DatesMatch(startField = "availableFrom", endField = "availableTo")
+@DatesMatch(startField = "availableFrom", endField = "availableTo", message = "The date availableTo must be after the date availableFrom.")
 public class AddHomeModel implements Serializable {
     @NotEmpty
     @Size(min = 2, max = 20, message = "Title length must be between 2 and 20 characters")

@@ -96,10 +96,11 @@ public class HomeController {
 
     @GetMapping("/{id}/update/errors")
     public String updateHomeErrors(@PathVariable Long id, Model model) {
-        model.addAttribute("homeType", HomeType.values());
-        model.addAttribute("residenceType", ResidenceType.values());
-        model.addAttribute("amenityName", AmenityName.values());
+//        model.addAttribute("homeType", HomeType.values());
+//        model.addAttribute("residenceType", ResidenceType.values());
+//        model.addAttribute("amenityName", AmenityName.values());
         return "update-home";
+        // TODO: 29.3.2023 г. do not return form
 
     }
 

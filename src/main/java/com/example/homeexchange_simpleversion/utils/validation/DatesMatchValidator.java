@@ -1,33 +1,46 @@
 package com.example.homeexchange_simpleversion.utils.validation;
 
-import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.beans.BeanWrapperImpl;
-
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.PropertyAccessorFactory;
 import java.time.LocalDate;
 
-public class DatesMatchValidator implements ConstraintValidator<DatesMatch, AddHomeModel> {
+public class DatesMatchValidator implements ConstraintValidator<DatesMatch, Object> {
 
     private String startField;
     private String endField;
+    private String message;
     @Override
     public void initialize(DatesMatch constraintAnnotation) {
         this.startField = constraintAnnotation.startField();
         this.endField = constraintAnnotation.endField();
+        this.message = constraintAnnotation.message();
     }
 
     @Override
-    public boolean isValid(AddHomeModel value, ConstraintValidatorContext context) {
-       LocalDate startFieldValue = (LocalDate) new BeanWrapperImpl(value)
-                .getPropertyValue(startField);
-        LocalDate endFieldValue = (LocalDate) new BeanWrapperImpl(value)
-                .getPropertyValue(endField);
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
 
-        if (startFieldValue == null || endFieldValue == null) {
-            return true;
+        BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(value);
+
+        LocalDate startFieldValue =(LocalDate) beanWrapper.getPropertyValue(this.startField);
+        LocalDate endFieldValue = (LocalDate) beanWrapper.getPropertyValue(this.endField);
+
+        boolean valid;
+
+        if (startFieldValue == null) {
+           valid = endFieldValue == null;
+        }else {
+            assert endFieldValue != null;
+            valid = endFieldValue.isAfter(startFieldValue);
         }
-
-        return endFieldValue.isAfter(startFieldValue);
+        if (!valid){
+            context
+                    .buildConstraintViolationWithTemplate(message)
+                    .addPropertyNode(endField)
+                    .addConstraintViolation()
+                    .disableDefaultConstraintViolation();
+        }
+        return valid;
     }
 }

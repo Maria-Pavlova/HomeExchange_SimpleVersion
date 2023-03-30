@@ -4,6 +4,7 @@ package com.example.homeexchange_simpleversion.models.dtos.bindingModels;
 import com.example.homeexchange_simpleversion.models.enums.AmenityName;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
+import com.example.homeexchange_simpleversion.utils.validation.DatesMatch;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@DatesMatch(startField = "availableFrom", endField = "availableTo", message = "The date availableTo must be after the date availableFrom.")
 public class HomeUpdateModel implements Serializable {
 
     private Long id;
@@ -38,10 +40,10 @@ public class HomeUpdateModel implements Serializable {
     @NotNull
     private List<AmenityName> amenities;
     @NotNull
-    @Future
+    @Future(message = "The date cannot be in the past!")
     private LocalDate availableFrom;
     @NotNull
-    @Future
+    @Future(message = "The date cannot be in the past!")
     private LocalDate availableTo;
 
     private MultipartFile picture;
