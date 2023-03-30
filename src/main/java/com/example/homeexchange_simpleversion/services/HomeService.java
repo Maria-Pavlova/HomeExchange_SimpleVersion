@@ -2,11 +2,11 @@ package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
-import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModelView;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.MyHomeModel;
 import com.example.homeexchange_simpleversion.models.entities.Home;
+import com.example.homeexchange_simpleversion.models.enums.Role;
 import com.example.homeexchange_simpleversion.repositories.HomeRepository;
 import com.example.homeexchange_simpleversion.utils.FileUploadUtil;
 import com.example.homeexchange_simpleversion.utils.PublishHomeEvent;
@@ -14,8 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -148,7 +148,24 @@ public class HomeService {
         homeRepository.save(home);
         LOGGER.info("User publish home with ID " + id);
         applicationEventPublisher.publishEvent(publishHomeEvent);
+    }
 
+    public boolean isOwner(UserDetails userDetails, Long id) {
+        if (id == null || userDetails == null) {
+            return  false;
+        }
+        Home home = homeRepository.findById(id).orElse(null);
+        if (home == null) {
+            return false;
+        }
+        return userDetails.getUsername().equals(home.getOwner().getUsername()) ||
+                isUserAdmin(userDetails);
+    }
 
+    private boolean isUserAdmin(UserDetails userDetails) {
+        return userDetails.getAuthorities().
+                stream().
+                map(GrantedAuthority::getAuthority).
+                anyMatch(a -> a.equals("ROLE_" + Role.ADMIN.name()));
     }
 }

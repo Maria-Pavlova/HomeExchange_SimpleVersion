@@ -67,8 +67,9 @@ public class HomeController {
     }
 
     @GetMapping("/{id}/details")
-    public String homeDetails(@PathVariable Long id, Model model) {
+    public String homeDetails(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         model.addAttribute("details", homeService.getDetailsById(id));
+        model.addAttribute("canDelete", homeService.isOwner(userDetails, id));
         return "home-details";
 
     }

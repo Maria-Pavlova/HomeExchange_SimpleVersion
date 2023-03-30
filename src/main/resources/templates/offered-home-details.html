@@ -18,24 +18,24 @@
         <div class="offer card col-sm-2 col-md-3  col-lg-3 m-1 p-0">
             <div class="card-body pb-1">
                 <h5 class="card-title">
-                    <th:block th:text="*{title}"></th:block>
+                    <th:block th:text="*{home.title}"></th:block>
                 </h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span>• Description: <th:block th:text="*{description}"></th:block></span>
+                    <div class="card-text"><span>• Description: <th:block th:text="*{home.description}"></th:block></span>
                     </div>
-                    <div class="card-text"><span>• Home Type: <th:block th:text="*{homeType}"></th:block></span></div>
-                    <div class="card-text"><span>• Residence Type: <th:block th:text="*{residenceType}"></th:block></span></div>
-                    <div class="card-text"><span>• Town: <th:block th:text="*{town}"></th:block> </span></div>
-                    <div class="card-text"><span>• Country: <th:block th:text="*{country}"></th:block></span></div>
-                    <div class="card-text"><span>• Bedrooms: <th:block th:text="*{bedrooms}"></th:block></span></div>
-                    <div class="card-text"><span>• Bathrooms: <th:block th:text="*{bathrooms}"></th:block></span></div>
-                    <div class="card-text"><span>• People sleeps: <th:block th:text="*{peopleFor}"></th:block></span></div>
-                    <div class="card-text"><span>• Available From: <th:block th:text="*{availableFrom}"></th:block></span></div>
-                    <div class="card-text"><span>• Available To: <th:block th:text="*{availableTo}"></th:block></span></div>
+                    <div class="card-text"><span>• Home Type: <th:block th:text="*{home.getHomeType().name()}"></th:block></span></div>
+                    <div class="card-text"><span>• Residence Type: <th:block th:text="*{home.getResidenceType().name()}"></th:block></span></div>
+                    <div class="card-text"><span>• Town: <th:block th:text="*{home.getTown()}"></th:block> </span></div>
+                    <div class="card-text"><span>• Country: <th:block th:text="*{home.country}"></th:block></span></div>
+                    <div class="card-text"><span>• Bedrooms: <th:block th:text="*{home.bedrooms}"></th:block></span></div>
+                    <div class="card-text"><span>• Bathrooms: <th:block th:text="*{home.bathrooms}"></th:block></span></div>
+                    <div class="card-text"><span>• People sleeps: <th:block th:text="*{home.peopleFor}"></th:block></span></div>
+                    <div class="card-text"><span>• Available From: <th:block th:text="*{home.availableFrom}"></th:block></span></div>
+                    <div class="card-text"><span>• Available To: <th:block th:text="*{home.availableTo}"></th:block></span></div>
                     <div class="card-text">• Amenities:
-                        <div th:each="a:${details.getAmenities()}">
+                        <div th:each="a:${details.home.getAmenities()}">
                             <div>
                                 <span th:text="${a.getName()}"></span>
                             </div>
@@ -43,9 +43,15 @@
                     </div>
                 </li>
             </ul>
+            <div th:if="${canDelete}" class="card-body">
+                <form th:action="@{/offers/delete/{id}(id=*{id})}"
+                      th:method="delete">
+                    <input type="submit" class="btn btn-link" value="Delete"/>
+                </form>
+            </div>
         </div>
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
-            <img class="card-img-top" th:src="*{getPicture()}" alt="Home image"/>
+            <img class="card-img-top" th:src="*{home.getPicture()}" alt="Home image"/>
         </div>
         <div class="col-sm-2">
             <div class="profile-card p-3 py-4">

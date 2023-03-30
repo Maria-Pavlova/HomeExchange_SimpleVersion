@@ -2,9 +2,11 @@ package com.example.homeexchange_simpleversion.services;
 
 import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModelView;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferView;
 import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.entities.Offer;
+import com.example.homeexchange_simpleversion.models.enums.Role;
 import com.example.homeexchange_simpleversion.repositories.OfferRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
 import com.example.homeexchange_simpleversion.utils.PublishHomeEvent;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -78,16 +81,22 @@ public class OfferService {
                 .toList();
     }
 
-    public HomeDetailsModel getDetailsById(Long id) {
+//        public HomeDetailsModel getDetailsById(Long id) {
+//        Offer offer = getOfferById(id);
+//        Home home = offer.getHome();
+//        HomeDetailsModel detailsModel = modelMapper.map(home, HomeDetailsModel.class);
+//        detailsModel.setPicture(home.getPictureImagePath());
+//        return detailsModel;
+//    }
+    public OfferView getOfferDetailsById(Long id) {
         Offer offer = getOfferById(id);
-        Home home = offer.getHome();
-        HomeDetailsModel detailsModel = modelMapper.map(home, HomeDetailsModel.class);
-        detailsModel.setPicture(home.getPictureImagePath());
-        return detailsModel;
+        OfferView offerView = modelMapper.map(offer, OfferView.class);
+        offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+        return offerView;
     }
 
     public List<OfferView> getLastOffers() {
-      return  offerRepository.findAllByOrderByOfferCreatedDesc()
+        return offerRepository.findAllByOrderByOfferCreatedDesc()
                 .stream()
                 .limit(5)
                 .map(offer -> {
@@ -98,18 +107,18 @@ public class OfferService {
                 .toList();
     }
 
-    public Offer getOfferById(Long id){
-       return offerRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException(id, "Offer"));
+    public Offer getOfferById(Long id) {
+        return offerRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id, "Offer"));
     }
 
     public Optional<OfferView> findOfferById(Long id) {
-      return
-        offerRepository.findById(id)
-                  .map(offer -> {
-            OfferView offerView = modelMapper.map(offer, OfferView.class);
-            offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
-            return offerView;
-        });
+        return
+                offerRepository.findById(id)
+                        .map(offer -> {
+                            OfferView offerView = modelMapper.map(offer, OfferView.class);
+                            offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+                            return offerView;
+                        });
     }
 
     public void deleteExpiredOffers() {
@@ -117,13 +126,30 @@ public class OfferService {
         offerRepository.deleteAll(expiredOffers);
     }
 
-//
-//
-//    public OfferDetailsModel getDetails(Long id) {
-//        Offer offer = offerRepository.findById(id)
-//                .get();
-//       return modelMapper.map(offer, OfferDetailsModel.class);
-//
-//    }
+    public boolean isOwner(UserDetails userDetails, Long id) {
+        if (id == null || userDetails == null) {
+            return false;
+        }
+
+        HomeModelView home = findOfferById(id).get().getHome();
+        if (home == null) {
+            return false;
+        }
+        return userDetails.getUsername().equals(home.getOwner().getUsername()) ||
+                isUserAdmin(userDetails);
+    }
+
+    // TODO: 30.3.2023 г. refactor duplicated code
+    private boolean isUserAdmin(UserDetails userDetails) {
+        return userDetails.getAuthorities().
+                stream().
+                map(GrantedAuthority::getAuthority).
+                anyMatch(a -> a.equals("ROLE_" + Role.ADMIN.name()));
+    }
+
+    public void deleteOffer(Long id) {
+        Offer offer = getOfferById(id);
+        offerRepository.delete(offer);
+    }
 }
 
