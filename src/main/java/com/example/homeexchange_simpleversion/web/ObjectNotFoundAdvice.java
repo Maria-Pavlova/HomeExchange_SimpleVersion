@@ -1,6 +1,6 @@
 package com.example.homeexchange_simpleversion.web;
 
-import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
+import com.example.homeexchange_simpleversion.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

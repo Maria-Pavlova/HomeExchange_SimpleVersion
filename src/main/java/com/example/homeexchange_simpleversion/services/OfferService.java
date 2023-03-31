@@ -1,20 +1,16 @@
 package com.example.homeexchange_simpleversion.services;
 
-import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
-import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
-import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModelView;
+import com.example.homeexchange_simpleversion.exceptions.ObjectNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferView;
 import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.entities.Offer;
 import com.example.homeexchange_simpleversion.models.enums.Role;
 import com.example.homeexchange_simpleversion.repositories.OfferRepository;
-import com.example.homeexchange_simpleversion.repositories.UserRepository;
 import com.example.homeexchange_simpleversion.utils.PublishHomeEvent;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,8 +20,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
-import static org.modelmapper.Converters.Collection.map;
 
 @Service
 public class OfferService {

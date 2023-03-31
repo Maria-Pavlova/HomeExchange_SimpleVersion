@@ -1,6 +1,7 @@
 package com.example.homeexchange_simpleversion.services;
 
-import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
+import com.example.homeexchange_simpleversion.exceptions.ForbiddenException;
+import com.example.homeexchange_simpleversion.exceptions.ObjectNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
@@ -128,9 +129,9 @@ public class HomeService {
         return detailsModel;
     }
 
-    public void deleteHome(Long id) throws OperationNotSupportedException {
+    public void deleteHome(Long id)  {
         if (findHomeById(id).isPublished()) {
-            throw new OperationNotSupportedException("This home is offered.You can`t remove it!");
+            throw new ForbiddenException();
         }
         homeRepository.deleteById(id);
     }

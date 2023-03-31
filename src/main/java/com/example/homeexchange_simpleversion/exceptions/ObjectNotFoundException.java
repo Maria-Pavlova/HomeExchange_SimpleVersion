@@ -1,4 +1,4 @@
-package com.example.homeexchange_simpleversion.models;
+package com.example.homeexchange_simpleversion.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
     private final long objectId;

@@ -117,7 +117,7 @@ public class HomeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteHome(@PathVariable Long id) throws OperationNotSupportedException {
+    public String deleteHome(@PathVariable Long id) {
         homeService.deleteHome(id);
         return "redirect:/home";
 

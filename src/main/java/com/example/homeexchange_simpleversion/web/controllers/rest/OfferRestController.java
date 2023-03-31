@@ -1,7 +1,6 @@
 package com.example.homeexchange_simpleversion.web.controllers.rest;
 
-import com.example.homeexchange_simpleversion.models.ObjectNotFoundException;
-import com.example.homeexchange_simpleversion.models.OfferNotFoundException;
+import com.example.homeexchange_simpleversion.exceptions.OfferNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferErrorDTO;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.OfferView;
 import com.example.homeexchange_simpleversion.services.OfferService;
