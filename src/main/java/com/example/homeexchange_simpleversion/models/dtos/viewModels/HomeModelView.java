@@ -1,6 +1,7 @@
 package com.example.homeexchange_simpleversion.models.dtos.viewModels;
 
 
+import com.example.homeexchange_simpleversion.models.entities.Amenity;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,6 +34,8 @@ public class HomeModelView implements Serializable {
   private ResidenceType residenceType;
   private String town;
   private String title;
+
+  private List<Amenity> amenities;
   private UserProfile owner;
 
 

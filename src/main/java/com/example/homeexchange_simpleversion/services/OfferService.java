@@ -46,22 +46,14 @@ public class OfferService {
         offer.setHome(event.getHome());
         LOGGER.info("Created offer");
         offerRepository.save(offer);
-
     }
 
 
     @Cacheable("offers")
     public List<OfferView> getAllOffers() {
-        return offerRepository.findAll()
-                .stream()
-                .map(offer -> {
-                    OfferView offerView = modelMapper.map(offer, OfferView.class);
-                    offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
-                    return offerView;
-                })
-                .toList();
+        List<Offer> offers = offerRepository.findAll();
+        return mapToOfferView(offers);
     }
-
 
 //    @CacheEvict(cacheNames = "offers", allEntries = true)
 //    public void refreshOffers(){
@@ -71,28 +63,12 @@ public class OfferService {
 
     @Cacheable("offersByTown")
     public List<OfferView> getOffersByTown(String town) {
-        return offerRepository.findAllByHome_Town(town)
-                .stream()
-                .map(offer -> {
-                    OfferView offerView = modelMapper.map(offer, OfferView.class);
-                    offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
-                    return offerView;
-                })
-                .toList();
+        return mapToOfferView(offerRepository.findAllByHome_Town(town));
+
     }
 
-//        public HomeDetailsModel getDetailsById(Long id) {
-//        Offer offer = getOfferById(id);
-//        Home home = offer.getHome();
-//        HomeDetailsModel detailsModel = modelMapper.map(home, HomeDetailsModel.class);
-//        detailsModel.setPicture(home.getPictureImagePath());
-//        return detailsModel;
-//    }
     public OfferView getOfferDetailsById(Long id) {
-        Offer offer = getOfferById(id);
-        OfferView offerView = modelMapper.map(offer, OfferView.class);
-        offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
-        return offerView;
+        return findOfferById(id).orElseThrow(() -> new ObjectNotFoundException(id, "Offer"));
     }
 
     public List<OfferView> getLastOffers() {
@@ -130,8 +106,7 @@ public class OfferService {
         if (id == null || userDetails == null) {
             return false;
         }
-
-        HomeModelView home = findOfferById(id).get().getHome();
+        Home home = getOfferById(id).getHome();
         if (home == null) {
             return false;
         }
@@ -139,7 +114,6 @@ public class OfferService {
                 isUserAdmin(userDetails);
     }
 
-    // TODO: 30.3.2023 г. refactor duplicated code
     private boolean isUserAdmin(UserDetails userDetails) {
         return userDetails.getAuthorities().
                 stream().
@@ -150,6 +124,16 @@ public class OfferService {
     public void deleteOffer(Long id) {
         Offer offer = getOfferById(id);
         offerRepository.delete(offer);
+    }
+
+    private List<OfferView> mapToOfferView(List<Offer> offers) {
+        return offers.stream()
+                .map(offer -> {
+                    OfferView offerView = modelMapper.map(offer, OfferView.class);
+                    offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+                    return offerView;
+                })
+                .toList();
     }
 }
 

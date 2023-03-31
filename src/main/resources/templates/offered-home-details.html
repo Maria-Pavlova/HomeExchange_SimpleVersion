@@ -18,12 +18,13 @@
         <div class="offer card col-sm-2 col-md-3  col-lg-3 m-1 p-0">
             <div class="card-body pb-1">
                 <h5 class="card-title">
-                    <th:block th:text="*{home.title}"></th:block>
+                    <th:block th:text="*{home.getTitle()}"></th:block>
                 </h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
+
                 <li class="list-group-item">
-                    <div class="card-text"><span>• Description: <th:block th:text="*{home.description}"></th:block></span>
+                    <div class="card-text"><span>• Description: <th:block th:text="*{home.getDescription()}"></th:block></span>
                     </div>
                     <div class="card-text"><span>• Home Type: <th:block th:text="*{home.getHomeType().name()}"></th:block></span></div>
                     <div class="card-text"><span>• Residence Type: <th:block th:text="*{home.getResidenceType().name()}"></th:block></span></div>
@@ -46,7 +47,7 @@
             <div th:if="${canDelete}" class="card-body">
                 <form th:action="@{/offers/delete/{id}(id=*{id})}"
                       th:method="delete">
-                    <input type="submit" class="btn btn-link" value="Delete"/>
+                    <input type="submit" class="btn btn-link" value="DELETE"/>
                 </form>
             </div>
         </div>
@@ -58,10 +59,10 @@
                 <h4 class="mt-4 mb-0">Owner</h4>
                 <div class="text-center"><img src="/images/profile.jpg" width="100" class="rounded-circle"></div>
                 <div class="text-center mt-3">
-                    <span th:text="*{owner.firstName}"></span>
-                    <span th:text="*{owner.lastName}"></span>
+                    <span th:text="*{home.owner.firstName}"></span>
+                    <span th:text="*{home.owner.lastName}"></span>
                     <h6 class="mt-2 mb-0">Preferred destinations:</h6>
-                    <span th:text="*{owner.preferredDestinations}"></span>
+                    <span th:text="*{home.owner.preferredDestinations}"></span>
                     <ul class="social-list">
                         <li><i class="fab fa-facebook-square"></i></li>
                         <li><i class="fab fa-instagram"></i></li>
@@ -69,7 +70,7 @@
                         <li><i class="fab fa-google"></i></li>
                     </ul>
                     <div class="buttons">
-                        <a th:href="@{/messages/send/{toUsername} (toUsername=*{owner.username})}" class="btn btn-primary text-white">Contact</a>
+                        <a th:href="@{/messages/send/{toUsername} (toUsername=*{home.owner.username})}" class="btn btn-primary text-white">Contact</a>
 <!--                        <button th:href="@{/messages/send}" class="btn btn-primary px-4 ms-3">Contact</button>-->
                     </div>
                 </div>

@@ -40,14 +40,13 @@ public class OfferController {
 
     @GetMapping("/offers/details/{id}")
     public String getOfferDetails( @AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id, Model model) {
-      //  model.addAttribute("details", offerService.getDetailsById(id));
         model.addAttribute("details", offerService.getOfferDetailsById(id));
         model.addAttribute("canDelete", offerService.isOwner(userDetails, id));
         return "offered-home-details";
     }
 
     @PreAuthorize("@offerService.isOwner(#userDetails, #id)")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/offers/delete/{id}")
     public String deleteOffer(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id ){
         offerService.deleteOffer(id);
         return "redirect:/offers/all";

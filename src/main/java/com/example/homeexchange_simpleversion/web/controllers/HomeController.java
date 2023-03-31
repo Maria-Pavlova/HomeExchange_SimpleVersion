@@ -74,14 +74,6 @@ public class HomeController {
 
     }
 
-    @GetMapping("/{id}/offered/details")
-    public String offeredHomeDetails(@PathVariable Long id, Model model) {
-        model.addAttribute("details", homeService.getDetailsById(id));
-        model.addAttribute("amenities", AmenityName.values());
-        return "offered-home-details";
-
-
-    }
     @GetMapping("/{id}/update")
     public String updateHome(@PathVariable Long id, Model model) {
         HomeDetailsModel details = homeService.getDetailsById(id);
