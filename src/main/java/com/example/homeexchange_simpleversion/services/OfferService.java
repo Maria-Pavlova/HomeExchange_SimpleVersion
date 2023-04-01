@@ -49,16 +49,10 @@ public class OfferService {
         return mapToOfferView(offers);
     }
 
-//    @CacheEvict(cacheNames = "offers", allEntries = true)
-//    public void refreshOffers(){
-//
-//        // TODO: 10.3.2023 г. this have to be in rest controller or in delete, post
-//    }
 
     @Cacheable("offersByTown")
     public List<OfferView> getOffersByTown(String town) {
         return mapToOfferView(offerRepository.findAllByHome_Town(town));
-
     }
 
     public OfferView getOfferDetailsById(Long id) {
