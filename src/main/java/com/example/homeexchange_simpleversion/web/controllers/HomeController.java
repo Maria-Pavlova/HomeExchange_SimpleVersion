@@ -81,9 +81,6 @@ public class HomeController {
         homeUpdateModel.setId(id);
 
         model.addAttribute("homeUpdateModel", homeUpdateModel);
-        model.addAttribute("homeType", HomeType.values());
-        model.addAttribute("residenceType", ResidenceType.values());
-        model.addAttribute("amenityName", AmenityName.values());
         return "update-home";
     }
 
@@ -94,7 +91,6 @@ public class HomeController {
         model.addAttribute("amenityName", AmenityName.values());
         return "update-home";
         // TODO: 29.3.2023 г. do not return form
-
     }
 
     @PatchMapping("/{id}/update")
@@ -103,17 +99,15 @@ public class HomeController {
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes,
                               @AuthenticationPrincipal UserDetails userDetails,
-                              @RequestParam(value = "image", required = false)  MultipartFile multipartFile) throws IOException {
-
+                              @RequestParam(value = "image", required = false)
+                                 MultipartFile multipartFile) throws IOException {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("homeModel", homeUpdateModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.homeModel", bindingResult);
+            redirectAttributes.addFlashAttribute("homeUpdateModel", homeUpdateModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.homeUpdateModel", bindingResult);
             return "redirect:/homes/" + id + "/update/errors";
-
         }
         homeService.updateHome(homeUpdateModel, userDetails, multipartFile);
         return "redirect:/homes/" + id + "/details";
-
     }
 
     @DeleteMapping("/delete/{id}")
