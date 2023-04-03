@@ -7,21 +7,11 @@ spring:
     init:
       mode: never
 
-cloudinary:
+#cloudinary:
   api-key: "118818994231496"
   api-secret: ${CLOUDINARY_API_SECRET}
   cloud-name: "dttt8mefd"
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          facebook:
-#            client-id: your-client-id-here
-#            client-secret: your-secret-here
 
-#
-#mail:
-#  host: "localhost"
-#  port: 1025
-#  username: "mobilele@mobilele.com"
-#  password: "topsecret"
+
+
+

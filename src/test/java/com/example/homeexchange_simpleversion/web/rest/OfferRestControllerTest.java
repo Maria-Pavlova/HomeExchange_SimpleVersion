@@ -1,5 +1,6 @@
 package com.example.homeexchange_simpleversion.web.rest;
 
+import com.example.homeexchange_simpleversion.config.CloudinaryConfig;
 import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.entities.Offer;
 import com.example.homeexchange_simpleversion.models.entities.User;
@@ -8,17 +9,17 @@ import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import com.example.homeexchange_simpleversion.repositories.HomeRepository;
 import com.example.homeexchange_simpleversion.repositories.OfferRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
+import com.example.homeexchange_simpleversion.services.CloudinaryService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,6 +38,11 @@ public class OfferRestControllerTest {
     private HomeRepository homeRepository;
     @Autowired
     private UserRepository userRepository;
+    @MockBean
+    private CloudinaryConfig config;
+
+    @MockBean
+    private CloudinaryService cloudinaryService;
 
     private User testUser;
 

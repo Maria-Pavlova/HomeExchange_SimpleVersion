@@ -4,6 +4,8 @@ package com.example.homeexchange_simpleversion.models.entities;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class Home extends BaseEntity {
     @Column
     private Integer guestPoints;
     @ManyToOne
+    @Fetch(FetchMode.JOIN)
     private User owner;
 
     public String getPictures() {

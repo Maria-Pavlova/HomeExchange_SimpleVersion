@@ -23,8 +23,8 @@ public class OfferRestController {
 
     @GetMapping("/offers")
     public ResponseEntity<List<OfferView>> getAllOffers() {
-        return ResponseEntity.ok(offerService.getAllOffers());
 
+        return ResponseEntity.ok(offerService.getAllOffers());
     }
 
     @GetMapping("offers/{id}")

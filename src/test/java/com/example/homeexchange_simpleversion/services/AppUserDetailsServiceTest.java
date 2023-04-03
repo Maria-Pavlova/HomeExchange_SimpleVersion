@@ -1,5 +1,6 @@
 package com.example.homeexchange_simpleversion.services;
 
+import com.example.homeexchange_simpleversion.config.CloudinaryConfig;
 import com.example.homeexchange_simpleversion.models.entities.User;
 import com.example.homeexchange_simpleversion.models.entities.UserRole;
 import com.example.homeexchange_simpleversion.models.enums.Role;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.opentest4j.AssertionFailedError;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,6 +31,11 @@ public class AppUserDetailsServiceTest {
     private AppUserDetailsService appUserDetailsServiceToTest;
     @Mock
     private UserRepository mockUserRepository;
+    @MockBean
+    private CloudinaryConfig config;
+
+    @MockBean
+    private CloudinaryService cloudinaryService;
 
     @BeforeEach
     void SetUp() {

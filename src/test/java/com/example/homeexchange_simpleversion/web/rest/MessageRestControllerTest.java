@@ -1,8 +1,10 @@
 package com.example.homeexchange_simpleversion.web.rest;
 
+import com.example.homeexchange_simpleversion.config.CloudinaryConfig;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.MessageView;
 import com.example.homeexchange_simpleversion.models.entities.User;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
+import com.example.homeexchange_simpleversion.services.CloudinaryService;
 import com.example.homeexchange_simpleversion.services.MessageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,11 @@ public class MessageRestControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private CloudinaryConfig config;
 
+    @MockBean
+    private CloudinaryService cloudinaryService;
     @MockBean
     private MessageService messageService;
    @Autowired

@@ -35,6 +35,7 @@ public class OfferServiceTest {
     @Captor
     private ArgumentCaptor<Offer> offerArgumentCaptor;
 
+
     private Home testHome;
 
     private Offer testOffer;

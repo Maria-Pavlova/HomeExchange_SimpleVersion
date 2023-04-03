@@ -1,12 +1,17 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
+import com.example.homeexchange_simpleversion.config.CloudinaryConfig;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.MessageModel;
 import com.example.homeexchange_simpleversion.models.entities.User;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
+import com.example.homeexchange_simpleversion.services.CloudinaryService;
+import com.example.homeexchange_simpleversion.services.MessageService;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -26,42 +31,48 @@ public class MessageControllerTests {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MessageService messageService;
+    @MockBean
+    private CloudinaryConfig config;
 
+    @MockBean
+    private CloudinaryService cloudinaryService;
 
-//    @Test
-//    @WithMockUser(username = "testUser1")
-//    public void testGetMessages() throws Exception {
-//
-//        mockMvc.perform(get("/messages"))
-//                .andExpect(status().isOk())
-//                .andExpect(model().attributeExists("messages"))
-//                .andExpect(view().name("messages"));
-//    }
 
     @Test
     @WithMockUser(username = "testUser1")
     public void testGetSendMessageForm() throws Exception {
 
         List<User> users = initUsers();
-
         String username = users.get(1).getUsername();
         mockMvc.perform(get("/messages/send/" + username))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("toUser"))
                 .andExpect(view().name("contact-form"));
-
     }
 
 
-    // TODO: 1.4.2023 г. passed only one by one
+
     @Test
-    @WithMockUser(username = "testUser1")
+    @WithMockUser(username = "fromUser1")
     public void testSendMessage() throws Exception {
 
-        List<User> users = initUsers();
-        User fromUser = users.get(0);
-        User toUser = users.get(1);
-        String toUsername = toUser.getUsername();
+        User fromUser = new User();
+        fromUser.setUsername("fromUser1")
+                .setPassword("test1")
+                .setFirstName("Ivan1")
+                .setLastName("Ivanov1")
+                .setEmail("ivan1@com");
+        userRepository.save(fromUser);
+
+        User toUser = new User();
+        toUser.setUsername("toUser1")
+                .setPassword("test2")
+                .setFirstName("Ivan2")
+                .setLastName("Ivanov2")
+                .setEmail("ivan2@com");
+        userRepository.save(toUser);
 
         MessageModel messageModel = new MessageModel();
         messageModel.setUsername(fromUser.getUsername())
@@ -70,21 +81,33 @@ public class MessageControllerTests {
                 .setText("It`s test message");
 
 
-        mockMvc.perform(post("/messages/send/" + toUsername)
+        mockMvc.perform(post("/messages/send/" + toUser.getUsername())
                         .flashAttr("messageModel", messageModel)
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/home"));
-       // userRepository.deleteAll();
+
     }
 
     @Test
-    @WithMockUser(username = "testUser1")
+    @WithMockUser(username = "fromUser2")
     public void testSendMessage_InvalidParam() throws Exception {
 
-        List<User> users = initUsers();
-        User fromUser = users.get(0);
-        User toUser = users.get(1);
+        User fromUser = new User();
+        fromUser.setUsername("fromUser2")
+                .setPassword("test1")
+                .setFirstName("Ivan1")
+                .setLastName("Ivanov1")
+                .setEmail("ivan1@com");
+        userRepository.save(fromUser);
+
+        User toUser = new User();
+        toUser.setUsername("toUser2")
+                .setPassword("test2")
+                .setFirstName("Ivan2")
+                .setLastName("Ivanov2")
+                .setEmail("ivan2@com");
+        userRepository.save(toUser);
         String toUsername = toUser.getUsername();
 
         mockMvc.perform(post("/messages/send/" + toUsername)
@@ -95,7 +118,8 @@ public class MessageControllerTests {
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/messages/send"));
-       // userRepository.deleteAll();
+        userRepository.delete(toUser);
+        userRepository.delete(fromUser);
     }
 
     private List<User> initUsers() {
@@ -118,4 +142,13 @@ public class MessageControllerTests {
         users.add(testUser2);
         return userRepository.saveAllAndFlush(users);
     }
+    //    @Test
+//    @WithMockUser(username = "testUser1")
+//    public void testGetMessages() throws Exception {
+//
+//        mockMvc.perform(get("/messages"))
+//                .andExpect(status().isOk())
+//                .andExpect(model().attributeExists("messages"))
+//                .andExpect(view().name("messages"));
+//    }
 }
