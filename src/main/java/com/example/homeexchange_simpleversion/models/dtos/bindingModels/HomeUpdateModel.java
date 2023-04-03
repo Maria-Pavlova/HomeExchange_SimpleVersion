@@ -25,7 +25,7 @@ public class HomeUpdateModel implements Serializable {
 
     private Long id;
     @NotEmpty
-    @Size(min = 2, max = 20, message = "Title length must be between 2 and 20 characters")
+    @Size(min = 2, max = 50, message = "Title length must be between 2 and 50 characters")
     private String title;
     @NotNull
     private HomeType homeType;

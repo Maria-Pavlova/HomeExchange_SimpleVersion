@@ -37,10 +37,10 @@ public class UserControllerTest {
         testUser = userRepository.saveAndFlush(testUser);
     }
 
-    @AfterEach
-    void tearDown() {
-        userRepository.deleteAll();
-    }
+//    @AfterEach
+//    void tearDown() {
+//        userRepository.deleteAll();
+//    }
 
     @Test
     @WithMockUser(username = "testUser")

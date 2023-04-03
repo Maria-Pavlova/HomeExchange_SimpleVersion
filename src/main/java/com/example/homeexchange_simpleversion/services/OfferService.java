@@ -43,7 +43,7 @@ public class OfferService {
     }
 
 
-    @Cacheable("offers")
+   // @Cacheable("offers")
     public List<OfferView> getAllOffers() {
         List<Offer> offers = offerRepository.findAll();
         return mapToOfferView(offers);
@@ -65,7 +65,7 @@ public class OfferService {
                 .limit(5)
                 .map(offer -> {
                     OfferView offerView = modelMapper.map(offer, OfferView.class);
-                    offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+                    offerView.getHome().setPicture(offer.getHome().getPicture());
                     return offerView;
                 })
                 .toList();
@@ -80,7 +80,7 @@ public class OfferService {
                 offerRepository.findById(id)
                         .map(offer -> {
                             OfferView offerView = modelMapper.map(offer, OfferView.class);
-                            offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+                            offerView.getHome().setPicture(offer.getHome().getPicture());
                             return offerView;
                         });
     }
@@ -118,7 +118,7 @@ public class OfferService {
         return offers.stream()
                 .map(offer -> {
                     OfferView offerView = modelMapper.map(offer, OfferView.class);
-                    offerView.getHome().setPicture(offer.getHome().getPictureImagePath());
+                    offerView.getHome().setPicture(offer.getHome().getPicture());
                     return offerView;
                 })
                 .toList();

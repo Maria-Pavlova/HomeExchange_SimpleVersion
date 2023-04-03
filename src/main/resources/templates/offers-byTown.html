@@ -14,7 +14,7 @@
         <div class="offers row mx-auto d-flex flex-row justify-content-center">
             <div th:each="o : ${offersByTown}" th:object="${o}"  class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
                 <div class="card-img-top-wrapper">
-                    <img class="card-img-top" th:src="*{home.getPicture()}" alt="Car image">
+                    <img class="card-img-top" th:src="*{home.getPicture()}" alt="image">
                 </div>
                 <div class="card-body pb-1">
                     <h5 class="card-title">

@@ -6,9 +6,7 @@ import com.example.homeexchange_simpleversion.models.entities.UserRole;
 import com.example.homeexchange_simpleversion.models.enums.Role;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRoleRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,20 +32,53 @@ public class AdminControllerTest {
     private UserRoleRepository userRoleRepository;
     @Autowired
     private UserRepository mockUserRepository;
-
     @Autowired
     private MockMvc mockMvc;
 
-    @AfterEach
-    void tearDown() {
-        mockUserRepository.deleteAll();
-        userRoleRepository.deleteAll();
+    private User testUser;
+    private User adminUser;
+
+    @BeforeEach
+    void SetUp() {
+        UserRole userRole = new UserRole();
+        userRole.setRole(Role.USER);
+        userRoleRepository.saveAndFlush(userRole);
+
+        testUser = new User();
+        testUser.setUsername(USER_NAME)
+                .setPassword(PASS)
+                .setFirstName(F_NAME)
+                .setLastName(L_NAME)
+                .setEmail(EMAIL)
+                .setRoles(List.of(userRole));
+        testUser = mockUserRepository.saveAndFlush(testUser);
+
+        UserRole adminRole = new UserRole();
+        userRole.setRole(Role.ADMIN);
+        userRoleRepository.saveAndFlush(adminRole);
+
+        adminUser = new User();
+        adminUser.setUsername("admin")
+                .setPassword("admin")
+                .setFirstName(F_NAME)
+                .setLastName(L_NAME)
+                .setEmail("admin@gmail.com")
+                .setRoles(List.of(adminRole));
+        adminUser = mockUserRepository.saveAndFlush(testUser);
     }
+
+    // TODO: 1.4.2023 г. passed only test by test, not together
+
+//    @AfterEach
+//    void tearDown() {
+//        mockUserRepository.deleteAll();
+//        userRoleRepository.deleteAll();
+//    }
 
     @Test
     @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
-    void testGetAllUsers() throws Exception {
-        initUsers();
+    public void testGetAllUsers() throws Exception {
+       // initUsers();
         mockMvc.perform(get("/users/all"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("users"))
@@ -60,9 +91,9 @@ public class AdminControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
-    void testGetUserById() throws Exception {
-        User user = initUsers();
-        long id = user.getId();
+   public void testGetUserById() throws Exception {
+      //  User user = initUsers();
+        long id = testUser.getId();
         mockMvc.perform(get("/users/edit/" + id))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("userEditModel"))
@@ -72,15 +103,15 @@ public class AdminControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
-    void testUpdateUserById() throws Exception {
-        User user1 = initUsers();
-        Long id = user1.getId();
+    public void testUpdateUserById() throws Exception {
+        //User user1 = initUsers();
+        Long id = testUser.getId();
 
         UserEditModel userEditModel = new UserEditModel();
         userEditModel
                 .setId(id)
-                .setFirstName(user1.getFirstName())
-                .setLastName(user1.getLastName())
+                .setFirstName(testUser.getFirstName())
+                .setLastName(testUser.getLastName())
                 .setRoles(List.of(Role.ADMIN));
 
 

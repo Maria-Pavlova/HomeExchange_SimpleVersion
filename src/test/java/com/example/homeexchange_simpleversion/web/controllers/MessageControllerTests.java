@@ -53,6 +53,7 @@ public class MessageControllerTests {
     }
 
 
+    // TODO: 1.4.2023 г. passed only one by one
     @Test
     @WithMockUser(username = "testUser1")
     public void testSendMessage() throws Exception {
@@ -74,7 +75,7 @@ public class MessageControllerTests {
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/home"));
-    //    userRepository.deleteAll();
+       // userRepository.deleteAll();
     }
 
     @Test
@@ -94,7 +95,7 @@ public class MessageControllerTests {
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/messages/send"));
-     //   userRepository.deleteAll();
+       // userRepository.deleteAll();
     }
 
     private List<User> initUsers() {

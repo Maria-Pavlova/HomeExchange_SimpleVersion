@@ -38,6 +38,7 @@ public class User extends BaseEntity{
     @Column
     private LocalDateTime modified;
     @OneToMany(mappedBy = "owner")
+    @Fetch(FetchMode.JOIN)
     private List<Home> homes;
 
 

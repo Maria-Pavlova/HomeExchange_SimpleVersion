@@ -65,10 +65,10 @@ public class UserServiceTest {
         userRoleRepository.save(userRole);
     }
 
-    @AfterEach
-    void tearDown(){
-        userRoleRepository.deleteAll();
-    }
+//    @AfterEach
+//    void tearDown(){
+//        userRoleRepository.deleteAll();
+//    }
 
     @Test
     void testUserRegistration_SaveInvoked() {

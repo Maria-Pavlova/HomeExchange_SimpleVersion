@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
 import java.util.List;
 
@@ -34,21 +33,26 @@ public class HomeService {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final AmenityService amenityService;
+    private final CloudinaryService cloudinaryService;
     private final ApplicationEventPublisher applicationEventPublisher;
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeService.class);
 
     @Autowired
     public HomeService(HomeRepository homeRepository, ModelMapper modelMapper,
                        UserService userService, AmenityService amenityService,
+                       CloudinaryService cloudinaryService,
                        ApplicationEventPublisher applicationEventPublisher) {
         this.homeRepository = homeRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.amenityService = amenityService;
+        this.cloudinaryService = cloudinaryService;
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
     public void addHome(AddHomeModel homeModel, UserDetails userDetails, MultipartFile multipartFile) throws IOException {
+
+        String imageUrl = cloudinaryService.uploadImage(multipartFile);
 
         Home home = modelMapper.map(homeModel, Home.class);
         home.setOwner(userService.findByUsername(userDetails.getUsername()).get());
@@ -58,27 +62,13 @@ public class HomeService {
                 .stream()
                 .map(amenityService::findAmenityByName)
                 .toList());
-
-        String fileName;
-        if (!multipartFile.isEmpty()) {
-            fileName = multipartFile.getOriginalFilename();
-
-            assert fileName != null;
-            fileName = StringUtils.cleanPath(fileName);
-                String uploadDir = "home-photos/" + home.getId();
-                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-                home.setPicture(fileName);
-            }else {
-            home.setPicture(null);
-        }
-      //  String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-
+        home.setPicture(imageUrl);
         homeRepository.save(home);
 
-        // todo set guestPoints
     }
 
     public void updateHome(HomeUpdateModel homeUpdateModel, UserDetails userDetails, MultipartFile multipartFile) throws IOException {
+        String imageUrl = cloudinaryService.uploadImage(multipartFile);
 
         Home home = homeRepository.findById(homeUpdateModel.getId()).orElseThrow();
         home
@@ -89,22 +79,12 @@ public class HomeService {
                 .setAvailableTo(homeUpdateModel.getAvailableTo())
                 .setDescription(homeUpdateModel.getDescription())
                 .setPeopleFor(homeUpdateModel.getPeopleFor())
+                .setPicture(imageUrl)
                 .setAmenities(homeUpdateModel.getAmenities()
                         .stream()
                         .map(amenityService::findAmenityByName)
                         .toList());
-        String fileName;
-        if (!multipartFile.isEmpty()) {
-            fileName = multipartFile.getOriginalFilename();
 
-            assert fileName != null;
-            fileName = StringUtils.cleanPath(fileName);
-            String uploadDir = "home-photos/" + home.getId();
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-            home.setPicture(fileName);
-        }else {
-            home.setPicture(home.getPictureImagePath());
-        }
         homeRepository.save(home);
     }
 
@@ -114,7 +94,7 @@ public class HomeService {
                 .map(home -> {
                     MyHomeModel model = modelMapper.map(home, MyHomeModel.class);
                     if (model.getPicture() != null) {
-                        model.setPicture(home.getPictureImagePath());
+                        model.setPicture(home.getPicture());
                     }
                     return model;
                 })
@@ -125,7 +105,7 @@ public class HomeService {
     public HomeDetailsModel getDetailsById(Long id) {
         Home home = findHomeById(id);
         HomeDetailsModel detailsModel = modelMapper.map(home, HomeDetailsModel.class);
-        detailsModel.setPicture(home.getPictureImagePath());
+        detailsModel.setPicture(home.getPicture());
         return detailsModel;
     }
 

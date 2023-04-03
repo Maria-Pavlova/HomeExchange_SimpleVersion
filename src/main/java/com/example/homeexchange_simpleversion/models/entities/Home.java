@@ -51,11 +51,11 @@ public class Home extends BaseEntity {
         return picture;
     }
 
-    @Transient
-    public String getPictureImagePath() {
-        if (picture == null || getId() == null) return null;
-        return "/home-photos/" + getId() + "/" + picture;
-    }
+//    @Transient
+//    public String getPictureImagePath() {
+//        if (picture == null || getId() == null) return null;
+//        return "/home-photos/" + getId() + "/" + picture;
+//    }
 
     public String getTitle() {
         return title;

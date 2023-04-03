@@ -6,7 +6,7 @@ spring:
     password: workbench
   servlet:
     multipart:
-      max-file-size: 1MB
+      max-file-size: 5MB
       max-request-size: 5MB
   mvc:
     hiddenmethod:
@@ -16,7 +16,6 @@ spring:
 #    init:
 #      mode: always
   jpa:
-    # Choose either MySQL 8 or MySQL 5 below
     # For MySQL 8
     database-platform: org.hibernate.dialect.MySQL8Dialect
     #For MySQL 5
@@ -37,7 +36,7 @@ server:
       enabled: on
 
   #Cloudinary Properties
-#cloudinary:
-  #api-key: 
-  #api-secret: 
-  #cloud-name: 
+cloudinary:
+  api-key: "118818994231496"
+  api-secret: ${CLOUDINARY_API_SECRET}
+  cloud-name: "dttt8mefd"
