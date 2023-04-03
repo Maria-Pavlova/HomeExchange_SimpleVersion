@@ -1,5 +1,6 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
+import com.example.homeexchange_simpleversion.config.CloudinaryConfig;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
 import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.entities.User;
@@ -8,6 +9,7 @@ import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import com.example.homeexchange_simpleversion.repositories.HomeRepository;
 import com.example.homeexchange_simpleversion.repositories.UserRepository;
+import com.example.homeexchange_simpleversion.services.CloudinaryService;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -19,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.http.MediaType;
@@ -48,6 +51,11 @@ public class HomeControllerIT {
     private User testUser;
     @Autowired
     private UserRepository userRepository;
+
+   @MockBean
+   private CloudinaryConfig cloudinaryConfig;
+   @MockBean
+    private CloudinaryService cloudinaryService;
 
 
     @BeforeEach
@@ -138,80 +146,47 @@ public class HomeControllerIT {
         Assertions.assertNull(home);
     }
 
-    // TEST fails because of event to offers 
+    // TEST fails because homes -deleteAll
 //    @Test
 //    @WithMockUser(username = "testUser")
 //    public void testPublishHome() throws Exception {
 //        Home testHome = initHome();
 //        Long id = testHome.getId();
-//        mockMvc.perform(get("/homes/post/" +id).with(csrf()))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/home"));
-//        // Status = 302
-//        //    Error message = null
-//        //          Headers = [Content-Language:"en-US", X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY", Location:"/home"]
-//        //     Content type = null
-//        //             Body =
-//        //    Forwarded URL = null
-//        //   Redirected URL = /home
-//        //          Cookies = []
-//
-//    }
-
-
-//    @Test
-//    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
-//    void testAddHome() throws Exception {
-//        final InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("apartment.jpeg");
-////        final MockMultipartFile image = new MockMultipartFile("file", "test.png", "image/png", inputStream);
-//        MockMultipartFile file
-//                = new MockMultipartFile(
-//                "apartment.jpeg",
-//                "apartment.jpeg",
-//                MediaType.MULTIPART_FORM_DATA_VALUE,
-//          //      inputStream);
-//                "image".getBytes());
-//
-//        AddHomeModel addHomeModel = new AddHomeModel();
-//        addHomeModel
-//                .setTitle("Super apartment")
-//                .setHomeType(HomeType.APARTMENT)
-//                .setResidenceType(ResidenceType.PRIMARY)
-//                .setBedrooms(2)
-//                .setBathrooms(2)
-//                .setPeopleFor(4)
-//                .setDescription("Perfect place")
-//                .setAvailableFrom(LocalDate.parse("2023-06-10"))
-//                .setAvailableTo(LocalDate.parse("2023-06-20"))
-//                .setTown("Sofia")
-//                .setCountry("Bulgaria")
-//                .setAmenities(List.of(WIFI));
-//
-//
-//
-//        mockMvc.perform(post("/homes/add")
-//                        .flashAttr("addHomeModel", addHomeModel)
+//        mockMvc.perform(get("/homes/post/" +id)
 //                        .with(csrf()))
 //                .andExpect(status().is3xxRedirection())
 //                .andExpect(redirectedUrl("/home"));
 //
-//        // .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
-////                        .param("title", "My home")
-////                        .param("homeType", "HOUSE")
-////                        .param("residenceType", "PRIMARY")
-////                        .param("town", "Sofia")
-////                        .param("country", "Bulgaria")
-////                        .param("bedrooms", "1")
-////                        .param("bathrooms", "1")
-////                        .param("peopleFor", "2")
-////                        .param("description", "the best home")
-////                        .param("availableFrom", String.valueOf(LocalDate.parse("2023-06-10")))
-////                        .param("availableTo", String.valueOf(LocalDate.parse("2023-06-30")))
-////                      //  .param("picture", image.getOriginalFilename())
-//
-////  Error message = Required part 'image' is not present.
-//        // TODO: 23.3.2023 г.
-//    }
+//   }
+
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
+    void testAddHome() throws Exception {
+
+        AddHomeModel addHomeModel = new AddHomeModel();
+        addHomeModel
+                .setTitle("Super apartment")
+                .setHomeType(HomeType.APARTMENT)
+                .setResidenceType(ResidenceType.PRIMARY)
+                .setBedrooms(2)
+                .setBathrooms(2)
+                .setPeopleFor(4)
+                .setDescription("Perfect place")
+                .setAvailableFrom(LocalDate.parse("2023-06-10"))
+                .setAvailableTo(LocalDate.parse("2023-06-20"))
+                .setTown("Sofia")
+                .setCountry("Bulgaria")
+                .setPicture(new MockMultipartFile("file.png", "content".getBytes()))
+                .setAmenities(List.of(WIFI));
+
+        mockMvc.perform(post("/homes/add")
+                        .flashAttr("addHomeModel", addHomeModel)
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/home"));
+
+    }
 
     private Home initHome() {
         Home testHome = new Home();
@@ -227,7 +202,8 @@ public class HomeControllerIT {
                 .setOwner(testUser)
                 .setTown("Sofia")
                 .setCountry("Bulgaria")
-                .setPublished(false);
+                .setPublished(false)
+                .setPicture("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE3eampwBdDhZnnhM0AfE3Xnt0O0wU6kuKDA&usqp=CAU");
         return homeRepository.saveAndFlush(testHome);
 
     }

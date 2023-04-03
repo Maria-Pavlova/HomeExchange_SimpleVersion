@@ -90,7 +90,7 @@ public class InitService {
                 .setPassword(passwordEncoder.encode("admin"))
                 .setRoles(userRoleRepository.findAll());
 
-        userRepository.save(admin);
+        userRepository.saveAndFlush(admin);
     }
 
     private void initModerator() {
@@ -102,7 +102,7 @@ public class InitService {
                 .setPassword(passwordEncoder.encode("moderator"))
                 .setRoles(userRoleRepository.findByRole(Role.MODERATOR).orElseThrow());
 
-        userRepository.save(moderator);
+        userRepository.saveAndFlush(moderator);
     }
 
     private void initUser() {
@@ -115,7 +115,7 @@ public class InitService {
                 .setRoles(userRoleRepository.findByRole(Role.USER).orElseThrow())
                 .setPassword(passwordEncoder.encode("user"));
 
-        user = userRepository.save(user);
+        user = userRepository.saveAndFlush(user);
     }
 
     private void initHomes(){
@@ -130,12 +130,30 @@ public class InitService {
                     .setDescription("Perfect place")
                     .setAvailableFrom(LocalDate.parse("2023-06-10"))
                     .setAvailableTo(LocalDate.parse("2023-06-20"))
-                    .setOwner(user)
+                    .setOwner(userRepository.findByUsername("user").get())
                     .setTown("Sofia")
                     .setCountry("Bulgaria")
                     .setPublished(false)
-                    .setPicture("");
+                    .setPicture("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE3eampwBdDhZnnhM0AfE3Xnt0O0wU6kuKDA&usqp=CAU");
             homeRepository.saveAndFlush(home);
+
+
+        Home home2 = new Home();
+        home2.setTitle("Init Home 2")
+                .setHomeType(HomeType.HOUSE)
+                .setResidenceType(ResidenceType.PRIMARY)
+                .setBedrooms(3)
+                .setBathrooms(3)
+                .setPeopleFor(6)
+                .setDescription("Perfect place")
+                .setAvailableFrom(LocalDate.parse("2023-06-15"))
+                .setAvailableTo(LocalDate.parse("2023-06-25"))
+                .setOwner(userRepository.findByUsername("admin").get())
+                .setTown("Burgas")
+                .setCountry("Bulgaria")
+                .setPublished(false)
+                .setPicture("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE3eampwBdDhZnnhM0AfE3Xnt0O0wU6kuKDA&usqp=CAU");
+        homeRepository.saveAndFlush(home2);
         }
     }
 }

@@ -39,6 +39,7 @@ public class Home extends BaseEntity {
     @Column
     private LocalDate availableTo;
 
+    @Lob
     private String picture;
     @Column
     private boolean isPublished;

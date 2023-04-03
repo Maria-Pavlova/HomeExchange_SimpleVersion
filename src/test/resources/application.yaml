@@ -6,6 +6,11 @@ spring:
   sql:
     init:
       mode: never
+
+cloudinary:
+  api-key: "118818994231496"
+  api-secret: ${CLOUDINARY_API_SECRET}
+  cloud-name: "dttt8mefd"
 #  security:
 #    oauth2:
 #      client:
