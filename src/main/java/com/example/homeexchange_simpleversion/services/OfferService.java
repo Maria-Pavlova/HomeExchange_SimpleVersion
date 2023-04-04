@@ -87,6 +87,7 @@ public class OfferService {
 
     public void deleteExpiredOffers() {
         List<Offer> expiredOffers = offerRepository.findAllByHome_AvailableTo(LocalDate.now());
+        expiredOffers.forEach(offer -> offer.getHome().setPublished(false));
         offerRepository.deleteAll(expiredOffers);
     }
 

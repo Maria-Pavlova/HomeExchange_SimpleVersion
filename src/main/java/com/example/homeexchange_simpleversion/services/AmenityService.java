@@ -3,12 +3,8 @@ package com.example.homeexchange_simpleversion.services;
 import com.example.homeexchange_simpleversion.models.entities.Amenity;
 import com.example.homeexchange_simpleversion.models.enums.AmenityName;
 import com.example.homeexchange_simpleversion.repositories.AmenityRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 public class AmenityService {

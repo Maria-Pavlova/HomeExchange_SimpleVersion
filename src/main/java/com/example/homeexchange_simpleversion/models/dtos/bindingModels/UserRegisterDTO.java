@@ -9,7 +9,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 @Getter
 @FieldsMatch(first = "password", second = "confirmPassword", message = "Passwords do not match.")

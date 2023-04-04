@@ -2,13 +2,14 @@ package com.example.homeexchange_simpleversion.web.controllers;
 
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
-import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModelView;
 import com.example.homeexchange_simpleversion.models.enums.AmenityName;
 import com.example.homeexchange_simpleversion.models.enums.HomeType;
 import com.example.homeexchange_simpleversion.models.enums.ResidenceType;
 import com.example.homeexchange_simpleversion.services.HomeService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
 
 @Controller
@@ -76,7 +76,7 @@ public class HomeController {
 
     @GetMapping("/{id}/update")
     public String updateHome(@PathVariable Long id, Model model) {
-        HomeDetailsModel details = homeService.getDetailsById(id);
+        HomeModelView details = homeService.getDetailsById(id);
         HomeUpdateModel homeUpdateModel = modelMapper.map(details, HomeUpdateModel.class);
         homeUpdateModel.setId(id);
 
@@ -90,7 +90,7 @@ public class HomeController {
         model.addAttribute("residenceType", ResidenceType.values());
         model.addAttribute("amenityName", AmenityName.values());
         return "update-home";
-        // TODO: 29.3.2023 г. do not return form
+
     }
 
     @PatchMapping("/{id}/update")
@@ -109,7 +109,7 @@ public class HomeController {
         homeService.updateHome(homeUpdateModel, userDetails, multipartFile);
         return "redirect:/homes/" + id + "/details";
     }
-
+    @PreAuthorize("@homeService.isOwner(#userDetails, #id)")
     @DeleteMapping("/delete/{id}")
     public String deleteHome(@PathVariable Long id) {
         homeService.deleteHome(id);

@@ -19,13 +19,12 @@ public class WebConfig implements WebMvcConfigurer {
         this.statsInterceptor = statsInterceptor;
     }
 
-    //   private final MaintenanceInterceptor maintenanceInterceptor;
 
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor);
         registry.addInterceptor(statsInterceptor);
-        //   registry.addInterceptor(maintenanceInterceptor);
+
     }
 }

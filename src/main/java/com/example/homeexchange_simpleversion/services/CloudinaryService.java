@@ -20,7 +20,7 @@ public class CloudinaryService {
         this.cloudinary = cloudinary;
     }
 
-    public String uploadImage(MultipartFile multipartFile) throws IOException, IOException {
+    public String uploadImage(MultipartFile multipartFile) throws IOException {
         File file = File.createTempFile(TEMP_FILE, multipartFile.getOriginalFilename());
         multipartFile.transferTo(file);
 

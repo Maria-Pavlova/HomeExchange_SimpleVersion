@@ -6,8 +6,6 @@ import com.example.homeexchange_simpleversion.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UserRoleService {
     private final UserRoleRepository userRoleRepository;

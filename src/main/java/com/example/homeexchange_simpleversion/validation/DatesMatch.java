@@ -1,4 +1,4 @@
-package com.example.homeexchange_simpleversion.utils.validation;
+package com.example.homeexchange_simpleversion.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

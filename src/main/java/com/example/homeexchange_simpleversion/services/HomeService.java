@@ -4,12 +4,11 @@ import com.example.homeexchange_simpleversion.exceptions.ForbiddenException;
 import com.example.homeexchange_simpleversion.exceptions.ObjectNotFoundException;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.AddHomeModel;
 import com.example.homeexchange_simpleversion.models.dtos.bindingModels.HomeUpdateModel;
-import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeDetailsModel;
+import com.example.homeexchange_simpleversion.models.dtos.viewModels.HomeModelView;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.MyHomeModel;
 import com.example.homeexchange_simpleversion.models.entities.Home;
 import com.example.homeexchange_simpleversion.models.enums.Role;
 import com.example.homeexchange_simpleversion.repositories.HomeRepository;
-import com.example.homeexchange_simpleversion.utils.FileUploadUtil;
 import com.example.homeexchange_simpleversion.utils.PublishHomeEvent;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -19,7 +18,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -102,9 +100,9 @@ public class HomeService {
     }
 
 
-    public HomeDetailsModel getDetailsById(Long id) {
+    public HomeModelView getDetailsById(Long id) {
         Home home = findHomeById(id);
-        HomeDetailsModel detailsModel = modelMapper.map(home, HomeDetailsModel.class);
+        HomeModelView detailsModel = modelMapper.map(home, HomeModelView.class);
         detailsModel.setPicture(home.getPicture());
         return detailsModel;
     }

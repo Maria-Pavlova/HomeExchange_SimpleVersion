@@ -1,7 +1,5 @@
 package com.example.homeexchange_simpleversion.utils;
 
-import com.example.homeexchange_simpleversion.models.entities.Offer;
-import com.example.homeexchange_simpleversion.services.HomeService;
 import com.example.homeexchange_simpleversion.services.OfferService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +7,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Component
 public class Scheduler {

@@ -51,15 +51,6 @@ public class Home extends BaseEntity {
     @Fetch(FetchMode.JOIN)
     private User owner;
 
-    public String getPictures() {
-        return picture;
-    }
-
-//    @Transient
-//    public String getPictureImagePath() {
-//        if (picture == null || getId() == null) return null;
-//        return "/home-photos/" + getId() + "/" + picture;
-//    }
 
     public String getTitle() {
         return title;
@@ -181,16 +172,6 @@ public class Home extends BaseEntity {
         isPublished = published;
         return this;
     }
-
-    public Integer getGuestPoints() {
-        return guestPoints;
-    }
-
-    public Home setGuestPoints(Integer guestPoints) {
-        this.guestPoints = guestPoints;
-        return this;
-    }
-
     public User getOwner() {
         return owner;
     }

@@ -14,13 +14,6 @@ import java.util.Locale;
 @Configuration
 public class LocaleConfig {
 
-//    @Bean
-//    public LocaleResolver localeResolver() {
-//        CookieLocaleResolver clr = new CookieLocaleResolver();
-//        clr.setCookieName("lang");
-//        return clr;
-//    }
-
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();

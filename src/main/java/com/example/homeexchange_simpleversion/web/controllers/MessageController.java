@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
-
 @Controller
 @RequestMapping("/messages")
 public class MessageController {

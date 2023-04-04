@@ -10,8 +10,12 @@ import java.util.Objects;
 @Service
 public class CacheService {
 
-    @Autowired
-    CacheManager cacheManager;
+   private final CacheManager cacheManager;
+
+   @Autowired
+    public CacheService(CacheManager cacheManager) {
+        this.cacheManager = cacheManager;
+    }
 
     public void evictCaches(){
         cacheManager.getCacheNames()

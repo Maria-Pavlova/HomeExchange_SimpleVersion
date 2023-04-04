@@ -1,6 +1,5 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
-import com.example.homeexchange_simpleversion.services.HomeService;
 import com.example.homeexchange_simpleversion.services.OfferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,11 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PagesController {
 
-    private final HomeService homeService;
     private final OfferService offerService;
 
-    public PagesController(HomeService homeService, OfferService offerService) {
-        this.homeService = homeService;
+    public PagesController(OfferService offerService) {
         this.offerService = offerService;
     }
 
@@ -30,10 +27,6 @@ public class PagesController {
 
     }
 
-//    @GetMapping("/pages/moderator")
-//    public String moderator() {
-//        return "moderator";
-//    }
 
     @GetMapping("/pages/admin")
     public String admin() {

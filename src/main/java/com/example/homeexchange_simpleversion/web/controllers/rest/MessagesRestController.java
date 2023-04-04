@@ -3,9 +3,7 @@ package com.example.homeexchange_simpleversion.web.controllers.rest;
 import com.example.homeexchange_simpleversion.models.dtos.viewModels.MessageView;
 import com.example.homeexchange_simpleversion.services.MessageService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;

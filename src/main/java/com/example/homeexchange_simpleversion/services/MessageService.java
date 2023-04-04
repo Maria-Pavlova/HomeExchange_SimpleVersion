@@ -12,9 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-
-import static java.util.Arrays.stream;
 
 @Service
 public class MessageService {
@@ -23,7 +20,8 @@ public class MessageService {
     private final UserService userService;
 
     @Autowired
-    public MessageService(MessageRepository messageRepository, ModelMapper modelMapper, UserService userService) {
+    public MessageService(MessageRepository messageRepository, ModelMapper modelMapper,
+                          UserService userService) {
         this.messageRepository = messageRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;

@@ -1,13 +1,9 @@
 package com.example.homeexchange_simpleversion.web.controllers;
 
-import com.example.homeexchange_simpleversion.models.entities.User;
-import com.example.homeexchange_simpleversion.models.entities.UserRole;
 import com.example.homeexchange_simpleversion.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
