@@ -5,12 +5,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Add Home</title>
-    <link rel="stylesheet" href="/css/reset-css.css"/>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
-    <script src="/js/jquery-3.5.1.slim.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <title>Home add</title>
+    <th:blok th:insert="~{fragments/head::head}"></th:blok>
 </head>
 
 <body>
@@ -34,9 +30,6 @@
                       th:errorclass="is-invalid"
                       type="textarea" class="form-control" rows="2"
                       placeholder="Title"></textarea>
-<!--            <p class="invalid-feedback errors alert alert-danger">-->
-<!--                Title is required.-->
-<!--            </p>-->
             <small id="inputTitle" th:errors="*{title}"
                    class="invalid-feedback errors alert alert-danger form-text bg-danger rounded text-white">
             </small>
@@ -54,7 +47,6 @@
                     <option th:each="t : ${T(com.example.homeexchange_simpleversion.models.enums.HomeType).values()}"
                             th:text="${t}"
                             th:value="${t}">
-<!--                            th:selected="${t} == *{homeType.name()}">-->
                         Home type
                     </option>
                 </select>
@@ -202,23 +194,20 @@
             </div>
         </div>
 
-        <div class="row">
-                <div class="form-group p-3">
+        <div class="checkbox-inline">
                     <label class="text-dark font-weight-bold" for="amenities">Amenities:</label>
-                    <input class="m-3" type="checkbox"
+                    <input type="checkbox"
                            name="amenities"
                            id="amenities"
                            th:each="a : ${T(com.example.homeexchange_simpleversion.models.enums.AmenityName).values()}"
                            th:text="${a}"
-                           th:value="${a}">
-                    <br>
-                </div>
+                           th:value="${a}"/>
         </div>
-
+        <br>
         <div class="form-group">
             <label for="image">Upload photo</label>
-            <input type="file" id="image" name="image">
-<!--                   class="form-control-file text-danger" -->
+            <input type="file" id="image" name="image"
+                   class="form-control-file text-danger">
         </div>
         <div class="row">
             <div class="col col-md-4">

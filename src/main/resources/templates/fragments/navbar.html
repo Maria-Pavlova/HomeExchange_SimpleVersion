@@ -10,65 +10,24 @@
 
 <div th:fragment="navbar">
 
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+    <nav class="navbar py-md-0 navbar-expand-lg bg-dark navbar-dark fixed-top">
         <labbel class="logo">HomeX</labbel>
-<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
-<!--                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--            <span class="navbar-toggler-icon"></span>-->
-<!--        </button>-->
-<!--        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">-->
-
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapsibleNavbar" id="collapseButton">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-
-<!--            <input type="checkbox" name="check" id="check">-->
-<!--            <label for="check" class="checkbtn">-->
-<!--                <i class="fas fa-bars"></i>-->
-<!--            </label>-->
-
-
             <ul class="navbar-nav mr-auto col-12 justify-content-md-around">
-
-                <!--                <li class="nav-item" sec:authorize="hasRole('MODERATOR')">-->
-                <!--                    <a class="nav-link" th:href="@{/pages/moderator}">Moderators</a>-->
-                <!--                </li>-->
-
                 <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" th:href="@{/pages/admin}" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle text-white" th:href="@{/pages/admin}" id="navbarDropdown"
+                       role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <!--                        <a class="dropdown-item" th:href="@{/statistics}">Statistics</a>-->
-                        <a class="dropdown-item" href="/">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/">Something else here</a>
-                    </div>
                 </li>
-                <!--                <li class="nav-item" sec:authorize="hasRole('ADMIN')">-->
-                <!--                    <a class="nav-link" th:href="@{/pages/admin}">Admins</a>-->
-                <!--                </li>-->
-
-                <!--                <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">-->
-                <!--                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"-->
-                <!--                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                <!--                        Admin-->
-                <!--                    </a>-->
-                <!--                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-                <!--                        <a class="dropdown-item" th:href="@{/statistics}">Statistics</a>-->
-                <!--                    </div>-->
-                <!--&lt;!&ndash;                        <a class="dropdown-item" th:href="@{/exchange/delete}">Delete Exchange</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;                        <a class="dropdown-item" th:href="@{/offers/delete}">Delete Offer</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;                        <div class="dropdown-divider"></div>&ndash;&gt;-->
-                <!--&lt;!&ndash;                        <a class="dropdown-item" th:href="@{/users/delete}">Remove User</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-                <!--                </li>-->
 
                 <th:block sec:authorize="isAuthenticated()">
-                    <li class="nav-item">
+                    <li class="active nav-item">
                         <a class="nav-link text-white" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item">
@@ -138,45 +97,6 @@
                         </select>
                     </form>
                 </li>
-
-                <!--                <li id="menu-profil" class="dropdown" data-url="/top-menu/topmenuprofile">-->
-                <!--                    <a class="dropdown-toggle disabled-link-mobile" th:href="@{/user/edit/username}">-->
-                <!--                        <div class="profile-image-container">-->
-                <!--                            <img width="35" height="35"-->
-                <!--                                 src="https://d2kzpkef14nfxb.cloudfront.net/images/website/icon_default_profile.jpg"-->
-                <!--                                 alt="Profile of Mariya">-->
-
-                <!--                            <span class="badge badge-menu badge-absolute badge-menu-profil" id="badge-profil"-->
-                <!--                                  style="display: block;" data-value="3"></span>-->
-                <!--                        </div>-->
-                <!--                        <span class="visible-lg-inline-block">My account</span>-->
-                <!--                        <i class="fa fa-angle-down down-arrow"></i>-->
-                <!--                    </a>-->
-
-                <!--                    <ul class="dropdown-menu scrollable-menu" role="menu" id="profil_elt"-->
-                <!--                        style="max-height: 674px; overflow-y: auto;">-->
-                <!--                        <li sec:authorize="isAuthenticated()">-->
-                <!--                            <a class="link-top-profile" ><i-->
-                <!--                                    class="icon-header-profile-profile"></i>-->
-                <!--                                <span class="link-title" th:href="@{/users/profile/{username}(username = ${#authentication.principal.username})}">My profile</span>-->
-                <!--                                <div class="top-menu-messages">-->
-                <!--                                    <p class="primary-strong">Complete your profile and earn 350 GuestPoints!</p>-->
-                <!--                                </div>-->
-                <!--                            </a>-->
-                <!--                        </li>-->
-                <!--                        <li id="top-menu-home-2253191" class="home-link">-->
-                <!--                            <a class="link-top-profile" th:href="@{/homes/{id}/update (id=*{id})}">-->
-                <!--                                <i class="icon-header-profile-home"></i>-->
-                <!--                                <span class="link-title top-name-address-bar">My home</span>-->
-                <!--                                <span class="pull-right view-all">Offline</span>-->
-                <!--                                <div class="top-menu-messages">-->
-                <!--                                    <p class="primary-strong">Publish your home!</p>-->
-                <!--                                </div>-->
-                <!--                            </a>-->
-                <!--                        </li>-->
-                <!--                        <li>-->
-
-
             </ul>
         </div>
     </nav>

@@ -9,15 +9,15 @@
 <div class="container mb-5">
     <h2 class="text-center text-white">Messages</h2>
     <button class="btn btn-warning text-white" id="loadMessages">LOAD ALL MESSAGES</button>
-    <div th:if="${ not#lists.isEmpty(#messages)}">
+    <div class="table-responsive" th:if="${ not#lists.isEmpty(#messages)}">
 
-        <table class="table table-striped table-info table-hover">
+        <table class="table table-bordered table-info table-hover">
             <thead>
-            <tr>
-                <th>Sender Name</th>
-                <th>Sender Email</th>
-                <th>Subject</th>
-                <th>Message</th>
+            <tr class="active">
+                <th class="bg-primary">Sender Name</th>
+                <th class="bg-primary">Sender Email</th>
+                <th class="bg-primary">Subject</th>
+                <th class="bg-primary">Message</th>
             </tr>
             </thead>
             <tbody id="messages"></tbody>

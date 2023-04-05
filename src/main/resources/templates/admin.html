@@ -2,23 +2,26 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{fragments/head}"></head>
-
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <th:blok th:insert="~{fragments/head::head}"></th:blok>
+</head>
 
 <body>
-
 <div th:replace="~{fragments/navbar}">
     Navbar
 </div>
 
-<div class="container bg-blur rounded mt-5" >
+<div class="container-fluid bg-blur rounded mt-5" >
     <h1 class="text-center text-white">Welcome Admin!</h1>
 
-    <h3>
-        <div>
+    <h3><br><br>
+        <div style="text-align: center">
             <a class="text-center text-warning" th:href="@{/statistics}">Request Statistics</a>
         </div>
-       <div>
+        <br>
+       <div style="text-align: center">
            <a class="text-center text-warning" th:href="@{/users/all}">Users</a>
        </div>
     </h3>

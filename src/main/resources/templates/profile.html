@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head::head}"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <th:blok th:insert="~{fragments/head::head}"></th:blok>
+</head>
 
 
 <body>
@@ -17,7 +21,7 @@
                 <div class="profile-card p-3 py-4">
                     <div class="text-center"><img src="/images/profile.jpg" width="100" class="rounded-circle"></div>
                     <div class="text-center mt-3">
-                        <span th:text="*{username}" class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
+                        <span th:text="*{username}" class="bg-secondary p-1 px-4 rounded text-white"></span>
                         <h5 class="mt-4 mb-0">First name</h5>
                         <span th:text="*{firstName}"></span>
                         <h5 class="mt-2 mb-0">Last name</h5>
@@ -41,11 +45,7 @@
     </div>
 </main>
 </body>
-<footer class="footer bg-blur rounded">
-    <div class="container-fluid text-center">
-        <div class="h5 text-white">
-            Copyright © 2023 HomeExchange  All rights reserved.
-        </div>
-    </div>
-</footer>
+<div>
+    <footer th:replace="~{fragments/footer}"></footer>
+</div>
 </html>
