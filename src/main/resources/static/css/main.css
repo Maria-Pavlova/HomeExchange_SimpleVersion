@@ -15,6 +15,9 @@ labbel.logo {
     max-height: 80px;
     padding-right: 100px;
 }
+.navbar{
+    background-color:turquoise;
+}
 
 a.nav-link {
     float: left;
@@ -60,6 +63,11 @@ td, th {
     height: 150px;
     overflow: hidden;
 }
+
+.offers {
+    box-shadow: inset 0px -1px 77px 18px rgba(141, 252, 212, 0.5);
+}
+
 
 form.main-form {
     background-image: linear-gradient(to bottom right, rgba(88, 246, 167, 0.8), rgba(252, 116, 20, 0.71));
@@ -133,7 +141,7 @@ form.main-form {
 }
 
 #addHomeForm {
-    background-color: rgba(245, 195, 115, 0.90);
+    background-color: rgba(245, 195, 115, 0.9);
     margin: 100px auto;
     padding: 40px;
     width: 70%;
@@ -159,7 +167,7 @@ input {
 
 /* Mark input boxes that gets an error on validation: */
 input.invalid {
-    background-color: #ffdddd;
+    background-color: #e15b5b;
 }
 
 /* Hide all steps by default: */
@@ -179,15 +187,6 @@ input.invalid {
     opacity: 0.5;
 }
 
-/* Mark the active step: */
-.step.active {
-    opacity: 1;
-}
-
-/* Mark the steps that are finished and valid: */
-.step.finish {
-    background-color: #04AA6D;
-}
 
 /* Boxes */
 .boxes {

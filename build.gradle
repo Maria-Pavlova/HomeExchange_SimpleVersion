@@ -33,8 +33,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.hsqldb:hsqldb'
-//    testRuntimeOnly 'org.h2database:h2'
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.0.0'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
 }
 
 tasks.named('test') {
