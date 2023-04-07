@@ -61,7 +61,7 @@
                         th:errorclass="is-invalid"
                         type="text"
                         class="form-control">
-                    <option value="">- Select transmission type -</option>
+                    <option value="">- Select residence type -</option>
                     <option th:each="t : ${T(com.example.homeexchange_simpleversion.models.enums.ResidenceType).values()}"
                             th:text="${t}"
                             th:value="${t}">

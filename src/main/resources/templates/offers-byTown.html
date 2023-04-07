@@ -4,12 +4,12 @@
 
 <head>
     <title>ByTown</title>
-    <th:block th:include="~{/fragments/head}"/>
+    <th:block th:insert="~{fragments/head::head}"/>
 </head>
 <body>
 <div class="wrapper">
     <!-- Navigation -->
-    <th:block th:include="~{/fragments/navbar}"/>
+    <th:block th:insert="~{fragments/navbar :: navbar}"/>
     <div class="container-fluid">
         <div class="offers row mx-auto d-flex flex-row justify-content-center">
             <div th:each="o : ${offersByTown}" th:object="${o}"  class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
@@ -38,7 +38,7 @@
 </div>
 
 </body>
-<footer th:replace="~{/fragments/footer}" class="footer bg-blur rounded">
+<footer th:replace="~{fragments/footer}" class="footer bg-blur rounded">
 
 </footer>
 </html>

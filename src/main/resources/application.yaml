@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://${MYSQL_HOST:localhost}:3306/home_exchange_simple?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8"
-    username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:workbench}
+    url: "jdbc:mysql://mp-db.mysql.database.azure.com:3306/home_exchange_simple?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8"
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
   servlet:
     multipart:
       max-file-size: 5MB
@@ -29,7 +29,7 @@ spring:
         show_sql: true
     defer-datasource-initialization: true
 
-  hostName: ${HOSTNAME:http://localhost:8080}
+#  hostName: ${HOSTNAME:http://localhost:8080}
 
 server:
   error:

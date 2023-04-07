@@ -43,7 +43,7 @@ public class OfferService {
     }
 
 
-   // @Cacheable("offers")
+    @Cacheable("offers")
     public List<OfferView> getAllOffers() {
         List<Offer> offers = offerRepository.findAll();
         return mapToOfferView(offers);
