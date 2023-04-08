@@ -11,10 +11,71 @@
 </div>
 
 <div class="container">
-    <br><br>
+    <br>
     <h1 class="text-center text-white" th:text="#{index_welcome}">Welcome to Home Exchange!</h1>
     <br>
     <h2 class="text-center text-white" th:text="#{index_text}">Swap your home and travel more for less</h2>
+</div>
+
+<div id="how-it-works">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <header>
+                    <h2 class="how-it-works-title home-page-block-title text-center">How does it work?</h2>
+                    <p class="how-it-works-subtitle home-page-block-text text-center text-white">Sign up and take the membership to get one
+                        year of unlimited, worry-free exchanges for the price of one night’s stay at a hotel.</p>
+                </header>
+                <div class="how-it-works-container">
+                    <div class="how-it-works-cards">
+                        <div class="how-it-works-card bg-light">
+                            <div class="how-it-works-card-step">
+                                <span>1</span>
+                            </div>
+                            <div class="how-it-works-card-main">
+                                <img class="how-it-works-card-img" src="https://d2kzpkef14nfxb.cloudfront.net/images/website/home/how-it-works-sign-up.svg">
+                                <p class="how-it-works-card-info">Sign up for free</p>
+                            </div>
+                        </div>
+                        <div class="how-it-works-card bg-light">
+                            <div class="how-it-works-card-step">
+                                <span>2</span>
+                            </div>
+                            <div class="how-it-works-card-main">
+                                <img class="how-it-works-card-img"
+                                     src="https://d2kzpkef14nfxb.cloudfront.net/images/website/home/how-it-works-home.svg">
+                                <p class="how-it-works-card-info">Complete your profile and create your listing</p>
+                            </div>
+                        </div>
+                        <div class="how-it-works-card bg-light">
+                            <div class="how-it-works-card-step">
+                                <span>3</span>
+                            </div>
+                            <div class="how-it-works-card-main">
+                                <img class="how-it-works-card-img"
+                                     src="https://d2kzpkef14nfxb.cloudfront.net/images/website/home/how-it-works-membership.svg">
+                                <p class="how-it-works-card-info">Pay the annual membership fee and access all
+                                    our features and benefits</p>
+                            </div>
+                        </div>
+                        <div class="how-it-works-card bg-light">
+                            <div class="how-it-works-card-step">
+                                <span>4</span>
+                            </div>
+                            <div class="how-it-works-card-main">
+                                <img class="how-it-works-card-img"
+                                     src="https://d2kzpkef14nfxb.cloudfront.net/images/website/home/how-it-works-exchange.svg">
+                                <p class="how-it-works-card-info">Enjoy 12 months of unlimited exchanges</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="how-it-works-footer">
+                    <a th:href="@{/users/register}" class="btn btn-primary how-it-works-button home-page-button">Sign up</a>
+                </footer>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div>

@@ -64,8 +64,8 @@ td, th {
     overflow: hidden;
 }
 
-.offers {
-    box-shadow: inset 0px -1px 77px 18px rgba(141, 252, 212, 0.5);
+.card-body {
+    box-shadow: inset 0px -1px 77px 18px rgb(200, 217, 234);
 }
 
 
@@ -209,4 +209,82 @@ input.invalid {
     width: 100%;
     background-color: #524d4d;
 
+}
+#how-it-works .how-it-works-container .how-it-works-cards {
+    width: 100%;
+}
+#how-it-works .how-it-works-container .how-it-works-cards {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+#how-it-works .how-it-works-container .how-it-works-cards .how-it-works-card {
+    background-color: transparent;
+    background-color: initial;
+    border: 1px solid #e5e5e4;
+}
+.how-it-works-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background-color: #f4f3f1;
+    border-radius: 5px;
+    margin-right: 30px;
+    padding: 10px;
+    text-align: center;
+    width: 22%;
+}
+.card-step {
+    margin-top: 10px;
+    border: 1px solid #191d1f;
+    width: 30px;
+    border-radius: 30px;
+    font-size: 20px;
+}
+
+#how-it-works .how-it-works-footer .how-it-works-button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+#how-it-works .home-page-button {
+    color: #191d1f;
+    padding: 12px 0;
+    margin: 25px;
+    width: 30%;
+    font-size: 16px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+#how-it-works .home-page-button  {
+    color: #191d1f;
+    padding: 12px 0;
+    width: 30%;
+    font-size: 16px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #f7a800;
+    border-color: #f7a800;
 }

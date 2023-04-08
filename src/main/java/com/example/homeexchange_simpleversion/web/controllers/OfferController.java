@@ -25,7 +25,6 @@ public class OfferController {
     public String allOffers(Model model) {
         List<OfferView> offers = offerService.getAllOffers();
         model.addAttribute("offers", offers);
-
         return "all-offers";
     }
 
@@ -37,7 +36,7 @@ public class OfferController {
     }
 
     @GetMapping("/offers/details/{id}")
-    public String getOfferDetails( @AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id, Model model) {
+    public String getOfferDetails(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id, Model model) {
         model.addAttribute("details", offerService.getOfferDetailsById(id));
         model.addAttribute("canDelete", offerService.isOwner(userDetails, id));
         return "offered-home-details";
