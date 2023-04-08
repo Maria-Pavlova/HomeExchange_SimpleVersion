@@ -13,7 +13,6 @@
 </div>
 
 <div class="container-fluid">
-
     <section class="boxes justify-content-center" >
         <a th:href="@{/offers/byTown/Varna}" class="main-btn" >
             <div class="box text-dark">
@@ -58,15 +57,11 @@
             </ul>
             <div class="card-body">
                 <a class="card-link" th:href="@{/offers/details/{id}(id=*{id})}">Details</a>
-<!--                <form th:action="@{/offers/delete/{id}(id=*{id})}"-->
-<!--                      th:method="delete">-->
-<!--                    <input type="submit" class="btn btn-link" value="Delete"/>-->
-<!--                </form>-->
             </div>
         </div>
     </div>
 </div>
-
+<br><br><br>
 <div>
     <footer th:replace="~{fragments/footer}"></footer>
 </div>
